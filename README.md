@@ -4,5 +4,7 @@ SpringCloud已成为主流。目前OpenJWeb技术团队着手开发基于SpringB
     作者的CSDN博客地址：https://blog.csdn.net/baozhengw  
     对于想学习IntelliJ+SpringBoot开发的朋友可关注作者发布的博客。
     微信：openjweb，添加好友可备注技术合作 。  
+    GitHub地址：https://github.com/openjweb/cloud/tree/master
+
     最新发布：2024/11/11
 

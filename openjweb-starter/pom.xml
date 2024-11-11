@@ -6,7 +6,6 @@
         <groupId>org.openjweb</groupId>
         <artifactId>openjweb-cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
     <groupId>org.openjweb</groupId>
     <artifactId>openjweb-starter</artifactId>

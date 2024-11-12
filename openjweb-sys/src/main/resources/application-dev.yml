@@ -1,2 +1,16 @@
 server:
   port: 8001
+
+spring:
+  datasource:
+    ds1:
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://localhost:3306/erp
+      username: root
+      password: root
+    ds2:
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://localhost:3306/erp
+      username: root
+      password: root
+

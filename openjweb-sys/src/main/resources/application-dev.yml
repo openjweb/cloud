@@ -8,6 +8,23 @@ spring:
       url: jdbc:mysql://localhost:3306/erp
       username: root
       password: root
+      #for druid
+      initialSize: 5
+      minIdle: 5
+      maxActive: 100
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: SELECT 1 from DUAL
+      etstWhileIdle: true
+      testOnBorrow: false
+      estOnReturn: false
+      PoolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,log4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      #useGlobalDataSourceStat: true
+      minEvictableIdleTImeMillis: 300000
+
     ds2:
       type: com.alibaba.druid.pool.DruidDataSource
       url: jdbc:mysql://localhost:3306/erp

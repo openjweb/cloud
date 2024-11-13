@@ -7,6 +7,7 @@
         <artifactId>openjweb-cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
     <groupId>org.openjweb</groupId>
     <artifactId>openjweb-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -40,6 +41,9 @@
             <scope>test</scope>
         </dependency>-->
     </dependencies>
+
+
+
 
 
 

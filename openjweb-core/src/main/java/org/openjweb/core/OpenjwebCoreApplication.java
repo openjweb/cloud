@@ -1,4 +1,4 @@
-package org.openjweb.openjwebcore;
+package org.openjweb.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

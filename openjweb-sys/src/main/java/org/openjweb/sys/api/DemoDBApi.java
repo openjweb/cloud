@@ -3,6 +3,8 @@ package org.openjweb.sys.api;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.openjweb.common.response.ResponseResult;
+import org.openjweb.sys.entity.CommUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Map;
 
@@ -65,5 +68,21 @@ public class DemoDBApi {
         json.put("count",count);
         json.put("data",jsonArray);
         return json;
+    }
+
+    /**
+     * http://localhost:8001/demo/queryUser2
+     * @return
+     */
+
+    @GetMapping("queryUser2")
+
+    public ResponseResult getStudent(){
+        CommUser user = new CommUser();
+        user.setLoginId("abao");
+        user.setRealName("王先生");
+        user.setUserSex("男");
+
+        return ResponseResult.okResult(user);
     }
 }

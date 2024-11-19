@@ -7,4 +7,5 @@ SpringCloud已成为主流。目前OpenJWeb技术团队着手开发基于SpringB
     GitHub地址：https://github.com/openjweb/cloud/tree/master
 
     最新发布：2024/11/14
+测试信息
 

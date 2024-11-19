@@ -34,6 +34,7 @@
         <lombok.version>1.18.2</lombok.version>
         <mysql.connector.version>8.0.27</mysql.connector.version>
         <spring-boot.version>2.7.18</spring-boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
     <modules>

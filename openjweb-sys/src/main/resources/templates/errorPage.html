@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>error</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+
+<body>
+<table>
+    <tr>
+        <td>错误码:</td>
+        <td th:text="${errorCode}"></td>
+    </tr>
+    <tr>
+        <td>错误信息:</td>
+        <td th:text="${errorMessage}"></td>
+    </tr>
+    <tr>
+        <td>请求地址:</td>
+        <td th:text="${requestUrl}"></td>
+    </tr>
+</table>
+</body>
+</html>

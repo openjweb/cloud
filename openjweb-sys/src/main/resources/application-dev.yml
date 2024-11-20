@@ -52,3 +52,11 @@ spring:
         max-idle: 5
         min-idle: 0
         max-active: 20
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    content: text/html
+    cache: false
+    prefix: classpath:/templates/
+
+

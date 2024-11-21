@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
             <groupId>org.openjweb</groupId>
-            <artifactId>openjweb-b2c</artifactId>
+            <artifactId>openjweb-b2b2c</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
 

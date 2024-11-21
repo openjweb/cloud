@@ -5,11 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+//import org.springframework.retry.annotation.EnableRetry;
 
 import javax.annotation.Resource;
 
 
 @SpringBootApplication
+//@EnableRetry
 @ComponentScan(basePackages = {"org.openjweb"})
 public class OpenjwebSysApplication {
    // @Resource

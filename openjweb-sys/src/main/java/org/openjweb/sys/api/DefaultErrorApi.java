@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.openjweb.common.exception.GlobalException;
 import org.openjweb.common.exception.GlobalJsonException;
 import org.openjweb.sys.entity.CommUser;
+//import org.springframework.retry.annotation.Backoff;
+//import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,5 +59,24 @@ public class DefaultErrorApi {
 
         return user;
     }
+
+    //@Retryable(value= {GlobalJsonException.class},maxAttempts=5,backoff=@Backoff(delay=5000,multiplier=2))
+    //http://localhost:8001/demo/error/testError3?flag=1
+    //这个未拦截的异常会出现白页面
+    @RequestMapping("testError3")
+    public CommUser testError3(String flag) {
+        log.info("测试失败重试!!!!!");
+        if("1".equals(flag)) {
+
+            throw new GlobalJsonException("测试失败重试");
+        }
+
+        CommUser user = new CommUser();
+        user.setRealName("张三");
+        user.setLoginId("admin");
+
+        return user;
+    }
+
 
 }

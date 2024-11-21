@@ -60,18 +60,29 @@
             <groupId>org.openjweb</groupId>
             <artifactId>openjweb-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.openjweb</groupId>
-            <artifactId>openjweb-common</artifactId>
+            <artifactId>openjweb-sns</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <!--<scope>compile</scope>-->
+            <scope>compile</scope>
+
         </dependency>
         <dependency>
             <groupId>org.openjweb</groupId>
             <artifactId>openjweb-cms</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <!--<scope>compile</scope>-->
+            <scope>compile</scope>
+
+        </dependency>
+        <dependency>
+            <groupId>org.openjweb</groupId>
+            <artifactId>openjweb-b2c</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+
         </dependency>
 
         <dependency>

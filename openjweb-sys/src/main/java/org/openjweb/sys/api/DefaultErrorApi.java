@@ -46,4 +46,16 @@ public class DefaultErrorApi {
         return user;
     }
 
+    //http://localhost:8001/demo/error/testError2?flag=1
+    //这个未拦截的异常会出现白页面
+    @RequestMapping("testError2")
+    public CommUser testError2(String flag) {
+        int i=1/0;//未拦截异常
+        CommUser user = new CommUser();
+        user.setRealName("张三");
+        user.setLoginId("admin");
+
+        return user;
+    }
+
 }

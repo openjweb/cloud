@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>error</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+
+<body>
+<table>
+    <tr>
+        <td>时间戳:</td>
+        <td th:text="${timestamp}"></td>
+    </tr>
+    <tr>
+        <td>状态:</td>
+        <td th:text="${status}"></td>
+    </tr>
+    <tr>
+        <td>error:</td>
+        <td th:text="${error}"></td>
+    </tr>
+    <tr>
+        <td>错误信息:</td>
+        <td th:text="${message}"></td>
+    </tr>
+    <td>错误信息2:</td>
+    <td th:text="${custommsg}"></td>
+    </tr>
+    <tr>
+        <td>路径:</td>
+        <td th:text="${path}"></td>
+    </tr>
+</table>
+</body>
+</html>

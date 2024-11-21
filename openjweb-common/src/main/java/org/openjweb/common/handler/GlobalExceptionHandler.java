@@ -52,4 +52,15 @@ public class GlobalExceptionHandler {
 
     }
 
+    /*@ExceptionHandler({Exception.class})
+    @ResponseBody
+    public JSONObject globalExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception {
+
+        JSONObject errJson = new JSONObject();
+        errJson.put("code",-1);
+        errJson.put("msg",ex.getMessage());
+        return errJson;
+
+    }*/
+
 }

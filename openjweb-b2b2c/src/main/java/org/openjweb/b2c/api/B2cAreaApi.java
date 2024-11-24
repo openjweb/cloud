@@ -35,7 +35,7 @@ public class B2cAreaApi {
      */
     @RequestMapping("/del")
     public ResponseResult del( String selectedIds){
-        //http://localhost:8081/api/b2c/b2carea/del?selectedIds=12,133
+        //http://localhost:8001/api/b2c/b2carea/del?selectedIds=12,133
         try{
             this.b2cAreaService.del(selectedIds);
             return ResponseResult.okResult(0,"删除成功!");
@@ -50,9 +50,9 @@ public class B2cAreaApi {
     public ResponseResult save( B2cAreaParam param){
         try {
             log.info("新增记录调用开始..........");
-            //http://localhost:8081/api/b2c/b2carea/save?areaCode=8888888&areaName=9999&recordVersion=0
+            //http://localhost:8001/api/b2c/b2carea/save?areaCode=8888888&areaName=9999&recordVersion=0
             //没配乐观锁插件的时候，record_version必须手工赋值
-            //http://localhost:8081/api/b2c/b2carea/save?areaCode=8888888&areaName=121212
+            //http://localhost:8001/api/b2c/b2carea/save?areaCode=8888888&areaName=121212
             //param.setCreateDt(StringUtil.getCurrentDateTime());
             //param.setUpdateDt(StringUtil.getCurrentDateTime());
             //param.setCreateUid("system");
@@ -67,7 +67,7 @@ public class B2cAreaApi {
         }
 
     }
-    //http://localhost:8081/api/b2c/b2carea/save2?rowId=22391594cb9146219943357c9c072c32&token=admin111
+    //http://localhost:8001/api/b2c/b2carea/save2?rowId=22391594cb9146219943357c9c072c32&token=admin111
     @RequestMapping("/save2")
     public ResponseResult save2( B2cAreaParam param){
         try {
@@ -100,7 +100,7 @@ public class B2cAreaApi {
 
     @RequestMapping("/save3")
     public ResponseResult save3( B2cAreaParam param){
-        //http://localhost:8081/api/b2c/b2carea/save3?rowId=a458530726f84808b043b396ac8402e5&areaCode=new1&areaName=newname2&recordVersion=5
+        //http://localhost:8001/api/b2c/b2carea/save3?rowId=a458530726f84808b043b396ac8402e5&areaCode=new1&areaName=newname2&recordVersion=5
         try {
 
             this.b2cAreaService.updateById(param);

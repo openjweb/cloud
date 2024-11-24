@@ -28,8 +28,7 @@ public class B2cAreaService extends ServiceImpl<B2cAreaMapper, B2cArea> {
     private B2cAreaMapper b2cAreaMapper;
 
     public IPage<B2cArea> list(B2cAreaParam param) {
-        //https://blog.csdn.net/m0_67393593/article/details/126463564 看这个
-        //http://localhost:8081/api/b2c/area?comId=C0001
+        //http://localhost:8001/api/b2c/area?comId=C0001
         Page<B2cArea> page = new Page<>(param.getPage(), param.getPageSize());
 
         return b2cAreaMapper.selectPageWithCondition(page,param);
@@ -37,8 +36,8 @@ public class B2cAreaService extends ServiceImpl<B2cAreaMapper, B2cArea> {
     }
 
     public IPage<B2cAreaResult> list2(B2cAreaParam param) {
-        //https://blog.csdn.net/m0_67393593/article/details/126463564 看这个
-        //http://localhost:8081/api/b2c/area?comId=C0001
+
+        //http://localhost:8001/api/b2c/area?comId=C0001
         Page<B2cAreaResult> page = new Page<>(param.getPage(), param.getPageSize());
 
         return b2cAreaMapper.selectPageWithCondition2(page,param);
@@ -47,7 +46,9 @@ public class B2cAreaService extends ServiceImpl<B2cAreaMapper, B2cArea> {
     public B2cArea getObject(String rowId){
         QueryWrapper<B2cArea> wrapper = new QueryWrapper<B2cArea>();
         wrapper.eq("row_id",rowId);
+
         B2cArea ent = this.b2cAreaMapper.selectOne(wrapper);
+
         //另外一种查询方式
         B2cArea ent1  = this.b2cAreaMapper.selectByRowId(rowId);
         if(ent1!=null){

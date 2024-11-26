@@ -59,6 +59,10 @@ spring:
     cache: false
     prefix: classpath:/templates/
 
+jwt:
+  header: Authorization
+  expire: 86400
+  secret: qwertyuiopazsxdcfvgbhnjmklouhgsd
 #mybatis:
   #mapper-locations: classpath:/mappers/*Mapper.xml
   #type-aliases-package: org.openjweb.sys.entity

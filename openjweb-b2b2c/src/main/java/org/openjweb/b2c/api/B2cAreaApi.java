@@ -7,6 +7,7 @@ import org.openjweb.b2c.entity.B2cArea;
 import org.openjweb.b2c.module.params.B2cAreaParam;
 import org.openjweb.b2c.service.B2cAreaService;
 import org.openjweb.common.response.ResponseResult;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,5 +120,9 @@ public class B2cAreaApi {
         IPage<B2cArea> page = this.b2cAreaService.list(param);
         return ResponseResult.okResult(page.getRecords());
     }
+
+
+    //
+
 
 }

@@ -2,9 +2,12 @@ package org.openjweb.core.util;
 
 import io.jsonwebtoken.*;
 import lombok.Data;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
 @Data
+@Component
 public class JwtUtil {
     private long expire;
     private String secret;

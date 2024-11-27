@@ -54,4 +54,9 @@ public class CommUserService implements UserDetailsService {
         return this.userMapper.selectAuthorities(loginId);
     }
 
+
+    public CommUser  selectUserByLoginId(String loginId){
+        return this.userMapper.selectUserByLoginId(loginId);
+    }
+
 }

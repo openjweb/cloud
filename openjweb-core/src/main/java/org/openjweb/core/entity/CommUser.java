@@ -60,8 +60,7 @@ public class CommUser implements UserDetails {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateUid;
 
-    @Version
-    private Long recordVersion = 0L;//乐观锁
+
 
     /*
     private String comName;//所属机构名称

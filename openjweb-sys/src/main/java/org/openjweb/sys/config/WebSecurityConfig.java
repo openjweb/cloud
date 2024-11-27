@@ -5,9 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.openjweb.core.service.CommUserService;
 import org.openjweb.sys.auth.security.AESPasswordEncoder;
 import org.openjweb.sys.auth.security.MD5PasswordEncoder;
+import org.openjweb.sys.auth.security.MyAccessDecisionManager;
+import org.openjweb.sys.auth.security.MyFilterInvocationSecurityMetadataSource;
+import org.openjweb.sys.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,14 +20,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
 
     private static final String[] ALLOW_URL_LIST = {
             //
@@ -40,20 +43,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/cms1/**",
             "/api/store/**",
             "/demo/**"
-
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                //登录表单
-                .formLogin()
+      /*  http.cors().and().csrf().disable()//登录表单
+         .formLogin()
                 .and()
                 .authorizeRequests()
                 .antMatchers(ALLOW_URL_LIST).permitAll()
                 .anyRequest().authenticated();
+       */
+        http
+                .authorizeRequests()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                        object.setSecurityMetadataSource(cfisms());
+                        object.setAccessDecisionManager(cadm());
+                        return object;
+                    }
+                })
+                .and().formLogin().loginProcessingUrl("/login").permitAll()
+                .and()
+                .logout().permitAll().and().csrf().disable();
     }
-
 
     /*@Bean
     PasswordEncoder PasswordEncoder() {
@@ -69,8 +83,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     AESPasswordEncoder aesPasswordEncoder;
-
-
     @Autowired
     CommUserService userDetailService;
     @Override
@@ -78,7 +90,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //auth.userDetailsService(userDetailService);
         auth.userDetailsService(userDetailService).passwordEncoder(aesPasswordEncoder);
         //auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 
+    @Bean
+    MyAccessDecisionManager cadm() {
+        //System.out.println("加载角色权限设置。。。。。。。。。。。。");
+        return new MyAccessDecisionManager();
+    }
+
+    @Bean
+    MyFilterInvocationSecurityMetadataSource cfisms() {
+        //System.out.println("加载权限设置。。。。。。。。。。。。");
+        return new MyFilterInvocationSecurityMetadataSource();
+    }
+
+
+    @Bean
+    JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
+        return jwtAuthenticationFilter;
     }
 
 }

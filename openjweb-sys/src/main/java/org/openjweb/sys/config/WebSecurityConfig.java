@@ -2,11 +2,13 @@ package org.openjweb.sys.config;
 
 import cn.hutool.crypto.symmetric.AES;
 import lombok.RequiredArgsConstructor;
+import org.openjweb.core.service.CommUserService;
 import org.openjweb.sys.auth.security.AESPasswordEncoder;
 import org.openjweb.sys.auth.security.MD5PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -52,18 +54,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
     }
 
+
+    /*@Bean
+    PasswordEncoder PasswordEncoder() {
+        //return md5PasswordEncoder;
+        //return aesPasswordEncoder;//这个不行
+        return new AESPasswordEncoder();
+        //return new BCryptPasswordEncoder();
+        //return new Md5PasswordEncoder();
+
+    }*/
     @Autowired
     MD5PasswordEncoder md5PasswordEncoder;
 
     @Autowired
     AESPasswordEncoder aesPasswordEncoder;
 
-    @Bean
-    PasswordEncoder PasswordEncoder() {
-        //return md5PasswordEncoder;
-        return aesPasswordEncoder;
-        //return new BCryptPasswordEncoder();
-        //return new Md5PasswordEncoder();
+
+    @Autowired
+    CommUserService userDetailService;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //auth.userDetailsService(userDetailService);
+        auth.userDetailsService(userDetailService).passwordEncoder(aesPasswordEncoder);
+        //auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
+
 }

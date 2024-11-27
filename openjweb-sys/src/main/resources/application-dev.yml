@@ -66,8 +66,8 @@ jwt:
 md5:
   salt: wsxedcqazsxdcrfvgtbyhglkgmgvog1s
 
-security:
-  rsa:
+aes:
+  key: /Z3E1YW1mxM0BCluJdYaLHCnhTuzE8j0
 
 #mybatis:
   #mapper-locations: classpath:/mappers/*Mapper.xml

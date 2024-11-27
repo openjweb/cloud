@@ -63,6 +63,12 @@ jwt:
   header: Authorization
   expire: 86400
   secret: qwertyuiopazsxdcfvgbhnjmklouhgsd
+md5:
+  salt: wsxedcqazsxdcrfvgtbyhglkgmgvog1s
+
+security:
+  rsa:
+
 #mybatis:
   #mapper-locations: classpath:/mappers/*Mapper.xml
   #type-aliases-package: org.openjweb.sys.entity

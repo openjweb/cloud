@@ -1,6 +1,7 @@
 package org.openjweb.sys.auth.security;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -13,10 +14,10 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
+@Slf4j
 public class MyAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication auth, Object object, Collection<ConfigAttribute> ca) {
-        System.out.println("decide......................");
         Collection<? extends GrantedAuthority> auths = auth.getAuthorities();
         for (ConfigAttribute configAttribute : ca) {
 
@@ -33,12 +34,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                 return;
             }
             for (GrantedAuthority authority : auths) {
-                System.out.println("得到的角色-当前角色："+authority.getAuthority()+"-----"+configAttribute.getAttribute());
+                log.info("得到的权限-当前权限："+authority.getAuthority()+"-----"+configAttribute.getAttribute());
                 //if(configAttribute.getAttribute().equals("ROLE_LOGIN")) {//为什么会有ROLE_LOGIN
                 //	return ;//对ROLE_LOGIN的角色不限制
                 //}
                 if (configAttribute.getAttribute().equals(authority.getAuthority())) {
-                    System.out.println("匹配:"+authority.getAuthority()+",返回");
+                    log.info("匹配:"+authority.getAuthority()+",返回");
                     return;
                 }
             }

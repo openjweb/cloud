@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //下面注释掉的是第一阶段的示例
       /*  http.cors().and().csrf().disable()//登录表单
          .formLogin()
                 .and()
@@ -54,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALLOW_URL_LIST).permitAll()
                 .anyRequest().authenticated();
        */
-        http
-                .authorizeRequests()
+        //下面是第二阶段整合了数据库权限控制的示例
+        http.authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O object) {
@@ -85,6 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     AESPasswordEncoder aesPasswordEncoder;
     @Autowired
     CommUserService userDetailService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //auth.userDetailsService(userDetailService);

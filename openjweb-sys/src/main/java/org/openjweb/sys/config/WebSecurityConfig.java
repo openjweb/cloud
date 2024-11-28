@@ -3,11 +3,13 @@ package org.openjweb.sys.config;
 import cn.hutool.crypto.symmetric.AES;
 import lombok.RequiredArgsConstructor;
 import org.openjweb.core.service.CommUserService;
+import org.openjweb.core.util.JwtUtil;
 import org.openjweb.sys.auth.security.AESPasswordEncoder;
 import org.openjweb.sys.auth.security.MD5PasswordEncoder;
 import org.openjweb.sys.auth.security.MyAccessDecisionManager;
 import org.openjweb.sys.auth.security.MyFilterInvocationSecurityMetadataSource;
 import org.openjweb.sys.filter.JwtAuthenticationFilter;
+import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +29,11 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Autowired
+    LoginSuccessHandler loginSuccessHandler;
+
 
     private static final String[] ALLOW_URL_LIST = {
             //
@@ -65,8 +72,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         return object;
                     }
                 })
-                .and().formLogin().loginProcessingUrl("/login").permitAll()
+                .and().formLogin()
+                .successHandler(loginSuccessHandler) //登录成功处理
+                .loginProcessingUrl("/login").permitAll()
+
+                // 配置自定义的过滤器
+                //这个jwtAuthenticationFilter 不加也执行了，是否增加了会调整多个过滤器的执行顺序
                 .and()
+                .addFilter(jwtAuthenticationFilter())
+
+
                 .logout().permitAll().and().csrf().disable();
     }
 

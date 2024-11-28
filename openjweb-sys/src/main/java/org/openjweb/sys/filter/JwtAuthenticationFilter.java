@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
+
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Autowired
@@ -44,21 +44,18 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         else{
             log.info("jwt utils is not null,jwtutils.getHeader:");//非空
             log.info(jwtUtils.getHeader());//空
-            String header = jwtUtils.getHeader();
+            String header = jwtUtils.getHeader();//
             if(header!=null) {
                 log.info("jwt header:::::"+header );
                 jwt = request.getHeader(header);
             }
 
         }
-        log.info("11111111111111");
-
 
         // 这里如果没有jwt，继续往后走，因为后面还有鉴权管理器等去判断是否拥有身份凭证，所以是可以放行的
         // 没有jwt相当于匿名访问，若有一些接口是需要权限的，则不能访问这些接口
         if (StrUtil.isBlankOrUndefined(jwt)) {
             log.info("没有jwt信息，继续filter........");
-
             chain.doFilter(request, response);
             return;
         }
@@ -73,12 +70,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         if (jwtUtils.isTokenExpired(claim)) {
             throw new JwtException("token 已过期");
         }
-
         String username = claim.getSubject();
         // 获取用户的权限等信息
 
         CommUser sysUser = sysUserService.selectUserByLoginId(username);
-
 
         // 构建UsernamePasswordAuthenticationToken,这里密码为null，是因为提供了正确的JWT,实现自动登录
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null, userDetailService.getUserAuthority(sysUser.getLoginId()));

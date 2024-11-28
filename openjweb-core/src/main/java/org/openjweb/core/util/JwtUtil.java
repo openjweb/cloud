@@ -2,13 +2,21 @@ package org.openjweb.core.util;
 
 import io.jsonwebtoken.*;
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * 使用@ConfigurationProperties(prefix = "jwt") ，从application-dev.yml中获取配置
+ * Application增加@RequiredArgsConstructor
+ * 且pom.xml增加spring-boot-configuration-processor 依赖
+ */
 @Data
 @Component
+@ConfigurationProperties(prefix = "jwt")
 public class JwtUtil {
+
     private long expire;
     private String secret;
     private String header;

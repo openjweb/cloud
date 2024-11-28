@@ -9,6 +9,7 @@ import org.openjweb.sys.auth.security.MD5PasswordEncoder;
 import org.openjweb.sys.auth.security.MyAccessDecisionManager;
 import org.openjweb.sys.auth.security.MyFilterInvocationSecurityMetadataSource;
 import org.openjweb.sys.filter.JwtAuthenticationFilter;
+import org.openjweb.sys.handler.LoginFailureHandler;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +31,11 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
+
+    @Autowired
+    LoginFailureHandler loginFailureHandler;
 
 
     private static final String[] ALLOW_URL_LIST = {
@@ -74,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and().formLogin()
                 .successHandler(loginSuccessHandler) //登录成功处理
+                .failureHandler(loginFailureHandler) //登录失败处理
                 .loginProcessingUrl("/login").permitAll()
 
                 // 配置自定义的过滤器

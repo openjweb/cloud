@@ -8,7 +8,10 @@ import org.openjweb.sys.auth.security.AESPasswordEncoder;
 import org.openjweb.sys.auth.security.MD5PasswordEncoder;
 import org.openjweb.sys.auth.security.MyAccessDecisionManager;
 import org.openjweb.sys.auth.security.MyFilterInvocationSecurityMetadataSource;
+import org.openjweb.sys.entry.JwtAuthenticationEntryPoint;
 import org.openjweb.sys.filter.JwtAuthenticationFilter;
+import org.openjweb.sys.handler.JWTLogoutSuccessHandler;
+import org.openjweb.sys.handler.JwtAccessDeniedHandler;
 import org.openjweb.sys.handler.LoginFailureHandler;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     LoginFailureHandler loginFailureHandler;
+
+    @Autowired
+    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    @Autowired
+    JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+    @Autowired
+    JWTLogoutSuccessHandler jwtLogoutSuccessHandler;
+
 
 
     private static final String[] ALLOW_URL_LIST = {
@@ -80,12 +93,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(loginFailureHandler) //登录失败处理
                 .loginProcessingUrl("/login").permitAll()
 
+                 .and()
+                .logout()
+                .logoutSuccessHandler(jwtLogoutSuccessHandler)
+
+                // 禁用session
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                // 配置拦截规则
+                .and()
+                .authorizeRequests()
+                .antMatchers(ALLOW_URL_LIST ).permitAll()
+                .anyRequest().authenticated()
+
+
+                // 异常处理器
+                .and()
+                .exceptionHandling()
+               // .authenticationEntryPoint(jwtAuthenticationEntryPoint) //这个影响登录，会导致/login登录蔬菜
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+
                 // 配置自定义的过滤器
                 //这个jwtAuthenticationFilter 不加也执行了，是否增加了会调整多个过滤器的执行顺序
                 .and()
                 .addFilter(jwtAuthenticationFilter())
-
-
                 .logout().permitAll().and().csrf().disable();
     }
 

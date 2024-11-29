@@ -1,9 +1,8 @@
 package org.openjweb.sys.config;
 
-import cn.hutool.crypto.symmetric.AES;
+
 import lombok.RequiredArgsConstructor;
 import org.openjweb.core.service.CommUserService;
-import org.openjweb.core.util.JwtUtil;
 import org.openjweb.sys.auth.security.AESPasswordEncoder;
 import org.openjweb.sys.auth.security.MD5PasswordEncoder;
 import org.openjweb.sys.auth.security.MyAccessDecisionManager;
@@ -14,9 +13,11 @@ import org.openjweb.sys.handler.JWTLogoutSuccessHandler;
 import org.openjweb.sys.handler.JwtAccessDeniedHandler;
 import org.openjweb.sys.handler.LoginFailureHandler;
 import org.openjweb.sys.handler.LoginSuccessHandler;
+import org.openjweb.sys.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -68,6 +69,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/demo/**"
     };
 
+    //作用？？？暴露AuthenticationManager给其他Bean使用
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+        //return super.authenticationManagerBean();
+
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //下面注释掉的是第一阶段的示例
@@ -85,6 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public <O extends FilterSecurityInterceptor> O postProcess(O object) {
                         object.setSecurityMetadataSource(cfisms());
                         object.setAccessDecisionManager(cadm());
+
                         return object;
                     }
                 })
@@ -92,6 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler) //登录成功处理
                 .failureHandler(loginFailureHandler) //登录失败处理
                 .loginProcessingUrl("/login").permitAll()
+                //.loginProcessingUrl("/demo/jwt/login").permitAll()
 
                  .and()
                 .logout()
@@ -112,7 +124,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 异常处理器
                 .and()
                 .exceptionHandling()
-               // .authenticationEntryPoint(jwtAuthenticationEntryPoint) //这个影响登录，会导致/login登录蔬菜
+                //接口登录模式打开这个
+                //.authenticationEntryPoint(jwtAuthenticationEntryPoint) //这个影响登录，会导致/login登录蔬菜
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 // 配置自定义的过滤器
@@ -141,9 +154,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userDetailService);
-        auth.userDetailsService(userDetailService).passwordEncoder(aesPasswordEncoder);
-        //auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+        if(true){
+            //如果自定义AuthenticationProvider 则不使用这个
+            auth.userDetailsService(userDetailService).passwordEncoder(aesPasswordEncoder);
+            //auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+        }
+        else{
+            //自定义AuthenticationProvider
+            auth.authenticationProvider(new MyAuthenticationProvider(userDetailService));
+        }
     }
 
     @Bean
@@ -164,5 +183,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
         return jwtAuthenticationFilter;
     }
+
 
 }

@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 public class AESPasswordEncoder implements PasswordEncoder {
     //暂时沿用MD5的
-    @Value("${aes.key}")
-    private  String salt = "";
+    //@Value("${aes.key}")
+    private  String salt = "/Z3E1YW1mxM0BCluJdYaLHCnhTuzE8j0";
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
 

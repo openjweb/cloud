@@ -69,6 +69,10 @@ md5:
 aes:
   key: /Z3E1YW1mxM0BCluJdYaLHCnhTuzE8j0
 
+#is this server is oauth2 server
+oauth2:
+  server: true
+
 #mybatis:
   #mapper-locations: classpath:/mappers/*Mapper.xml
   #type-aliases-package: org.openjweb.sys.entity

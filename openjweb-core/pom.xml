@@ -71,7 +71,23 @@
             <optional>true</optional>
         </dependency>
 
-        <!--for springsecurity encrypt start-->
+        <!--for oauth2-->
+
+        <!--<dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+            <version>2.1.3.RELEASE</version>
+        </dependency>-->
+
+
+
+
+
+        <!--for springsecurity encrypt start？？-->
 
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -128,6 +144,8 @@
 
 
     </dependencies>
+
+
 
 
 </project>

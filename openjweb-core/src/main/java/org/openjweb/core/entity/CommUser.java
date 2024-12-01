@@ -7,12 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 @Slf4j
 @Data
 @TableName("comm_user")
-public class CommUser implements UserDetails {
+public class CommUser implements UserDetails, Serializable {
 
     /******* 非数据库属性开始 ******/
 

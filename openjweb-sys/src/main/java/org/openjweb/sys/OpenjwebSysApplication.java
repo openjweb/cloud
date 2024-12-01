@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.openjweb"})
@@ -16,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 //@EnableWebSecurity
 @RequiredArgsConstructor
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
-
+@EnableAuthorizationServer
 public class OpenjwebSysApplication {
     public static void main(String[] args) {
         SpringApplication.run(OpenjwebSysApplication.class, args);

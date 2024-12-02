@@ -2204,7 +2204,7 @@ public class StringUtil {
      * @throws Exception
      */
     public static String getHtmlText(String htmlContent) throws Exception {
-        // http://www.99inf.net/SoftwareDev/Java/51691.htm
+
         if (htmlContent == null)
             htmlContent = "";
         // 增加一个<br/>,经测试，如果正文为纯文本,org.htmlparser会把参数当作一个文件处理

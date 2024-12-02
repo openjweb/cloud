@@ -130,6 +130,7 @@ public class PinYinUtil {
 		String s = "中国人民";
 		//String s1 = PinYinUtil.getPinyinFieldName(s);
 		String s1 = PinYinUtil.getPinyinDBName(s);
-		System.out.println(s1);
+		String s2 = PinYinUtil.getPinYin(s);
+		System.out.println(s2);
 	}
 }

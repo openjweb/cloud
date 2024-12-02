@@ -1,5 +1,8 @@
 package org.openjweb.common.util.gbconvert;
 
+/**
+ * 说明：在SpringBoot中未测试，使用前需再测试下。
+ */
 public class TestConverter 
 {
 	public static void main(String[] args) throws Exception 

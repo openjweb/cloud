@@ -1,6 +1,10 @@
 package org.openjweb.common.util;
 
 
+/**
+ * 这个移到SpringBoot中以后是否有问题需要进行测试
+ */
+
 public class CnToStrokeCount {
     public static void main(String[] args) {
 

@@ -1,6 +1,5 @@
 package org.openjweb.common.util;
 
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -10,22 +9,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.DatatypeConverter;
-
 import org.htmlparser.Parser;
 import org.htmlparser.visitors.TextExtractingVisitor;
 import org.openjweb.common.util.gbconvert.GB2Big5;
-import org.springframework.dao.DataAccessException;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;

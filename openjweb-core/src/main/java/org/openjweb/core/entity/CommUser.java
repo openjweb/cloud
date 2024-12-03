@@ -178,6 +178,18 @@ public class CommUser implements UserDetails, Serializable {
     private String isRandSkin;//是否启用随机皮肤
     */
 
+    public CommUser(){
+        this.userId = null;
+        this.username = null;
+        this.loginId = null;
+        this.password = null;
+        this.enabled = false;
+        this.accountNonExpired = false;
+        this.credentialsNonExpired = false;
+        this.accountNonLocked = false;
+        this.authorities = null;
+    }
+
 
     public CommUser(Long userId, String loginId, String password, Collection<? extends GrantedAuthority> authorities) {
         this(userId, loginId, password, true, true, true, true, authorities);

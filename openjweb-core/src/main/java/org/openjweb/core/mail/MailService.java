@@ -1,21 +1,17 @@
 package org.openjweb.core.mail;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openjweb.core.entity.CommUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,19 +20,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
-
-
-
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
-
-
-
 
 @Service
 @Slf4j
@@ -92,8 +81,6 @@ public class MailService {
 
         }
         mailSender.send(mimeMessage);
-
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -102,8 +89,6 @@ public class MailService {
             TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_0);// freemarker 的Configuration
         ClassLoader loader = MailService.class.getClassLoader();
-        // configuration.setDirectoryForTemplateLoading(new
-        // File("D:\\eclipse2022\\com-openjweb-boot\\com-openjweb-sys\\src\\main\\resources\\ftl"));
         // 注意设置templates以外的目录不起作用，原因是可能是freemarker默认使用的这个目录，需要开发配置类修改默认目录。
         configuration.setClassLoaderForTemplateLoading(loader, "templates");
 
@@ -114,8 +99,6 @@ public class MailService {
         user.setRealName("张三");//测试
         template.process(user, mail);
         String content = mail.toString();// 转换为正文
-        //log.info("从邮件模板转换的html正文:");
-        //System.out.println(content);
         // 下面的和之前的一样
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);// 发送带附件的
@@ -126,15 +109,10 @@ public class MailService {
 
         mailSender.send(mimeMessage);
 
-        // TODO Auto-generated method stub
         return true;
     }
 
-
-
-
     public boolean sendMailThymeLeaf(String from, String to, String subject) throws MessagingException {
-
 
         Context ctx = new Context();// thymeleaf
 		ctx.setVariable("realName", "张三");
@@ -154,13 +132,8 @@ public class MailService {
 		message.setSubject(subject);
 		message.setTo(to);
 		message.setText(content, true);// 表示发送的是html
-
 		mailSender.send(mimeMessage);
-
-
         return true;
     }
-
-
 
 }

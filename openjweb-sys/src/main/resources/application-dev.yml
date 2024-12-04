@@ -2,6 +2,22 @@ server:
   port: 8001
 
 spring:
+  mail:
+    host: smtp.163.com
+    username: myemail@163.com
+    password: YONGSHOUQUANMA
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
+
   datasource:
     ds1:
       type: com.alibaba.druid.pool.DruidDataSource
@@ -83,6 +99,8 @@ mq:
     host: 127.0.0.1:5672
     username: guest
     password: guest
+
+
 
 
 #mybatis:

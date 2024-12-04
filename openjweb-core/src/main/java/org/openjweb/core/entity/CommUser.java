@@ -42,6 +42,8 @@ public class CommUser implements UserDetails, Serializable {
     private String userMobile;//手机（如没有可随机一个）
     private String realName; //真实姓名
     private String registMobile;//注册时填写的手机名称
+    private String userSex;//性别
+
 
     /*重要字段*/
     private String isInUse; //账号是否启用，未启动则不能登录

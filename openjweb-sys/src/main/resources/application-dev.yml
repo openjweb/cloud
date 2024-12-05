@@ -2,6 +2,8 @@ server:
   port: 8001
 
 spring:
+  messages:
+    basename: static.i18n.messages
   mail:
     host: smtp.163.com
     username: myemail@163.com

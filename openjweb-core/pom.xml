@@ -173,6 +173,25 @@
         </dependency>
 
 
+        <!--jQuery前端依赖-->
+
+        <dependency>
+
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+
+        <!--jQuery国际化插件-->
+
+        <dependency>
+
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery-i18n-properties</artifactId>
+            <version>1.2.7</version>
+        </dependency>
+
+
 
     </dependencies>
 

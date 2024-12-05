@@ -85,7 +85,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/cms1/**",
             "/api/store/**",
             "/demo/**",
-            "/oauth/**" //允许oauth认证的路径
+            "/oauth/**", //允许oauth认证的路径
+            "/webjars/**", //webjars js允许的路径
+            "/testduoyu",
+            "/i18n/**"
     };
 
     //作用？？？暴露AuthenticationManager给其他Bean使用
@@ -127,7 +130,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/login.html", "/img/**","/demo/**").permitAll()
+                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .csrf().disable();

@@ -8,8 +8,13 @@
 <body>
 <table>
     <tr>
+
         <td>用户名</td>
-        <td>登录账号</td>
+        <!--非国际化-->
+        <td>登录账号(非国际化)</td>
+        <!--国际化-->
+        <td th:text="#{user.title}">登录账号 </td>
+
     </tr>
 
     <tr th:each="user:${users}">

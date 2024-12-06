@@ -191,6 +191,18 @@
             <version>1.2.7</version>
         </dependency>
 
+        <!--<dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl</artifactId>
+            <version>3.1.8.RELEASE</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl-framework-starter</artifactId>
+            <version>1.2.28.RELEASE</version>
+        </dependency>
+
 
 
     </dependencies>

@@ -76,6 +76,8 @@ spring:
     content: text/html
     cache: false
     prefix: classpath:/templates/
+    #default is .html
+    #suffix: .html
 
 jwt:
   header: Authorization
@@ -101,7 +103,8 @@ mq:
     host: 127.0.0.1:5672
     username: guest
     password: guest
-
+beetl:
+  suffix: html
 
 
 

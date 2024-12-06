@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>图书2</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+
+</head>
+
+<body>
+
+
+<%
+var a = 2;
+var b = 3;
+var result = a+b;
+%>
+hello 2+3=${result}<p>
+
+    <!--rotate-->
+    <%
+    for(user in users){
+    %>
+    hello,${user.realName},your email is ${user.userEmail} ;
+    <% } %>
+
+    <%
+    var aa = 1;
+    var bb="good";
+    var cc = null;
+
+    if(aa==1&&bb=="good"&&cc==null){
+     %>
+    <script>alert('符合条件')</script>
+    <%
+    }
+    else{%>
+    <script>alert('不符合条件')</script>
+
+    <%
+    }
+    %>
+
+</body>
+</html>

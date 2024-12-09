@@ -47,6 +47,7 @@
         <module>openjweb-b2b2c</module>
         <module>openjweb-cms</module>
         <module>openjweb-sns</module>
+        <module>openjweb-dev</module>
     </modules>
     <dependencies>
         <dependency>

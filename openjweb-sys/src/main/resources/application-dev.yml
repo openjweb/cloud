@@ -107,7 +107,7 @@ mq:
 beetl:
   suffix: html
   #if use userdefine path
-  #fileTemplatesPath: D:/tmp/beetl/templates
+  fileTemplatesPath: D:/tmp/beetl/templates
 
 
 

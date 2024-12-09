@@ -6,14 +6,19 @@ import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.core.resource.FileResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
 @Slf4j
 public class BeetlConf {
+
+    @Autowired
+    private WebApplicationContext wac;
 
     //@Value("${beetl.templatesPath}") String templatesPath;//模板根目录 ，比如 "templates"
     String templatesPath = "templates";//这个给类定义使用的
@@ -44,6 +49,8 @@ public class BeetlConf {
         beetlGroupUtilConfiguration.init();
         //如果使用了优化编译器，涉及到字节码操作，需要添加ClassLoader
         beetlGroupUtilConfiguration.getGroupTemplate().setClassLoader(loader);
+        //注册国际化函数
+        beetlGroupUtilConfiguration.getGroupTemplate().registerFunction("i18n", new I18nFunction(wac));
         return beetlGroupUtilConfiguration;
 
     }

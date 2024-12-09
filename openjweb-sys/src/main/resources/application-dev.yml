@@ -78,6 +78,7 @@ spring:
     prefix: classpath:/templates/
     #default is .html
     #suffix: .html
+    suffix: .html
 
 jwt:
   header: Authorization
@@ -105,6 +106,8 @@ mq:
     password: guest
 beetl:
   suffix: html
+  #if use userdefine path
+  #fileTemplatesPath: D:/tmp/beetl/templates
 
 
 

@@ -74,6 +74,30 @@ public class BeetlDemoController {
         return "beetlDemo3.html";//返回页面名
     }
 
+    //http://localhost:8001/demo/beetl/demofile
+
+
+    @RequestMapping(value="/demofile")
+
+    public String demofile( Model model) {
+
+        CommUser user = new CommUser();
+        user.setRealName("张三");
+        user.setUserEmail("abc@163.com");
+        List<CommUser> list = new ArrayList<>();
+        list.add(user );
+
+        user = new CommUser();
+
+        user.setRealName("李四");
+        user.setUserEmail("lisi@163.com");
+        list.add(user );
+
+
+        model.addAttribute("users", list);
+        return "b2c/beetlDemo3.html";//返回页面名
+    }
+
 
 
 }

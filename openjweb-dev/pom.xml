@@ -26,9 +26,14 @@
         <url/>
     </scm>
     <properties>
-        <java.version>23</java.version>
+        <java.version>${java.version}</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.openjweb</groupId>
             <artifactId>openjweb-core</artifactId>
@@ -36,7 +41,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-
 
 </project>

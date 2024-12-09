@@ -119,6 +119,13 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjweb</groupId>
+            <artifactId>openjweb-dev</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         <!--move to core-->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>

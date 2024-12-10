@@ -50,11 +50,14 @@ public class DbUtil {
         //获得列数
         int columns = rs.getMetaData().getColumnCount();    // 获得列数
         List<TableColumnInfo> columnInfoList = new ArrayList<>();
+        //record_version字段好像没查出来
         while(rs.next()){
             String columnName="";
             String columnType="";
             String comment ="";//字段注释
             columnName = rs.getString("COLUMN_NAME").toLowerCase();
+            //log.info("这里得到的字段名:::::");
+            //log.info(columnName);
             columnType = rs.getString("TYPE_NAME").toLowerCase();
             int datasize = rs.getInt("COLUMN_SIZE");
             int digits = rs.getInt("DECIMAL_DIGITS");

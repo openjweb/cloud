@@ -143,7 +143,17 @@
             <artifactId>shedlock-provider-redis-spring</artifactId>
             <version>4.24.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version><!--RELEASE-->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 
 
         <!--<dependency>
@@ -168,6 +178,9 @@
             <artifactId>aspectjweaver</artifactId>
         </dependency>-->
         <!---retry end -->
+
+
+
 
 
 

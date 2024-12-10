@@ -26,7 +26,21 @@ public class TestCreateEntity {
         String tableName = "comm_api_key";
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
-        DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,"comm_system_parms","org.openjweb.core.entity","d:\\"+clsName+".java");
+        //DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","d:\\"+clsName+".java");
+        DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","D:/project/openjweb-cloud/openjweb-core/src/main/java/org/openjweb/core/entity/"+clsName+".java");
+
+    }
+
+    @Test
+    public void createParamFile() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
+        String username = "root";
+        String password = "root";
+        String schemaName = "erp";
+        String tableName = "comm_api_key";
+        String clsName = StringUtil.getEntityNameByTableName(tableName);
+        //String
+        DevUtil.createParamFile("com.mysql.jdbc.Driver",url,schemaName,username,password,"comm_api_key","org.openjweb.core","D:/project/openjweb-cloud/openjweb-core");
 
     }
 }

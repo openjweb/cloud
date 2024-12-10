@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 功能说明：API_KEY实体类
+ * 功能说明：API_KEY实体类 --未使用代码生成
  */
 @Data
 @TableName("comm_api_key")

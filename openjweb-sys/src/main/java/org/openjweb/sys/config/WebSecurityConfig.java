@@ -130,7 +130,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**").permitAll()
+                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .csrf().disable();

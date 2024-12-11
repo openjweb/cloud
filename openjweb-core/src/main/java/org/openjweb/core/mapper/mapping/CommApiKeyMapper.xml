@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.CommApiKeyMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.CommApiKey"  >
+        select *  from comm_api_key
+        <where>
+            <if test="param.comId !=null and param.comId!=''">
+                and com_id = #{param.comId}
+            </if>
+            <if test="param.rowId !=null and param.rowId!=''">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.appId !=null and param.appId!=''">
+                and app_id = #{param.appId}
+            </if>
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.CommApiKey"  >
+        select *  from comm_api_key
+        <where>
+            <if test="param.comId !=null and param.comId!=''">
+                and com_id = #{param.comId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

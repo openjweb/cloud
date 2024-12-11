@@ -44,6 +44,7 @@ public class B2cAreaService extends ServiceImpl<B2cAreaMapper, B2cArea> {
     }
 
     public B2cArea getObject(String rowId){
+
         QueryWrapper<B2cArea> wrapper = new QueryWrapper<B2cArea>();
         wrapper.eq("row_id",rowId);
 

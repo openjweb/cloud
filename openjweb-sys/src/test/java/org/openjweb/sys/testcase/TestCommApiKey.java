@@ -4,6 +4,7 @@ package org.openjweb.sys.testcase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.openjweb.core.entity.CommApiKey;
+import org.openjweb.core.mapper.CommApiKeyMapper;
 import org.openjweb.core.module.params.CommApiKeyParam;
 import org.openjweb.core.service.CommApiKeyService;
 import org.openjweb.sys.OpenjwebSysApplication;
@@ -19,8 +20,12 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OpenjwebSysApplication.class)
 public class TestCommApiKey {
+    //mybatis-plus在测试类里执行不了。
     @Autowired
     private CommApiKeyService commApiKeyService;
+    @Autowired
+    private CommApiKeyMapper commApiKeyMapper;
+
     @Test
     public void testQueryList() throws SQLException {
         CommApiKeyParam param = new CommApiKeyParam();

@@ -16,7 +16,7 @@ public class CommApiKey   implements java.io.Serializable {
     private String rowId;
 
     @ApiModelProperty(value ="记录顺序" )
-    private Long sortNo;
+    private Long sortNo=0L;
 
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value ="创建日期" )
@@ -52,7 +52,8 @@ public class CommApiKey   implements java.io.Serializable {
 
     @ApiModelProperty(value ="乐观锁" )
 
-    private Long recordVersion;
+    @Version
+    private Long recordVersion =0L;
     @ApiModelProperty(value ="接口供应商" )
 
     private String apiCom;

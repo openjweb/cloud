@@ -114,6 +114,8 @@ public class B2cAreaApi {
 
     }
 
+    //http://localhost:8001/api/b2c/b2carea/area?comId=C0001
+
     @RequestMapping("/area")
     public ResponseResult testArea( B2cAreaParam param){
 
@@ -121,8 +123,6 @@ public class B2cAreaApi {
         return ResponseResult.okResult(page.getRecords());
     }
 
-
-    //
 
 
 }

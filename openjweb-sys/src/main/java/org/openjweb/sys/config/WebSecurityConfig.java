@@ -88,7 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/oauth/**", //允许oauth认证的路径
             "/webjars/**", //webjars js允许的路径
             "/testduoyu",
-            "/i18n/**"
+            "/i18n/**",
+            "/**/*.html" //swagger
     };
 
     //作用？？？暴露AuthenticationManager给其他Bean使用
@@ -125,12 +126,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         log.info(String.valueOf(this.isOAuth2Server));
         if(this.isOAuth2Server){
             log.info("OAUTH2模式...........");
+
             http.formLogin()
                     //.loginPage("/login.html")
                     .loginProcessingUrl("/login")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**").permitAll()
+                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .csrf().disable();

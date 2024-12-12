@@ -20,6 +20,8 @@ import java.util.*;
 @Slf4j
 public class DevUtil {
 
+    private static final String BASE_PATH = "D:/project/openjweb-cloud/openjweb-dev/src/main/resources/templates";
+
     public static List<Map<String,String>>  getEntityVar(String dbDriver,String url,String schecma,String username,String password,String tableName,
                                           String packageName) throws SQLException {
 
@@ -101,6 +103,7 @@ public class DevUtil {
         List<Map<String,String>> list = DevUtil.getEntityVar(dbDriver,url,schecma,  username,  password, tableName,
                   packageName) ;
         ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates","utf-8");
+        FileResourceLoader fileResourceLoader = new FileResourceLoader(BASE_PATH,"utf-8");
         //ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates");
 
         GroupTemplate gt = null;
@@ -115,7 +118,8 @@ public class DevUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gt = new GroupTemplate(cpLoader, cfg);
+        //gt = new GroupTemplate(cpLoader, cfg);
+        gt = new GroupTemplate(fileResourceLoader, cfg);
 
         Template t = gt.getTemplate("dev/EntityTemplate.java");
         //根据表名转换为类名
@@ -151,15 +155,15 @@ public class DevUtil {
         //String destFilePath = "D:\\project\\openjweb-cloud\\openjweb-dev\\src\\main\\resources\\templates\\dev\\MyDemo.java";
 
         try {
-            //FileUtil.str2file(str,saveFilePath,"utf-8");
-            try {
+            FileUtil.str2file(str,saveFilePath,"utf-8");
+            /*try {
                 File outputFile = new File(saveFilePath);
                 FileWriter writer = new FileWriter(outputFile);
                 writer.write(str );
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -176,6 +180,7 @@ public class DevUtil {
                                           String basePackage,String projectBasePath) throws SQLException {
 
         ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates","utf-8");
+        FileResourceLoader fileResourceLoader = new FileResourceLoader(BASE_PATH,"utf-8");
         GroupTemplate gt = null;
         boolean bool = true;//使用文件路径，改为false则使用resource/templates路径
         Configuration cfg = null;
@@ -187,8 +192,8 @@ public class DevUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gt = new GroupTemplate(cpLoader, cfg);
-
+        //gt = new GroupTemplate(cpLoader, cfg);
+        gt = new GroupTemplate(fileResourceLoader, cfg);
         Template t = gt.getTemplate("dev/ParamTemplate.java");
         //根据表名转换为类名
         String entityClassName = StringUtil.getEntityNameByTableName(tableName);
@@ -239,6 +244,7 @@ public class DevUtil {
                                          String basePackage,String projectBasePath) throws SQLException {
 
         ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates","utf-8");
+        FileResourceLoader fileResourceLoader = new FileResourceLoader(BASE_PATH,"utf-8");
         GroupTemplate gt = null;
         boolean bool = true;//使用文件路径，改为false则使用resource/templates路径
         Configuration cfg = null;
@@ -254,9 +260,9 @@ public class DevUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gt = new GroupTemplate(cpLoader, cfg);
-
-        Template t = gt.getTemplate("dev/MapperTemplate.java",cpLoader);
+        //gt = new GroupTemplate(cpLoader, cfg);
+        gt = new GroupTemplate(fileResourceLoader, cfg);
+        Template t = gt.getTemplate("dev/MapperTemplate.java");
         //根据表名转换为类名
         String entityClassName = StringUtil.getEntityNameByTableName(tableName);
 
@@ -308,6 +314,7 @@ public class DevUtil {
         List<Map<String,String>> list = DevUtil.getEntityVar(dbDriver,url,schecma,  username,  password, tableName,
                 packageName) ;
         ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates","utf-8");
+        FileResourceLoader fileResourceLoader = new FileResourceLoader(BASE_PATH,"utf-8");
         //ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates");
 
         GroupTemplate gt = null;
@@ -322,8 +329,8 @@ public class DevUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gt = new GroupTemplate(cpLoader, cfg);
-
+        //gt = new GroupTemplate(cpLoader, cfg);
+        gt = new GroupTemplate(fileResourceLoader, cfg);
         Template t = gt.getTemplate("dev/MapperTemplate.xml");
         //根据表名转换为类名
         String entityClassName = StringUtil.getEntityNameByTableName(tableName);
@@ -388,6 +395,7 @@ public class DevUtil {
         List<Map<String,String>> list = DevUtil.getEntityVar(dbDriver,url,schecma,  username,  password, tableName,
                 packageName) ;
         ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates","utf-8");
+        FileResourceLoader fileResourceLoader = new FileResourceLoader(BASE_PATH,"utf-8");
         //ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates");
 
         GroupTemplate gt = null;
@@ -402,8 +410,8 @@ public class DevUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gt = new GroupTemplate(cpLoader, cfg);
-
+        //gt = new GroupTemplate(cpLoader, cfg);
+        gt = new GroupTemplate(fileResourceLoader, cfg);
         Template t = gt.getTemplate("dev/ServiceTemplate.java");
         //根据表名转换为类名
         String entityClassName = StringUtil.getEntityNameByTableName(tableName);
@@ -470,6 +478,7 @@ public class DevUtil {
         List<Map<String,String>> list = DevUtil.getEntityVar(dbDriver,url,schecma,  username,  password, tableName,
                 packageName) ;
         ClasspathResourceLoader cpLoader = new ClasspathResourceLoader( "templates","utf-8");
+        FileResourceLoader fileResourceLoader = new FileResourceLoader(BASE_PATH,"utf-8");
         cpLoader.setCharset("UTF-8");
         //ClasspathResourceLoader cpLoader = new ClasspathResourceLoader("templates");
 
@@ -483,8 +492,9 @@ public class DevUtil {
             e.printStackTrace();
         }
         //FileResourceLoader fileResourceLoader = new FileResourceLoader("D:\\project\\openjweb-cloud\\openjweb-dev\\src\\main\\resources\\templates\\","utf-8");
-        gt = new GroupTemplate(cpLoader, cfg);
-        //gt = new GroupTemplate(fileResourceLoader, cfg);
+        //gt = new GroupTemplate(cpLoader, cfg);
+        gt = new GroupTemplate(fileResourceLoader, cfg);
+
         Template t = gt.getTemplate("dev/ControllerTemplate.java");
         //根据表名转换为类名
         String entityClassName = StringUtil.getEntityNameByTableName(tableName);

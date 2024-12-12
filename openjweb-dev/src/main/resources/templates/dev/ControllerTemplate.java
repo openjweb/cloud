@@ -23,7 +23,7 @@ import java.util.List;
 @Api(tags = "${tableDesc}")
 @Slf4j
 @RestController
-@RequestMapping("/api/${classNameLower}")
+@RequestMapping("/demo/api/${classNameLower}")
 public class ${entityClassName}Api {
     @Autowired
     private ${entityClassName}Service ${classNameLower}Service;

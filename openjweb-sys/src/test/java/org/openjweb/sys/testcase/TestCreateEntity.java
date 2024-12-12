@@ -17,6 +17,7 @@ import java.sql.SQLException;
 @SpringBootTest(classes = OpenjwebSysApplication.class)
 
 public class TestCreateEntity {
+    private static String tableName = "sms_supplier";
     @Test
     public void createEntity() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
@@ -24,7 +25,7 @@ public class TestCreateEntity {
         String password = "root";
         String schemaName = "erp";
         //String tableName = "comm_api_key";
-        String tableName = "comm_system_parms";
+        //String tableName = "comm_system_parms";
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
         //DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","d:\\"+clsName+".java");
@@ -39,7 +40,7 @@ public class TestCreateEntity {
         String password = "root";
         String schemaName = "erp";
         //String tableName = "comm_api_key";
-        String tableName = "comm_system_parms";
+        //String tableName = "comm_system_parms";
 
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
@@ -53,7 +54,7 @@ public class TestCreateEntity {
         String username = "root";
         String password = "root";
         String schemaName = "erp";
-        String tableName = "comm_system_parms";
+        //String tableName = "comm_system_parms";
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
         DevUtil.createMapperFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core","D:/project/openjweb-cloud/openjweb-core");
@@ -67,7 +68,7 @@ public class TestCreateEntity {
         String password = "root";
         String schemaName = "erp";
         //String tableName = "comm_api_key";
-        String tableName = "comm_system_parms";
+        //String tableName = "comm_system_parms";
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
         //DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","d:\\"+clsName+".java");
@@ -82,7 +83,7 @@ public class TestCreateEntity {
         String password = "root";
         String schemaName = "erp";
         //String tableName = "comm_api_key";
-        String tableName = "comm_system_parms";
+        //String tableName = "comm_system_parms";
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
         //DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","d:\\"+clsName+".java");
@@ -97,10 +98,28 @@ public class TestCreateEntity {
         String password = "root";
         String schemaName = "erp";
         //String tableName = "comm_api_key";
-        String tableName = "comm_system_parms";
+        //String tableName = "comm_system_parms";
         String clsName = StringUtil.getEntityNameByTableName(tableName);
         //String
         //DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","d:\\"+clsName+".java");
+        DevUtil.createApiFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","D:/project/openjweb-cloud/openjweb-core/src/main/java/org/openjweb/core/api/"+clsName+"Api.java");
+
+    }
+    @Test
+    public void createAllFile() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
+        String username = "root";
+        String password = "root";
+        String schemaName = "erp";
+        //String tableName = "comm_api_key";
+        //String tableName = "comm_system_parms";
+        String clsName = StringUtil.getEntityNameByTableName(tableName);
+
+        DevUtil.createEntityFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","D:/project/openjweb-cloud/openjweb-core/src/main/java/org/openjweb/core/entity/"+clsName+".java");
+        DevUtil.createParamFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core","D:/project/openjweb-cloud/openjweb-core");
+        DevUtil.createMapperFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core","D:/project/openjweb-cloud/openjweb-core");
+        DevUtil.createXmlFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","D:/project/openjweb-cloud/openjweb-core/src/main/java/org/openjweb/core/mapper/mapping/"+clsName+"Mapper.xml");
+        DevUtil.createServiceFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","D:/project/openjweb-cloud/openjweb-core/src/main/java/org/openjweb/core/service/"+clsName+"Service.java");
         DevUtil.createApiFile("com.mysql.jdbc.Driver",url,schemaName,username,password,tableName,"org.openjweb.core.entity","D:/project/openjweb-cloud/openjweb-core/src/main/java/org/openjweb/core/api/"+clsName+"Api.java");
 
     }

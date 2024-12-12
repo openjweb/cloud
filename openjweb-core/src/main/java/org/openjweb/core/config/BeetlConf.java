@@ -29,6 +29,7 @@ public class BeetlConf {
         BeetlGroupUtilConfiguration beetlGroupUtilConfiguration = new BeetlGroupUtilConfiguration();
         //获取Spring Boot 的ClassLoader
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
         if(loader==null){
             loader = BeetlConf.class.getClassLoader();
         }
@@ -47,8 +48,11 @@ public class BeetlConf {
         }
 
         beetlGroupUtilConfiguration.init();
+
+
         //如果使用了优化编译器，涉及到字节码操作，需要添加ClassLoader
         beetlGroupUtilConfiguration.getGroupTemplate().setClassLoader(loader);
+
         //注册国际化函数
         beetlGroupUtilConfiguration.getGroupTemplate().registerFunction("i18n", new I18nFunction(wac));
         return beetlGroupUtilConfiguration;

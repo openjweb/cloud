@@ -1,6 +1,10 @@
 package org.openjweb.core.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.openjweb.common.response.ResponseResult;
 import org.openjweb.core.entity.CommApiKey;
@@ -15,6 +19,7 @@ import java.util.List;
 /**
      * 测试：http://localhost:8001/demo/apikey/query?comId=
  */
+@Api(tags = "密钥管理")
 @Slf4j
 @RestController
 @RequestMapping("/demo/apikey")
@@ -26,6 +31,12 @@ public class CommApiKeyApi {
      * 新增记录
 
      */
+
+    @ApiOperation("保存密钥")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "appId", value = "appID", paramType = "query"),
+            @ApiImplicitParam(name = "appSecret", value = "App密钥", paramType = "query")
+    })
 
     @RequestMapping("/save")
     public ResponseResult save( CommApiKeyParam param){

@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.CommColumnDefMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.CommColumnDef"  >
+        select *  from comm_column_def
+        <where>
+            <if test="param.serialNo !=null ">
+                and serial_no = #{param.serialNo}
+            </if>
+            <if test="param.tableSerialNo !=null ">
+                and table_serial_no = #{param.tableSerialNo}
+            </if>
+            <if test="param.columnName !=null ">
+                and column_name = #{param.columnName}
+            </if>
+            <if test="param.columnNameCn !=null ">
+                and column_name_cn = #{param.columnNameCn}
+            </if>
+            <if test="param.columnDesc !=null ">
+                and column_desc = #{param.columnDesc}
+            </if>
+            <if test="param.clsFieldName !=null ">
+                and cls_field_name = #{param.clsFieldName}
+            </if>
+            <if test="param.columnDatatype !=null ">
+                and column_datatype = #{param.columnDatatype}
+            </if>
+            <if test="param.columnLength !=null ">
+                and column_length = #{param.columnLength}
+            </if>
+            <if test="param.columnDigitLen !=null ">
+                and column_digit_len = #{param.columnDigitLen}
+            </if>
+            <if test="param.isNotNull !=null ">
+                and is_not_null = #{param.isNotNull}
+            </if>
+            <if test="param.columnClsType !=null ">
+                and column_cls_type = #{param.columnClsType}
+            </if>
+            <if test="param.isAutoInc !=null ">
+                and is_auto_inc = #{param.isAutoInc}
+            </if>
+            <if test="param.incStartVal !=null ">
+                and inc_start_val = #{param.incStartVal}
+            </if>
+            <if test="param.incCurrVal !=null ">
+                and inc_curr_val = #{param.incCurrVal}
+            </if>
+            <if test="param.defaultValCretype !=null ">
+                and default_val_cretype = #{param.defaultValCretype}
+            </if>
+            <if test="param.defaultValFunction !=null ">
+                and default_val_function = #{param.defaultValFunction}
+            </if>
+            <if test="param.isQueryCol !=null ">
+                and is_query_col = #{param.isQueryCol}
+            </if>
+            <if test="param.isPrimaryKey !=null ">
+                and is_primary_key = #{param.isPrimaryKey}
+            </if>
+            <if test="param.isSort !=null ">
+                and is_sort = #{param.isSort}
+            </if>
+            <if test="param.isSortAsc !=null ">
+                and is_sort_asc = #{param.isSortAsc}
+            </if>
+            <if test="param.sortColNum !=null ">
+                and sort_col_num = #{param.sortColNum}
+            </if>
+            <if test="param.dataGetType !=null ">
+                and data_get_type = #{param.dataGetType}
+            </if>
+            <if test="param.dateFormatType !=null ">
+                and date_format_type = #{param.dateFormatType}
+            </if>
+            <if test="param.inputType !=null ">
+                and input_type = #{param.inputType}
+            </if>
+            <if test="param.jsPopWindows !=null ">
+                and js_pop_windows = #{param.jsPopWindows}
+            </if>
+            <if test="param.codeNameSql1 !=null ">
+                and code_name_sql1 = #{param.codeNameSql1}
+            </if>
+            <if test="param.codeNameSql2 !=null ">
+                and code_name_sql2 = #{param.codeNameSql2}
+            </if>
+            <if test="param.dictTypeCode !=null ">
+                and dict_type_code = #{param.dictTypeCode}
+            </if>
+            <if test="param.listSortNo !=null ">
+                and list_sort_no = #{param.listSortNo}
+            </if>
+            <if test="param.isListCol !=null ">
+                and is_list_col = #{param.isListCol}
+            </if>
+            <if test="param.isEditCol !=null ">
+                and is_edit_col = #{param.isEditCol}
+            </if>
+            <if test="param.editSortNo !=null ">
+                and edit_sort_no = #{param.editSortNo}
+            </if>
+            <if test="param.isUnique !=null ">
+                and is_unique = #{param.isUnique}
+            </if>
+            <if test="param.validateFunc !=null ">
+                and validate_func = #{param.validateFunc}
+            </if>
+            <if test="param.isNulLocale !=null ">
+                and is_nul_locale = #{param.isNulLocale}
+            </if>
+            <if test="param.defaultValue !=null ">
+                and default_value = #{param.defaultValue}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.popWin !=null ">
+                and pop_win = #{param.popWin}
+            </if>
+            <if test="param.labelKo !=null ">
+                and label_ko = #{param.labelKo}
+            </if>
+            <if test="param.labelJp !=null ">
+                and label_jp = #{param.labelJp}
+            </if>
+            <if test="param.labelEn !=null ">
+                and label_en = #{param.labelEn}
+            </if>
+            <if test="param.isExportExcel !=null ">
+                and is_export_excel = #{param.isExportExcel}
+            </if>
+            <if test="param.nameSql !=null ">
+                and name_sql = #{param.nameSql}
+            </if>
+            <if test="param.codeSql !=null ">
+                and code_sql = #{param.codeSql}
+            </if>
+            <if test="param.isExcelKeyCol !=null ">
+                and is_excel_key_col = #{param.isExcelKeyCol}
+            </if>
+            <if test="param.isAuthControl !=null ">
+                and is_auth_control = #{param.isAuthControl}
+            </if>
+            <if test="param.isCodeCol !=null ">
+                and is_code_col = #{param.isCodeCol}
+            </if>
+            <if test="param.isNameCol !=null ">
+                and is_name_col = #{param.isNameCol}
+            </if>
+            <if test="param.isTreeSelCol !=null ">
+                and is_tree_sel_col = #{param.isTreeSelCol}
+            </if>
+            <if test="param.isOverDate !=null ">
+                and is_over_date = #{param.isOverDate}
+            </if>
+            <if test="param.patternValue !=null ">
+                and pattern_value = #{param.patternValue}
+            </if>
+            <if test="param.isCustCond !=null ">
+                and is_cust_cond = #{param.isCustCond}
+            </if>
+            <if test="param.isSearch !=null ">
+                and is_search = #{param.isSearch}
+            </if>
+            <if test="param.isLuceneIndex !=null ">
+                and is_lucene_index = #{param.isLuceneIndex}
+            </if>
+            <if test="param.isLuceneAnalyzed !=null ">
+                and is_lucene_analyzed = #{param.isLuceneAnalyzed}
+            </if>
+            <if test="param.searchFieldType !=null ">
+                and search_field_type = #{param.searchFieldType}
+            </if>
+            <if test="param.listPageWidth !=null ">
+                and list_page_width = #{param.listPageWidth}
+            </if>
+            <if test="param.editColPerrow !=null ">
+                and edit_col_perrow = #{param.editColPerrow}
+            </if>
+            <if test="param.editPageWidth !=null ">
+                and edit_page_width = #{param.editPageWidth}
+            </if>
+            <if test="param.isReadonly !=null ">
+                and is_readonly = #{param.isReadonly}
+            </if>
+            <if test="param.editColJavascript !=null ">
+                and edit_col_javascript = #{param.editColJavascript}
+            </if>
+            <if test="param.queryType !=null ">
+                and query_type = #{param.queryType}
+            </if>
+            <if test="param.columnGroup !=null ">
+                and column_group = #{param.columnGroup}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.CommColumnDef"  >
+        select *  from comm_column_def
+        <if test="param.serialNo !=null ">
+            and serial_no = #{param.serialNo}
+        </if>
+        <if test="param.tableSerialNo !=null ">
+            and table_serial_no = #{param.tableSerialNo}
+        </if>
+        <if test="param.columnName !=null ">
+            and column_name = #{param.columnName}
+        </if>
+        <if test="param.columnNameCn !=null ">
+            and column_name_cn = #{param.columnNameCn}
+        </if>
+        <if test="param.columnDesc !=null ">
+            and column_desc = #{param.columnDesc}
+        </if>
+        <if test="param.clsFieldName !=null ">
+            and cls_field_name = #{param.clsFieldName}
+        </if>
+        <if test="param.columnDatatype !=null ">
+            and column_datatype = #{param.columnDatatype}
+        </if>
+        <if test="param.columnLength !=null ">
+            and column_length = #{param.columnLength}
+        </if>
+        <if test="param.columnDigitLen !=null ">
+            and column_digit_len = #{param.columnDigitLen}
+        </if>
+        <if test="param.isNotNull !=null ">
+            and is_not_null = #{param.isNotNull}
+        </if>
+        <if test="param.columnClsType !=null ">
+            and column_cls_type = #{param.columnClsType}
+        </if>
+        <if test="param.isAutoInc !=null ">
+            and is_auto_inc = #{param.isAutoInc}
+        </if>
+        <if test="param.incStartVal !=null ">
+            and inc_start_val = #{param.incStartVal}
+        </if>
+        <if test="param.incCurrVal !=null ">
+            and inc_curr_val = #{param.incCurrVal}
+        </if>
+        <if test="param.defaultValCretype !=null ">
+            and default_val_cretype = #{param.defaultValCretype}
+        </if>
+        <if test="param.defaultValFunction !=null ">
+            and default_val_function = #{param.defaultValFunction}
+        </if>
+        <if test="param.isQueryCol !=null ">
+            and is_query_col = #{param.isQueryCol}
+        </if>
+        <if test="param.isPrimaryKey !=null ">
+            and is_primary_key = #{param.isPrimaryKey}
+        </if>
+        <if test="param.isSort !=null ">
+            and is_sort = #{param.isSort}
+        </if>
+        <if test="param.isSortAsc !=null ">
+            and is_sort_asc = #{param.isSortAsc}
+        </if>
+        <if test="param.sortColNum !=null ">
+            and sort_col_num = #{param.sortColNum}
+        </if>
+        <if test="param.dataGetType !=null ">
+            and data_get_type = #{param.dataGetType}
+        </if>
+        <if test="param.dateFormatType !=null ">
+            and date_format_type = #{param.dateFormatType}
+        </if>
+        <if test="param.inputType !=null ">
+            and input_type = #{param.inputType}
+        </if>
+        <if test="param.jsPopWindows !=null ">
+            and js_pop_windows = #{param.jsPopWindows}
+        </if>
+        <if test="param.codeNameSql1 !=null ">
+            and code_name_sql1 = #{param.codeNameSql1}
+        </if>
+        <if test="param.codeNameSql2 !=null ">
+            and code_name_sql2 = #{param.codeNameSql2}
+        </if>
+        <if test="param.dictTypeCode !=null ">
+            and dict_type_code = #{param.dictTypeCode}
+        </if>
+        <if test="param.listSortNo !=null ">
+            and list_sort_no = #{param.listSortNo}
+        </if>
+        <if test="param.isListCol !=null ">
+            and is_list_col = #{param.isListCol}
+        </if>
+        <if test="param.isEditCol !=null ">
+            and is_edit_col = #{param.isEditCol}
+        </if>
+        <if test="param.editSortNo !=null ">
+            and edit_sort_no = #{param.editSortNo}
+        </if>
+        <if test="param.isUnique !=null ">
+            and is_unique = #{param.isUnique}
+        </if>
+        <if test="param.validateFunc !=null ">
+            and validate_func = #{param.validateFunc}
+        </if>
+        <if test="param.isNulLocale !=null ">
+            and is_nul_locale = #{param.isNulLocale}
+        </if>
+        <if test="param.defaultValue !=null ">
+            and default_value = #{param.defaultValue}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.popWin !=null ">
+            and pop_win = #{param.popWin}
+        </if>
+        <if test="param.labelKo !=null ">
+            and label_ko = #{param.labelKo}
+        </if>
+        <if test="param.labelJp !=null ">
+            and label_jp = #{param.labelJp}
+        </if>
+        <if test="param.labelEn !=null ">
+            and label_en = #{param.labelEn}
+        </if>
+        <if test="param.isExportExcel !=null ">
+            and is_export_excel = #{param.isExportExcel}
+        </if>
+        <if test="param.nameSql !=null ">
+            and name_sql = #{param.nameSql}
+        </if>
+        <if test="param.codeSql !=null ">
+            and code_sql = #{param.codeSql}
+        </if>
+        <if test="param.isExcelKeyCol !=null ">
+            and is_excel_key_col = #{param.isExcelKeyCol}
+        </if>
+        <if test="param.isAuthControl !=null ">
+            and is_auth_control = #{param.isAuthControl}
+        </if>
+        <if test="param.isCodeCol !=null ">
+            and is_code_col = #{param.isCodeCol}
+        </if>
+        <if test="param.isNameCol !=null ">
+            and is_name_col = #{param.isNameCol}
+        </if>
+        <if test="param.isTreeSelCol !=null ">
+            and is_tree_sel_col = #{param.isTreeSelCol}
+        </if>
+        <if test="param.isOverDate !=null ">
+            and is_over_date = #{param.isOverDate}
+        </if>
+        <if test="param.patternValue !=null ">
+            and pattern_value = #{param.patternValue}
+        </if>
+        <if test="param.isCustCond !=null ">
+            and is_cust_cond = #{param.isCustCond}
+        </if>
+        <if test="param.isSearch !=null ">
+            and is_search = #{param.isSearch}
+        </if>
+        <if test="param.isLuceneIndex !=null ">
+            and is_lucene_index = #{param.isLuceneIndex}
+        </if>
+        <if test="param.isLuceneAnalyzed !=null ">
+            and is_lucene_analyzed = #{param.isLuceneAnalyzed}
+        </if>
+        <if test="param.searchFieldType !=null ">
+            and search_field_type = #{param.searchFieldType}
+        </if>
+        <if test="param.listPageWidth !=null ">
+            and list_page_width = #{param.listPageWidth}
+        </if>
+        <if test="param.editColPerrow !=null ">
+            and edit_col_perrow = #{param.editColPerrow}
+        </if>
+        <if test="param.editPageWidth !=null ">
+            and edit_page_width = #{param.editPageWidth}
+        </if>
+        <if test="param.isReadonly !=null ">
+            and is_readonly = #{param.isReadonly}
+        </if>
+        <if test="param.editColJavascript !=null ">
+            and edit_col_javascript = #{param.editColJavascript}
+        </if>
+        <if test="param.queryType !=null ">
+            and query_type = #{param.queryType}
+        </if>
+        <if test="param.columnGroup !=null ">
+            and column_group = #{param.columnGroup}
+        </if>
+    </select>
+
+</mapper>

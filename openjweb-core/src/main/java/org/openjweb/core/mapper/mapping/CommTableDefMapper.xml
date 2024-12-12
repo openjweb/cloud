@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.CommTableDefMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.CommTableDef"  >
+        select *  from comm_table_def
+        <where>
+            <if test="param.serialNo !=null ">
+                and serial_no = #{param.serialNo}
+            </if>
+            <if test="param.tableName !=null ">
+                and table_name = #{param.tableName}
+            </if>
+            <if test="param.tableNameCn !=null ">
+                and table_name_cn = #{param.tableNameCn}
+            </if>
+            <if test="param.clsName !=null ">
+                and cls_name = #{param.clsName}
+            </if>
+            <if test="param.sysCode !=null ">
+                and sys_code = #{param.sysCode}
+            </if>
+            <if test="param.tableDesc !=null ">
+                and table_desc = #{param.tableDesc}
+            </if>
+            <if test="param.tableSerial !=null ">
+                and table_serial = #{param.tableSerial}
+            </if>
+            <if test="param.tableDocNum !=null ">
+                and table_doc_num = #{param.tableDocNum}
+            </if>
+            <if test="param.isCreated !=null ">
+                and is_created = #{param.isCreated}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.isMasterTable !=null ">
+                and is_master_table = #{param.isMasterTable}
+            </if>
+            <if test="param.ifCreateService !=null ">
+                and if_create_service = #{param.ifCreateService}
+            </if>
+            <if test="param.isExportExcel !=null ">
+                and is_export_excel = #{param.isExportExcel}
+            </if>
+            <if test="param.isTree !=null ">
+                and is_tree = #{param.isTree}
+            </if>
+            <if test="param.recordCount !=null ">
+                and record_count = #{param.recordCount}
+            </if>
+            <if test="param.isFlowMonitor !=null ">
+                and is_flow_monitor = #{param.isFlowMonitor}
+            </if>
+            <if test="param.isSearch !=null ">
+                and is_search = #{param.isSearch}
+            </if>
+            <if test="param.isAuthControl !=null ">
+                and is_auth_control = #{param.isAuthControl}
+            </if>
+            <if test="param.isShowDictName !=null ">
+                and is_show_dict_name = #{param.isShowDictName}
+            </if>
+            <if test="param.colsPerRow !=null ">
+                and cols_per_row = #{param.colsPerRow}
+            </if>
+            <if test="param.isUseValidcode !=null ">
+                and is_use_validcode = #{param.isUseValidcode}
+            </if>
+            <if test="param.isCreateSumrow !=null ">
+                and is_create_sumrow = #{param.isCreateSumrow}
+            </if>
+            <if test="param.formTags !=null ">
+                and form_tags = #{param.formTags}
+            </if>
+            <if test="param.dbServiceName !=null ">
+                and db_service_name = #{param.dbServiceName}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.CommTableDef"  >
+        select *  from comm_table_def
+        <if test="param.serialNo !=null ">
+            and serial_no = #{param.serialNo}
+        </if>
+        <if test="param.tableName !=null ">
+            and table_name = #{param.tableName}
+        </if>
+        <if test="param.tableNameCn !=null ">
+            and table_name_cn = #{param.tableNameCn}
+        </if>
+        <if test="param.clsName !=null ">
+            and cls_name = #{param.clsName}
+        </if>
+        <if test="param.sysCode !=null ">
+            and sys_code = #{param.sysCode}
+        </if>
+        <if test="param.tableDesc !=null ">
+            and table_desc = #{param.tableDesc}
+        </if>
+        <if test="param.tableSerial !=null ">
+            and table_serial = #{param.tableSerial}
+        </if>
+        <if test="param.tableDocNum !=null ">
+            and table_doc_num = #{param.tableDocNum}
+        </if>
+        <if test="param.isCreated !=null ">
+            and is_created = #{param.isCreated}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.isMasterTable !=null ">
+            and is_master_table = #{param.isMasterTable}
+        </if>
+        <if test="param.ifCreateService !=null ">
+            and if_create_service = #{param.ifCreateService}
+        </if>
+        <if test="param.isExportExcel !=null ">
+            and is_export_excel = #{param.isExportExcel}
+        </if>
+        <if test="param.isTree !=null ">
+            and is_tree = #{param.isTree}
+        </if>
+        <if test="param.recordCount !=null ">
+            and record_count = #{param.recordCount}
+        </if>
+        <if test="param.isFlowMonitor !=null ">
+            and is_flow_monitor = #{param.isFlowMonitor}
+        </if>
+        <if test="param.isSearch !=null ">
+            and is_search = #{param.isSearch}
+        </if>
+        <if test="param.isAuthControl !=null ">
+            and is_auth_control = #{param.isAuthControl}
+        </if>
+        <if test="param.isShowDictName !=null ">
+            and is_show_dict_name = #{param.isShowDictName}
+        </if>
+        <if test="param.colsPerRow !=null ">
+            and cols_per_row = #{param.colsPerRow}
+        </if>
+        <if test="param.isUseValidcode !=null ">
+            and is_use_validcode = #{param.isUseValidcode}
+        </if>
+        <if test="param.isCreateSumrow !=null ">
+            and is_create_sumrow = #{param.isCreateSumrow}
+        </if>
+        <if test="param.formTags !=null ">
+            and form_tags = #{param.formTags}
+        </if>
+        <if test="param.dbServiceName !=null ">
+            and db_service_name = #{param.dbServiceName}
+        </if>
+    </select>
+
+</mapper>

@@ -17,7 +17,9 @@ import java.sql.SQLException;
 @SpringBootTest(classes = OpenjwebSysApplication.class)
 
 public class TestCreateEntity {
-    private static String tableName = "sms_supplier";
+    //private static String tableName = "sms_supplier";
+    private static String tableName = "comm_column_def";
+
     @Test
     public void createEntity() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";

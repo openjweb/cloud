@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.SmsSupplierMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.SmsSupplier"  >
+        select *  from sms_supplier
+        <where>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.objName !=null ">
+                and obj_name = #{param.objName}
+            </if>
+            <if test="param.masterRowId !=null ">
+                and master_row_id = #{param.masterRowId}
+            </if>
+            <if test="param.flowTransId !=null ">
+                and flow_trans_id = #{param.flowTransId}
+            </if>
+            <if test="param.flowStatus !=null ">
+                and flow_status = #{param.flowStatus}
+            </if>
+            <if test="param.recordVersion !=null ">
+                and record_version = #{param.recordVersion}
+            </if>
+            <if test="param.isDefault !=null ">
+                and is_default = #{param.isDefault}
+            </if>
+            <if test="param.supName !=null ">
+                and sup_name = #{param.supName}
+            </if>
+            <if test="param.recvMsgUrl !=null ">
+                and recv_msg_url = #{param.recvMsgUrl}
+            </if>
+            <if test="param.queryBalanceUrl !=null ">
+                and query_balance_url = #{param.queryBalanceUrl}
+            </if>
+            <if test="param.chgPassUrl !=null ">
+                and chg_pass_url = #{param.chgPassUrl}
+            </if>
+            <if test="param.sendMessUrl !=null ">
+                and send_mess_url = #{param.sendMessUrl}
+            </if>
+            <if test="param.abbrName !=null ">
+                and abbr_name = #{param.abbrName}
+            </if>
+            <if test="param.interfaceAddr !=null ">
+                and interface_addr = #{param.interfaceAddr}
+            </if>
+            <if test="param.supCode !=null ">
+                and sup_code = #{param.supCode}
+            </if>
+            <if test="param.provinceId !=null ">
+                and province_id = #{param.provinceId}
+            </if>
+            <if test="param.homePage !=null ">
+                and home_page = #{param.homePage}
+            </if>
+            <if test="param.registChildUrl !=null ">
+                and regist_child_url = #{param.registChildUrl}
+            </if>
+            <if test="param.encodingType !=null ">
+                and encoding_type = #{param.encodingType}
+            </if>
+            <if test="param.filterWordsUrl !=null ">
+                and filter_words_url = #{param.filterWordsUrl}
+            </if>
+            <if test="param.recvSmsUrl !=null ">
+                and recv_sms_url = #{param.recvSmsUrl}
+            </if>
+            <if test="param.errorUrl !=null ">
+                and error_url = #{param.errorUrl}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.SmsSupplier"  >
+        select *  from sms_supplier
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.objName !=null ">
+            and obj_name = #{param.objName}
+        </if>
+        <if test="param.masterRowId !=null ">
+            and master_row_id = #{param.masterRowId}
+        </if>
+        <if test="param.flowTransId !=null ">
+            and flow_trans_id = #{param.flowTransId}
+        </if>
+        <if test="param.flowStatus !=null ">
+            and flow_status = #{param.flowStatus}
+        </if>
+        <if test="param.recordVersion !=null ">
+            and record_version = #{param.recordVersion}
+        </if>
+        <if test="param.isDefault !=null ">
+            and is_default = #{param.isDefault}
+        </if>
+        <if test="param.supName !=null ">
+            and sup_name = #{param.supName}
+        </if>
+        <if test="param.recvMsgUrl !=null ">
+            and recv_msg_url = #{param.recvMsgUrl}
+        </if>
+        <if test="param.queryBalanceUrl !=null ">
+            and query_balance_url = #{param.queryBalanceUrl}
+        </if>
+        <if test="param.chgPassUrl !=null ">
+            and chg_pass_url = #{param.chgPassUrl}
+        </if>
+        <if test="param.sendMessUrl !=null ">
+            and send_mess_url = #{param.sendMessUrl}
+        </if>
+        <if test="param.abbrName !=null ">
+            and abbr_name = #{param.abbrName}
+        </if>
+        <if test="param.interfaceAddr !=null ">
+            and interface_addr = #{param.interfaceAddr}
+        </if>
+        <if test="param.supCode !=null ">
+            and sup_code = #{param.supCode}
+        </if>
+        <if test="param.provinceId !=null ">
+            and province_id = #{param.provinceId}
+        </if>
+        <if test="param.homePage !=null ">
+            and home_page = #{param.homePage}
+        </if>
+        <if test="param.registChildUrl !=null ">
+            and regist_child_url = #{param.registChildUrl}
+        </if>
+        <if test="param.encodingType !=null ">
+            and encoding_type = #{param.encodingType}
+        </if>
+        <if test="param.filterWordsUrl !=null ">
+            and filter_words_url = #{param.filterWordsUrl}
+        </if>
+        <if test="param.recvSmsUrl !=null ">
+            and recv_sms_url = #{param.recvSmsUrl}
+        </if>
+        <if test="param.errorUrl !=null ">
+            and error_url = #{param.errorUrl}
+        </if>
+    </select>
+
+</mapper>

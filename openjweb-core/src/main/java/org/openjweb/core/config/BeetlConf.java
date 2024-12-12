@@ -33,7 +33,7 @@ public class BeetlConf {
         if(loader==null){
             loader = BeetlConf.class.getClassLoader();
         }
-        log.info("当前指定的Beetl模板文件路径："+String.valueOf(fileTemplatesPath));
+        //log.info("当前指定的Beetl模板文件路径："+String.valueOf(fileTemplatesPath));
         //beetlGroupUtilConfiguration.setConfigProperties(extProperties);//额外的配置，可以覆盖默认配置，一般不需要
 
         if(StringUtils.isNotEmpty(fileTemplatesPath)){

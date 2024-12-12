@@ -1,5 +1,6 @@
 package ${basePackage}.module.params;
 
+import lombok.Data;
 import ${fullEntityClassName};
 
 @Data

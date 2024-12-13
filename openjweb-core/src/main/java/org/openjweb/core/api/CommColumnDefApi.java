@@ -239,6 +239,7 @@ public class CommColumnDefApi {
     public ResponseResult queryList(CommColumnDefParam param ){
 
 
+        //http://localhost:8001/demo/api/commColumnDef/query?tableSerialNo=13973
         List<CommColumnDef> list = null;
         try{
             list = this.commColumnDefService.queryList(param);

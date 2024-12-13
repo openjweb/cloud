@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.cms.mapper.CmsInfoMapper">
+    <select id="queryList" resultType="org.openjweb.cms.entity.CmsInfo"  >
+        select *  from cms_info
+        <where>
+            <if test="param.actType !=null ">
+                and act_type = #{param.actType}
+            </if>
+            <if test="param.bannerPic !=null ">
+                and banner_pic = #{param.bannerPic}
+            </if>
+            <if test="param.cateTreeCode !=null ">
+                and cate_tree_code = #{param.cateTreeCode}
+            </if>
+            <if test="param.comId !=null ">
+                and com_id = #{param.comId}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.dateNum !=null ">
+                and date_num = #{param.dateNum}
+            </if>
+            <if test="param.deptName !=null ">
+                and dept_name = #{param.deptName}
+            </if>
+            <if test="param.deptRowId !=null ">
+                and dept_row_id = #{param.deptRowId}
+            </if>
+            <if test="param.flowStatus !=null ">
+                and flow_status = #{param.flowStatus}
+            </if>
+            <if test="param.hasSmallImage !=null ">
+                and has_small_image = #{param.hasSmallImage}
+            </if>
+            <if test="param.industName !=null ">
+                and indust_name = #{param.industName}
+            </if>
+            <if test="param.infoJspPage !=null ">
+                and info_jsp_page = #{param.infoJspPage}
+            </if>
+            <if test="param.infAuthor !=null ">
+                and inf_author = #{param.infAuthor}
+            </if>
+            <if test="param.infClickCount !=null ">
+                and inf_click_count = #{param.infClickCount}
+            </if>
+            <if test="param.infContent !=null ">
+                and inf_content = #{param.infContent}
+            </if>
+            <if test="param.infKeyword !=null ">
+                and inf_keyword = #{param.infKeyword}
+            </if>
+            <if test="param.infPicCount !=null ">
+                and inf_pic_count = #{param.infPicCount}
+            </if>
+            <if test="param.infSource !=null ">
+                and inf_source = #{param.infSource}
+            </if>
+            <if test="param.infTitle !=null ">
+                and inf_title = #{param.infTitle}
+            </if>
+            <if test="param.infTitle2 !=null ">
+                and inf_title2 = #{param.infTitle2}
+            </if>
+            <if test="param.infType !=null ">
+                and inf_type = #{param.infType}
+            </if>
+            <if test="param.infUrl !=null ">
+                and inf_url = #{param.infUrl}
+            </if>
+            <if test="param.isAddScan !=null ">
+                and is_add_scan = #{param.isAddScan}
+            </if>
+            <if test="param.isAllowFeedback !=null ">
+                and is_allow_feedback = #{param.isAllowFeedback}
+            </if>
+            <if test="param.isCateFirst !=null ">
+                and is_cate_first = #{param.isCateFirst}
+            </if>
+            <if test="param.isCreateHtml !=null ">
+                and is_create_html = #{param.isCreateHtml}
+            </if>
+            <if test="param.isEndVideo !=null ">
+                and is_end_video = #{param.isEndVideo}
+            </if>
+            <if test="param.isHot !=null ">
+                and is_hot = #{param.isHot}
+            </if>
+            <if test="param.isJp !=null ">
+                and is_jp = #{param.isJp}
+            </if>
+            <if test="param.isPic !=null ">
+                and is_pic = #{param.isPic}
+            </if>
+            <if test="param.isRecommend !=null ">
+                and is_recommend = #{param.isRecommend}
+            </if>
+            <if test="param.isTop !=null ">
+                and is_top = #{param.isTop}
+            </if>
+            <if test="param.isTrain !=null ">
+                and is_train = #{param.isTrain}
+            </if>
+            <if test="param.isUrl !=null ">
+                and is_url = #{param.isUrl}
+            </if>
+            <if test="param.isVideo !=null ">
+                and is_video = #{param.isVideo}
+            </if>
+            <if test="param.largeImagePath !=null ">
+                and large_image_path = #{param.largeImagePath}
+            </if>
+            <if test="param.lastSyncDt !=null ">
+                and last_sync_dt = #{param.lastSyncDt}
+            </if>
+            <if test="param.m3u8Url !=null ">
+                and m3u8_url = #{param.m3u8Url}
+            </if>
+            <if test="param.masterRowId !=null ">
+                and master_row_id = #{param.masterRowId}
+            </if>
+            <if test="param.mediaExt !=null ">
+                and media_ext = #{param.mediaExt}
+            </if>
+            <if test="param.mediaId !=null ">
+                and media_id = #{param.mediaId}
+            </if>
+            <if test="param.mediaProvider !=null ">
+                and media_provider = #{param.mediaProvider}
+            </if>
+            <if test="param.mediaThumb !=null ">
+                and media_thumb = #{param.mediaThumb}
+            </if>
+            <if test="param.middleImagePath !=null ">
+                and middle_image_path = #{param.middleImagePath}
+            </if>
+            <if test="param.mobileSortNo !=null ">
+                and mobile_sort_no = #{param.mobileSortNo}
+            </if>
+            <if test="param.monthNum !=null ">
+                and month_num = #{param.monthNum}
+            </if>
+            <if test="param.njContType !=null ">
+                and nj_cont_type = #{param.njContType}
+            </if>
+            <if test="param.njExgType !=null ">
+                and nj_exg_type = #{param.njExgType}
+            </if>
+            <if test="param.njInfSource !=null ">
+                and nj_inf_source = #{param.njInfSource}
+            </if>
+            <if test="param.njSubContType !=null ">
+                and nj_sub_cont_type = #{param.njSubContType}
+            </if>
+            <if test="param.njSubExgType !=null ">
+                and nj_sub_exg_type = #{param.njSubExgType}
+            </if>
+            <if test="param.njYear !=null ">
+                and nj_year = #{param.njYear}
+            </if>
+            <if test="param.objName !=null ">
+                and obj_name = #{param.objName}
+            </if>
+            <if test="param.otherProvince !=null ">
+                and other_province = #{param.otherProvince}
+            </if>
+            <if test="param.pkId !=null ">
+                and pk_id = #{param.pkId}
+            </if>
+            <if test="param.priorityValue !=null ">
+                and priority_value = #{param.priorityValue}
+            </if>
+            <if test="param.provinceId !=null ">
+                and province_id = #{param.provinceId}
+            </if>
+            <if test="param.publishDt !=null ">
+                and publish_dt = #{param.publishDt}
+            </if>
+            <if test="param.pubId !=null ">
+                and pub_id = #{param.pubId}
+            </if>
+            <if test="param.pubUrl !=null ">
+                and pub_url = #{param.pubUrl}
+            </if>
+            <if test="param.relateRowId !=null ">
+                and relate_row_id = #{param.relateRowId}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.slideImagePath !=null ">
+                and slide_image_path = #{param.slideImagePath}
+            </if>
+            <if test="param.smallImagePath !=null ">
+                and small_image_path = #{param.smallImagePath}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.sourceUrl !=null ">
+                and source_url = #{param.sourceUrl}
+            </if>
+            <if test="param.subTitle !=null ">
+                and sub_title = #{param.subTitle}
+            </if>
+            <if test="param.subZtUrl !=null ">
+                and sub_zt_url = #{param.subZtUrl}
+            </if>
+            <if test="param.teacherDesc !=null ">
+                and teacher_desc = #{param.teacherDesc}
+            </if>
+            <if test="param.teacherName !=null ">
+                and teacher_name = #{param.teacherName}
+            </if>
+            <if test="param.teacherPhoto !=null ">
+                and teacher_photo = #{param.teacherPhoto}
+            </if>
+            <if test="param.trainVideoType !=null ">
+                and train_video_type = #{param.trainVideoType}
+            </if>
+            <if test="param.unitPrice !=null ">
+                and unit_price = #{param.unitPrice}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.videoCount !=null ">
+                and video_count = #{param.videoCount}
+            </if>
+            <if test="param.videoSourcePath !=null ">
+                and video_source_path = #{param.videoSourcePath}
+            </if>
+            <if test="param.videoUrl !=null ">
+                and video_url = #{param.videoUrl}
+            </if>
+            <if test="param.wordCount !=null ">
+                and word_count = #{param.wordCount}
+            </if>
+            <if test="param.zhuantiTree !=null ">
+                and zhuanti_tree = #{param.zhuantiTree}
+            </if>
+            <if test="param.ztPicTreeCode !=null ">
+                and zt_pic_tree_code = #{param.ztPicTreeCode}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.cms.entity.CmsInfo"  >
+        select *  from cms_info
+        <if test="param.actType !=null ">
+            and act_type = #{param.actType}
+        </if>
+        <if test="param.bannerPic !=null ">
+            and banner_pic = #{param.bannerPic}
+        </if>
+        <if test="param.cateTreeCode !=null ">
+            and cate_tree_code = #{param.cateTreeCode}
+        </if>
+        <if test="param.comId !=null ">
+            and com_id = #{param.comId}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.dateNum !=null ">
+            and date_num = #{param.dateNum}
+        </if>
+        <if test="param.deptName !=null ">
+            and dept_name = #{param.deptName}
+        </if>
+        <if test="param.deptRowId !=null ">
+            and dept_row_id = #{param.deptRowId}
+        </if>
+        <if test="param.flowStatus !=null ">
+            and flow_status = #{param.flowStatus}
+        </if>
+        <if test="param.hasSmallImage !=null ">
+            and has_small_image = #{param.hasSmallImage}
+        </if>
+        <if test="param.industName !=null ">
+            and indust_name = #{param.industName}
+        </if>
+        <if test="param.infoJspPage !=null ">
+            and info_jsp_page = #{param.infoJspPage}
+        </if>
+        <if test="param.infAuthor !=null ">
+            and inf_author = #{param.infAuthor}
+        </if>
+        <if test="param.infClickCount !=null ">
+            and inf_click_count = #{param.infClickCount}
+        </if>
+        <if test="param.infContent !=null ">
+            and inf_content = #{param.infContent}
+        </if>
+        <if test="param.infKeyword !=null ">
+            and inf_keyword = #{param.infKeyword}
+        </if>
+        <if test="param.infPicCount !=null ">
+            and inf_pic_count = #{param.infPicCount}
+        </if>
+        <if test="param.infSource !=null ">
+            and inf_source = #{param.infSource}
+        </if>
+        <if test="param.infTitle !=null ">
+            and inf_title = #{param.infTitle}
+        </if>
+        <if test="param.infTitle2 !=null ">
+            and inf_title2 = #{param.infTitle2}
+        </if>
+        <if test="param.infType !=null ">
+            and inf_type = #{param.infType}
+        </if>
+        <if test="param.infUrl !=null ">
+            and inf_url = #{param.infUrl}
+        </if>
+        <if test="param.isAddScan !=null ">
+            and is_add_scan = #{param.isAddScan}
+        </if>
+        <if test="param.isAllowFeedback !=null ">
+            and is_allow_feedback = #{param.isAllowFeedback}
+        </if>
+        <if test="param.isCateFirst !=null ">
+            and is_cate_first = #{param.isCateFirst}
+        </if>
+        <if test="param.isCreateHtml !=null ">
+            and is_create_html = #{param.isCreateHtml}
+        </if>
+        <if test="param.isEndVideo !=null ">
+            and is_end_video = #{param.isEndVideo}
+        </if>
+        <if test="param.isHot !=null ">
+            and is_hot = #{param.isHot}
+        </if>
+        <if test="param.isJp !=null ">
+            and is_jp = #{param.isJp}
+        </if>
+        <if test="param.isPic !=null ">
+            and is_pic = #{param.isPic}
+        </if>
+        <if test="param.isRecommend !=null ">
+            and is_recommend = #{param.isRecommend}
+        </if>
+        <if test="param.isTop !=null ">
+            and is_top = #{param.isTop}
+        </if>
+        <if test="param.isTrain !=null ">
+            and is_train = #{param.isTrain}
+        </if>
+        <if test="param.isUrl !=null ">
+            and is_url = #{param.isUrl}
+        </if>
+        <if test="param.isVideo !=null ">
+            and is_video = #{param.isVideo}
+        </if>
+        <if test="param.largeImagePath !=null ">
+            and large_image_path = #{param.largeImagePath}
+        </if>
+        <if test="param.lastSyncDt !=null ">
+            and last_sync_dt = #{param.lastSyncDt}
+        </if>
+        <if test="param.m3u8Url !=null ">
+            and m3u8_url = #{param.m3u8Url}
+        </if>
+        <if test="param.masterRowId !=null ">
+            and master_row_id = #{param.masterRowId}
+        </if>
+        <if test="param.mediaExt !=null ">
+            and media_ext = #{param.mediaExt}
+        </if>
+        <if test="param.mediaId !=null ">
+            and media_id = #{param.mediaId}
+        </if>
+        <if test="param.mediaProvider !=null ">
+            and media_provider = #{param.mediaProvider}
+        </if>
+        <if test="param.mediaThumb !=null ">
+            and media_thumb = #{param.mediaThumb}
+        </if>
+        <if test="param.middleImagePath !=null ">
+            and middle_image_path = #{param.middleImagePath}
+        </if>
+        <if test="param.mobileSortNo !=null ">
+            and mobile_sort_no = #{param.mobileSortNo}
+        </if>
+        <if test="param.monthNum !=null ">
+            and month_num = #{param.monthNum}
+        </if>
+        <if test="param.njContType !=null ">
+            and nj_cont_type = #{param.njContType}
+        </if>
+        <if test="param.njExgType !=null ">
+            and nj_exg_type = #{param.njExgType}
+        </if>
+        <if test="param.njInfSource !=null ">
+            and nj_inf_source = #{param.njInfSource}
+        </if>
+        <if test="param.njSubContType !=null ">
+            and nj_sub_cont_type = #{param.njSubContType}
+        </if>
+        <if test="param.njSubExgType !=null ">
+            and nj_sub_exg_type = #{param.njSubExgType}
+        </if>
+        <if test="param.njYear !=null ">
+            and nj_year = #{param.njYear}
+        </if>
+        <if test="param.objName !=null ">
+            and obj_name = #{param.objName}
+        </if>
+        <if test="param.otherProvince !=null ">
+            and other_province = #{param.otherProvince}
+        </if>
+        <if test="param.pkId !=null ">
+            and pk_id = #{param.pkId}
+        </if>
+        <if test="param.priorityValue !=null ">
+            and priority_value = #{param.priorityValue}
+        </if>
+        <if test="param.provinceId !=null ">
+            and province_id = #{param.provinceId}
+        </if>
+        <if test="param.publishDt !=null ">
+            and publish_dt = #{param.publishDt}
+        </if>
+        <if test="param.pubId !=null ">
+            and pub_id = #{param.pubId}
+        </if>
+        <if test="param.pubUrl !=null ">
+            and pub_url = #{param.pubUrl}
+        </if>
+        <if test="param.relateRowId !=null ">
+            and relate_row_id = #{param.relateRowId}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.slideImagePath !=null ">
+            and slide_image_path = #{param.slideImagePath}
+        </if>
+        <if test="param.smallImagePath !=null ">
+            and small_image_path = #{param.smallImagePath}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.sourceUrl !=null ">
+            and source_url = #{param.sourceUrl}
+        </if>
+        <if test="param.subTitle !=null ">
+            and sub_title = #{param.subTitle}
+        </if>
+        <if test="param.subZtUrl !=null ">
+            and sub_zt_url = #{param.subZtUrl}
+        </if>
+        <if test="param.teacherDesc !=null ">
+            and teacher_desc = #{param.teacherDesc}
+        </if>
+        <if test="param.teacherName !=null ">
+            and teacher_name = #{param.teacherName}
+        </if>
+        <if test="param.teacherPhoto !=null ">
+            and teacher_photo = #{param.teacherPhoto}
+        </if>
+        <if test="param.trainVideoType !=null ">
+            and train_video_type = #{param.trainVideoType}
+        </if>
+        <if test="param.unitPrice !=null ">
+            and unit_price = #{param.unitPrice}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.videoCount !=null ">
+            and video_count = #{param.videoCount}
+        </if>
+        <if test="param.videoSourcePath !=null ">
+            and video_source_path = #{param.videoSourcePath}
+        </if>
+        <if test="param.videoUrl !=null ">
+            and video_url = #{param.videoUrl}
+        </if>
+        <if test="param.wordCount !=null ">
+            and word_count = #{param.wordCount}
+        </if>
+        <if test="param.zhuantiTree !=null ">
+            and zhuanti_tree = #{param.zhuantiTree}
+        </if>
+        <if test="param.ztPicTreeCode !=null ">
+            and zt_pic_tree_code = #{param.ztPicTreeCode}
+        </if>
+    </select>
+
+</mapper>

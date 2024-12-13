@@ -268,10 +268,10 @@ public class DevUtil {
 
         log.info("表对应的类名:"+entityClassName);
         String tableDesc =  DbUtil.getTableComment(dbDriver,url,schecma,username,password,tableName);
-        log.info("表说明:");
-        log.info(tableDesc);
-        log.info("entityClassName::::");
-        log.info(entityClassName);
+        //log.info("表说明:");
+        //log.info(tableDesc);
+        //log.info("entityClassName::::");
+        //log.info(entityClassName);
         String fullEntityClassName = basePackage+".entity."+entityClassName;
 
         t.binding("basePackage",basePackage);

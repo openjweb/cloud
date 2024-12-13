@@ -156,9 +156,11 @@ public class CommTableDefApi {
      * @param param
      * @return
      */
+    //http://localhost:8001/demo/api/commTableDef/query?table_name=comm_column_def
 
     @RequestMapping("query")
     public ResponseResult queryList(CommTableDefParam param ){
+
 
 
         List<CommTableDef> list = null;
@@ -202,5 +204,12 @@ public class CommTableDefApi {
         return ResponseResult.okResult(page);
 
     }
+
+    public void createJavaFile(String tableName){
+
+
+    }
+
+
 
 }

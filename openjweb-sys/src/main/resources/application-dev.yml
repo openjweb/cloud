@@ -109,6 +109,11 @@ beetl:
   #if use userdefine path
   fileTemplatesPath: D:/tmp/beetl/templates
 
+openjweb:
+  dev:
+    javaTemplatePath: D:/project/openjweb-cloud/openjweb-dev/src/main/resources/templates
+    rootProjectPath: D:/project/openjweb-cloud
+
 
 
 #mybatis:

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.SmsEntAccountMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.SmsEntAccount"  >
+        select *  from sms_ent_account
+        <where>
+            <if test="param.balanceAmt !=null ">
+                and balance_amt = #{param.balanceAmt}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.endName !=null ">
+                and end_name = #{param.endName}
+            </if>
+            <if test="param.entCode !=null ">
+                and ent_code = #{param.entCode}
+            </if>
+            <if test="param.extCode !=null ">
+                and ext_code = #{param.extCode}
+            </if>
+            <if test="param.flowStatus !=null ">
+                and flow_status = #{param.flowStatus}
+            </if>
+            <if test="param.flowTransId !=null ">
+                and flow_trans_id = #{param.flowTransId}
+            </if>
+            <if test="param.isDefault !=null ">
+                and is_default = #{param.isDefault}
+            </if>
+            <if test="param.masterRowId !=null ">
+                and master_row_id = #{param.masterRowId}
+            </if>
+            <if test="param.objName !=null ">
+                and obj_name = #{param.objName}
+            </if>
+            <if test="param.proxyUrl !=null ">
+                and proxy_url = #{param.proxyUrl}
+            </if>
+            <if test="param.recordVersion !=null ">
+                and record_version = #{param.recordVersion}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.signWords !=null ">
+                and sign_words = #{param.signWords}
+            </if>
+            <if test="param.smsSupCode !=null ">
+                and sms_sup_code = #{param.smsSupCode}
+            </if>
+            <if test="param.smsType !=null ">
+                and sms_type = #{param.smsType}
+            </if>
+            <if test="param.smsUserid !=null ">
+                and sms_userid = #{param.smsUserid}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.stCode !=null ">
+                and st_code = #{param.stCode}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.userCnName !=null ">
+                and user_cn_name = #{param.userCnName}
+            </if>
+            <if test="param.userName !=null ">
+                and user_name = #{param.userName}
+            </if>
+            <if test="param.userPassword !=null ">
+                and user_password = #{param.userPassword}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.SmsEntAccount"  >
+        select *  from sms_ent_account
+        <if test="param.balanceAmt !=null ">
+            and balance_amt = #{param.balanceAmt}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.endName !=null ">
+            and end_name = #{param.endName}
+        </if>
+        <if test="param.entCode !=null ">
+            and ent_code = #{param.entCode}
+        </if>
+        <if test="param.extCode !=null ">
+            and ext_code = #{param.extCode}
+        </if>
+        <if test="param.flowStatus !=null ">
+            and flow_status = #{param.flowStatus}
+        </if>
+        <if test="param.flowTransId !=null ">
+            and flow_trans_id = #{param.flowTransId}
+        </if>
+        <if test="param.isDefault !=null ">
+            and is_default = #{param.isDefault}
+        </if>
+        <if test="param.masterRowId !=null ">
+            and master_row_id = #{param.masterRowId}
+        </if>
+        <if test="param.objName !=null ">
+            and obj_name = #{param.objName}
+        </if>
+        <if test="param.proxyUrl !=null ">
+            and proxy_url = #{param.proxyUrl}
+        </if>
+        <if test="param.recordVersion !=null ">
+            and record_version = #{param.recordVersion}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.signWords !=null ">
+            and sign_words = #{param.signWords}
+        </if>
+        <if test="param.smsSupCode !=null ">
+            and sms_sup_code = #{param.smsSupCode}
+        </if>
+        <if test="param.smsType !=null ">
+            and sms_type = #{param.smsType}
+        </if>
+        <if test="param.smsUserid !=null ">
+            and sms_userid = #{param.smsUserid}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.stCode !=null ">
+            and st_code = #{param.stCode}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.userCnName !=null ">
+            and user_cn_name = #{param.userCnName}
+        </if>
+        <if test="param.userName !=null ">
+            and user_name = #{param.userName}
+        </if>
+        <if test="param.userPassword !=null ">
+            and user_password = #{param.userPassword}
+        </if>
+    </select>
+
+</mapper>

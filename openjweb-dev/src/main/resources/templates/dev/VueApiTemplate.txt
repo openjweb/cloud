@@ -1,0 +1,41 @@
+import request from '@/utils/request'
+import { ${classNameLower}Api } from '@/config/api'
+
+//查询列表
+export async function getList(data = {}) {
+    return request({
+        url: ${classNameLower}Api.API_${API_METHOD_UPPER}_LIST,
+        method: 'post',
+        data
+    })
+}
+
+//查询详情
+export async function queryDetail(data = {}) {
+    return request({
+        url: ${classNameLower}Api.API_${API_METHOD_UPPER}_EDIT,
+        method: 'post',
+        data
+    })
+}
+
+//保存
+export async function save(data = {}) {
+    return request({
+        url: ${classNameLower}Api.API_${API_METHOD_UPPER}_SAVE,
+        method: 'post',
+        data
+    })
+}
+
+//删除
+
+export async function  del(rowId) {
+    return request({
+        url:${classNameLower}Api.API_${API_METHOD_UPPER}_DEL,
+        method: 'get',
+        params: {
+            rowId
+        }
+    })
+}

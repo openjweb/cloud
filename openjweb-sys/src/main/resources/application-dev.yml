@@ -113,6 +113,8 @@ openjweb:
   dev:
     javaTemplatePath: D:/project/openjweb-cloud/openjweb-dev/src/main/resources/templates
     rootProjectPath: D:/project/openjweb-cloud
+    isCreateVue: true
+    vuePath: D:/vue-admin20240926
 
 
 

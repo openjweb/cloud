@@ -13,8 +13,11 @@ public class UCenterApi {
     @Autowired
     CommUserService userService;
 
+    //http://localhost:8001/api/comm/user/login
+
     @RequestMapping("login")
     public String login(String loginId){
+        //在这里获取前端传入的登录账号、密码、图片验证码等
 
         return "hi";
     }

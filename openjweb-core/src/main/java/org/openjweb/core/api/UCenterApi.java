@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequestMapping("/api/comm/user")
 @RestController
-public class CommUserApi {
+public class UCenterApi {
     @Autowired
     CommUserService userService;
 

@@ -156,11 +156,6 @@ public class Oauth2DemoApi {
                     loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(), sra.getResponse(), token);
                 }
                 catch(Exception ex){}
-
-
-
-
-
                 return json;
                /* User user = new User();
                 user.setAccount("user_" + System.currentTimeMillis());

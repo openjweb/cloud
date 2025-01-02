@@ -89,7 +89,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**", //webjars js允许的路径
             "/testduoyu",
             "/i18n/**",
-            "/**/*.html" //swagger
+            "/**/*.html", //swagger
+            "/api/comm/user/login",
+            "/api/weixin/login"
+
     };
 
     //作用？？？暴露AuthenticationManager给其他Bean使用
@@ -132,7 +135,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html").permitAll()
+                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html", "/api/comm/user/login","/api/weixin/login").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .csrf().disable();

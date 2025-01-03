@@ -13,6 +13,9 @@
             <if test="param.appId !=null and param.appId!=''">
                 and app_id = #{param.appId}
             </if>
+            <if test="param.apiType !=null and param.apiType!=''">
+                and api_type = #{param.apiType}
+            </if>
 
         </where>
     </select>
@@ -23,6 +26,15 @@
         <where>
             <if test="param.comId !=null and param.comId!=''">
                 and com_id = #{param.comId}
+            </if>
+            <if test="param.rowId !=null and param.rowId!=''">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.appId !=null and param.appId!=''">
+                and app_id = #{param.appId}
+            </if>
+            <if test="param.apiType !=null and param.apiType!=''">
+                and api_type = #{param.apiType}
             </if>
         </where>
     </select>

@@ -15,6 +15,9 @@ public class UCenterApi {
 
     //http://localhost:8001/api/comm/user/login
 
+    //https://c0001-1.zzyicheng.cn/clouds/api/comm/user/login
+    //http://c0001-1.zzyicheng.cn:8001/api/comm/user/login 可以
+
     @RequestMapping("login")
     public String login(String loginId){
         //在这里获取前端传入的登录账号、密码、图片验证码等

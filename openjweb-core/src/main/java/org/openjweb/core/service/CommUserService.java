@@ -1,7 +1,10 @@
 package org.openjweb.core.service;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.openjweb.core.entity.CommColumnDef;
 import org.openjweb.core.entity.CommUser;
+import org.openjweb.core.mapper.CommColumnDefMapper;
 import org.openjweb.core.mapper.CommUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +17,9 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class CommUserService implements UserDetailsService {
+//public class CommUserService   implements UserDetailsService {
+public class CommUserService  extends ServiceImpl<CommUserMapper, CommUser >  implements UserDetailsService {
+
     @Autowired
     private CommUserMapper userMapper;
     @Override
@@ -57,6 +62,21 @@ public class CommUserService implements UserDetailsService {
 
     public CommUser  selectUserByLoginId(String loginId){
         return this.userMapper.selectUserByLoginId(loginId);
+    }
+
+    /**
+     * wxOpenId对应comm_user的wx_open_id字段
+     * @param wxOpenId
+     * @return
+     */
+
+    public List<CommUser> selectUserByWxOpenId(String wxOpenId){
+        return this.userMapper.selectUserByWxOpenId(wxOpenId);
+    }
+
+    public void addWeixinUser(String comId,String openId){
+
+
     }
 
 }

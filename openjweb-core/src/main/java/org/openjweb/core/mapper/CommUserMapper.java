@@ -23,4 +23,8 @@ public interface CommUserMapper extends BaseMapper<CommUser> {
     //@Select("SELECT comm_code FROM v_user_auth_demo WHERE login_id = #{loginId} order by comm_code ")
 
     List<String> selectAuthorities(@Param("loginId") String loginId);
+
+    @Select("select * from comm_user where wx_open_id=#{wxOpenId}")
+    List<CommUser> selectUserByWxOpenId(@Param("wxOpenId") String wxOpenId);
+
 }

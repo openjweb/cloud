@@ -109,7 +109,7 @@ mq:
 beetl:
   suffix: html
   #if use userdefine path
-  fileTemplatesPath: D:/tmp/beetl/templates
+  fileTemplatesPath: /root/web/tmp/beetl/templates
 
 openjweb:
   dev:

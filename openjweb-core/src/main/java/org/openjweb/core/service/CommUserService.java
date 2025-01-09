@@ -2,10 +2,12 @@ package org.openjweb.core.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.openjweb.common.util.StringUtil;
 import org.openjweb.core.entity.CommColumnDef;
 import org.openjweb.core.entity.CommUser;
 import org.openjweb.core.mapper.CommColumnDefMapper;
 import org.openjweb.core.mapper.CommUserMapper;
+import org.openjweb.core.module.params.CommUserParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -75,6 +77,32 @@ public class CommUserService  extends ServiceImpl<CommUserMapper, CommUser >  im
     }
 
     public void addWeixinUser(String comId,String openId){
+
+        log.info("插入微信用户..................");
+        CommUserParam user = new CommUserParam();
+        user.setWxOpenId(openId);
+        user.setComId(comId);
+
+        user.setRowId(StringUtil.getUUID());
+        user.setUserEmail(user.getRowId()+"@openjweb.com");//因为非空，默认填写一个
+        user.setCreateDt(StringUtil.getCurrentDateTime());
+        user.setCreateUid("system");
+        user.setUpdateDt(user.getCreateDt());
+        user.setUpdateUid("system");
+        user.setLoginId(openId);
+        user.setUsername(openId);
+        user.setUserMobile(openId);//不能重复
+        //先设置一个测试用户注册
+        user.setDeptId("29205");//所属部门 ，这个去对应公司的默认部门
+        //String deptId =
+        user.setIsInUse("Y");
+        user.setPassword(StringUtil.getUUID());//微信登录不需要密码，随便设置个随机的
+
+        this.userMapper.insert(user);
+        log.info("插入微信用户完毕..................");
+
+        //设置部门
+
 
 
     }

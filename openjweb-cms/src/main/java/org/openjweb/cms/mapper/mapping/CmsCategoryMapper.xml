@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.cms.mapper.CmsCategoryMapper">
+    <select id="queryList" resultType="org.openjweb.cms.entity.CmsCategory"  >
+        select *  from cms_category
+        <where>
+            <if test="param.cateCode !=null ">
+                and cate_code = #{param.cateCode}
+            </if>
+            <if test="param.cateDesc !=null ">
+                and cate_desc = #{param.cateDesc}
+            </if>
+            <if test="param.cateDomainName !=null ">
+                and cate_domain_name = #{param.cateDomainName}
+            </if>
+            <if test="param.cateDynamicUrl !=null ">
+                and cate_dynamic_url = #{param.cateDynamicUrl}
+            </if>
+            <if test="param.cateName !=null ">
+                and cate_name = #{param.cateName}
+            </if>
+            <if test="param.catePicPath !=null ">
+                and cate_pic_path = #{param.catePicPath}
+            </if>
+            <if test="param.cateSaticUrl !=null ">
+                and cate_satic_url = #{param.cateSaticUrl}
+            </if>
+            <if test="param.cateType !=null ">
+                and cate_type = #{param.cateType}
+            </if>
+            <if test="param.comId !=null ">
+                and com_id = #{param.comId}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.flowStatus !=null ">
+                and flow_status = #{param.flowStatus}
+            </if>
+            <if test="param.infoJspTemplate !=null ">
+                and info_jsp_template = #{param.infoJspTemplate}
+            </if>
+            <if test="param.isAuthControl !=null ">
+                and is_auth_control = #{param.isAuthControl}
+            </if>
+            <if test="param.isHttps !=null ">
+                and is_https = #{param.isHttps}
+            </if>
+            <if test="param.isInfoContainer !=null ">
+                and is_info_container = #{param.isInfoContainer}
+            </if>
+            <if test="param.isInSitemap !=null ">
+                and is_in_sitemap = #{param.isInSitemap}
+            </if>
+            <if test="param.isLuceneSearch !=null ">
+                and is_lucene_search = #{param.isLuceneSearch}
+            </if>
+            <if test="param.isNavigatorMenu !=null ">
+                and is_navigator_menu = #{param.isNavigatorMenu}
+            </if>
+            <if test="param.isPrepubJms !=null ">
+                and is_prepub_jms = #{param.isPrepubJms}
+            </if>
+            <if test="param.isPubJms !=null ">
+                and is_pub_jms = #{param.isPubJms}
+            </if>
+            <if test="param.isPubRss !=null ">
+                and is_pub_rss = #{param.isPubRss}
+            </if>
+            <if test="param.langType !=null ">
+                and lang_type = #{param.langType}
+            </if>
+            <if test="param.masterRowId !=null ">
+                and master_row_id = #{param.masterRowId}
+            </if>
+            <if test="param.nginxProxyDir !=null ">
+                and nginx_proxy_dir = #{param.nginxProxyDir}
+            </if>
+            <if test="param.objName !=null ">
+                and obj_name = #{param.objName}
+            </if>
+            <if test="param.pkId !=null ">
+                and pk_id = #{param.pkId}
+            </if>
+            <if test="param.rootSitePath !=null ">
+                and root_site_path = #{param.rootSitePath}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.stopDt !=null ">
+                and stop_dt = #{param.stopDt}
+            </if>
+            <if test="param.treenodeIcon !=null ">
+                and treenode_icon = #{param.treenodeIcon}
+            </if>
+            <if test="param.treeCode !=null ">
+                and tree_code = #{param.treeCode}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.cms.entity.CmsCategory"  >
+        select *  from cms_category
+        <if test="param.cateCode !=null ">
+            and cate_code = #{param.cateCode}
+        </if>
+        <if test="param.cateDesc !=null ">
+            and cate_desc = #{param.cateDesc}
+        </if>
+        <if test="param.cateDomainName !=null ">
+            and cate_domain_name = #{param.cateDomainName}
+        </if>
+        <if test="param.cateDynamicUrl !=null ">
+            and cate_dynamic_url = #{param.cateDynamicUrl}
+        </if>
+        <if test="param.cateName !=null ">
+            and cate_name = #{param.cateName}
+        </if>
+        <if test="param.catePicPath !=null ">
+            and cate_pic_path = #{param.catePicPath}
+        </if>
+        <if test="param.cateSaticUrl !=null ">
+            and cate_satic_url = #{param.cateSaticUrl}
+        </if>
+        <if test="param.cateType !=null ">
+            and cate_type = #{param.cateType}
+        </if>
+        <if test="param.comId !=null ">
+            and com_id = #{param.comId}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.flowStatus !=null ">
+            and flow_status = #{param.flowStatus}
+        </if>
+        <if test="param.infoJspTemplate !=null ">
+            and info_jsp_template = #{param.infoJspTemplate}
+        </if>
+        <if test="param.isAuthControl !=null ">
+            and is_auth_control = #{param.isAuthControl}
+        </if>
+        <if test="param.isHttps !=null ">
+            and is_https = #{param.isHttps}
+        </if>
+        <if test="param.isInfoContainer !=null ">
+            and is_info_container = #{param.isInfoContainer}
+        </if>
+        <if test="param.isInSitemap !=null ">
+            and is_in_sitemap = #{param.isInSitemap}
+        </if>
+        <if test="param.isLuceneSearch !=null ">
+            and is_lucene_search = #{param.isLuceneSearch}
+        </if>
+        <if test="param.isNavigatorMenu !=null ">
+            and is_navigator_menu = #{param.isNavigatorMenu}
+        </if>
+        <if test="param.isPrepubJms !=null ">
+            and is_prepub_jms = #{param.isPrepubJms}
+        </if>
+        <if test="param.isPubJms !=null ">
+            and is_pub_jms = #{param.isPubJms}
+        </if>
+        <if test="param.isPubRss !=null ">
+            and is_pub_rss = #{param.isPubRss}
+        </if>
+        <if test="param.langType !=null ">
+            and lang_type = #{param.langType}
+        </if>
+        <if test="param.masterRowId !=null ">
+            and master_row_id = #{param.masterRowId}
+        </if>
+        <if test="param.nginxProxyDir !=null ">
+            and nginx_proxy_dir = #{param.nginxProxyDir}
+        </if>
+        <if test="param.objName !=null ">
+            and obj_name = #{param.objName}
+        </if>
+        <if test="param.pkId !=null ">
+            and pk_id = #{param.pkId}
+        </if>
+        <if test="param.rootSitePath !=null ">
+            and root_site_path = #{param.rootSitePath}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.stopDt !=null ">
+            and stop_dt = #{param.stopDt}
+        </if>
+        <if test="param.treenodeIcon !=null ">
+            and treenode_icon = #{param.treenodeIcon}
+        </if>
+        <if test="param.treeCode !=null ">
+            and tree_code = #{param.treeCode}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+    </select>
+
+</mapper>

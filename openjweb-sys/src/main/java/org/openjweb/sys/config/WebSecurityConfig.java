@@ -91,7 +91,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/i18n/**",
             "/**/*.html", //swagger
             "/api/comm/user/login",
-            "/api/weixin/login"
+            "/api/weixin/login",
+            "/api/weixin/getVueMenu",
+            "/api/comm/user/getUserInfo2",
+            "/front/**",
+            "/**/js/**",
+            "/**/images/**",
+            "/**/css/**"
+
+
+
+
+
+
 
     };
 
@@ -135,7 +147,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html", "/api/comm/user/login","/api/weixin/login").permitAll()
+                    .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html", "/api/comm/user/login","/api/weixin/login","/api/weixin/getVueMenu","/api/comm/user/getUserInfo2", "/front/**"
+                                    ,"/**/js/**",
+                            "/**/images/**",
+                            "/**/css/**"
+                    ).permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .csrf().disable();

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
@@ -18,19 +19,26 @@ public class CommUser implements UserDetails, Serializable {
     /******* 非数据库属性开始 ******/
 
     private final Collection<? extends GrantedAuthority> authorities  ;
+
+    @TableField(exist = false)
     private final boolean accountNonExpired;//账号是否过期
+    @TableField(exist = false)
     private final boolean accountNonLocked;//账号是否锁定
+    @TableField(exist = false)
     private final boolean credentialsNonExpired;//凭证是否过期
+    @TableField(exist = false)
     private final boolean enabled;//是否启用
 
     /******* 非数据库属性结束 ******/
-    @TableId(type = IdType.ASSIGN_UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long userId; //数字唯一主键
     private String rowId;//32位唯一ID(因为项目中有所以保留32位UUID)
 
     /* 登录必须属性开始 */
     private String loginId;//业务系统登录账号，以后等同username
-    private final String username;//以后等同于loginId
+    //private final String username;//以后等同于loginId
+    private String username;//以后等同于loginId,为什么加final
+
     private String password;//加密后的密码
 
     /* 业务必填字段 */

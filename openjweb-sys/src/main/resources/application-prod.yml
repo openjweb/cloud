@@ -20,13 +20,12 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
 
 
-
   datasource:
     ds1:
       type: com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://127.0.0.1:3333/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
-      password: root
+      password: Shanchongshuifuyiwulu_231
       #for druid
       initialSize: 5
       minIdle: 5
@@ -46,14 +45,14 @@ spring:
 
     ds2:
       type: com.alibaba.druid.pool.DruidDataSource
-      url: jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://127.0.0.1:3333/erp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
-      password: root
+      password: Shanchongshuifuyiwulu_231
   redis:
     database: 0
     host: 127.0.0.1
-    port: 63899
-    password: 123456
+    port: 6379
+    password: 20220501
 
     timeout: 1800000
     jedis:
@@ -85,8 +84,6 @@ jwt:
   header: Authorization
   expire: 86400
   secret: qwertyuiopazsxdcfvgbhnjmklouhgsd
-  loginUrl: /vue/#/login
-  loginSuccUrl: /vue/#/index
 md5:
   salt: wsxedcqazsxdcrfvgtbyhglkgmgvog1s
 
@@ -99,7 +96,7 @@ oauth2:
 
 logging:
   file:
-    name: d:/tmp/openjweb.log
+    name: /home/logs/openjweb.log
 
 mq:
   rabbit:
@@ -112,14 +109,12 @@ beetl:
   #if use userdefine path
   fileTemplatesPath: D:/tmp/beetl/templates
 
-
 openjweb:
   dev:
     javaTemplatePath: D:/project/openjweb-cloud/openjweb-dev/src/main/resources/templates
     rootProjectPath: D:/project/openjweb-cloud
     isCreateVue: true
     vuePath: D:/vue-admin20240926
-
 
 
 

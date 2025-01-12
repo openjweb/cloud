@@ -227,7 +227,8 @@ public class DevUtilV2 {
             } else if (tableName.startsWith("b2c_")) {
                 modulePath = "openjweb-b2b2c";
                 packagePath = "org/openjweb/b2c/";
-            } else if (tableName.startsWith("cms_")) {
+            } else if (tableName.startsWith("cms_")||tableName.startsWith("portal_")) {
+                //门户和CMS放在openjweb-cms里
                 modulePath = "openjweb-cms";
                 packagePath = "org/openjweb/cms/";
             } else if (tableName.startsWith("sns_")) {

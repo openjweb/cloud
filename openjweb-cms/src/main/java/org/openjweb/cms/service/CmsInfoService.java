@@ -8,13 +8,16 @@ import org.openjweb.cms.entity.CmsInfo;
 import org.openjweb.cms.mapper.CmsInfoMapper;
 import org.openjweb.cms.module.params.CmsInfoParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
+@Component
 public class CmsInfoService  extends ServiceImpl<CmsInfoMapper, CmsInfo> {
     @Autowired
     private CmsInfoMapper cmsInfoMapper;
@@ -66,4 +69,8 @@ public class CmsInfoService  extends ServiceImpl<CmsInfoMapper, CmsInfo> {
             throw new  Exception ("删除失败!");
         }
     }
+
+
+
+
 }

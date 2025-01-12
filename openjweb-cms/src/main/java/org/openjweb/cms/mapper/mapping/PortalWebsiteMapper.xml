@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.cms.mapper.PortalWebsiteMapper">
+    <select id="queryList" resultType="org.openjweb.cms.entity.PortalWebsite"  >
+        select *  from portal_website
+        <where>
+            <if test="param.aboutusMsg !=null ">
+                and aboutus_msg = #{param.aboutusMsg}
+            </if>
+            <if test="param.addressMsg !=null ">
+                and address_msg = #{param.addressMsg}
+            </if>
+            <if test="param.adminLoginId !=null ">
+                and admin_login_id = #{param.adminLoginId}
+            </if>
+            <if test="param.comId !=null ">
+                and com_id = #{param.comId}
+            </if>
+            <if test="param.contactUs !=null ">
+                and contact_us = #{param.contactUs}
+            </if>
+            <if test="param.copyrightMsg !=null ">
+                and copyright_msg = #{param.copyrightMsg}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.defaultPage !=null ">
+                and default_page = #{param.defaultPage}
+            </if>
+            <if test="param.domainName !=null ">
+                and domain_name = #{param.domainName}
+            </if>
+            <if test="param.emailAddress !=null ">
+                and email_address = #{param.emailAddress}
+            </if>
+            <if test="param.flowStatus !=null ">
+                and flow_status = #{param.flowStatus}
+            </if>
+            <if test="param.flowTransId !=null ">
+                and flow_trans_id = #{param.flowTransId}
+            </if>
+            <if test="param.forbidWords !=null ">
+                and forbid_words = #{param.forbidWords}
+            </if>
+            <if test="param.fullName !=null ">
+                and full_name = #{param.fullName}
+            </if>
+            <if test="param.icpNo !=null ">
+                and icp_no = #{param.icpNo}
+            </if>
+            <if test="param.infoSource !=null ">
+                and info_source = #{param.infoSource}
+            </if>
+            <if test="param.infListPage !=null ">
+                and inf_list_page = #{param.infListPage}
+            </if>
+            <if test="param.isMainSite !=null ">
+                and is_main_site = #{param.isMainSite}
+            </if>
+            <if test="param.isToBackend !=null ">
+                and is_to_backend = #{param.isToBackend}
+            </if>
+            <if test="param.lawDesc !=null ">
+                and law_desc = #{param.lawDesc}
+            </if>
+            <if test="param.loginUrl !=null ">
+                and login_url = #{param.loginUrl}
+            </if>
+            <if test="param.masterRowId !=null ">
+                and master_row_id = #{param.masterRowId}
+            </if>
+            <if test="param.objName !=null ">
+                and obj_name = #{param.objName}
+            </if>
+            <if test="param.pkId !=null ">
+                and pk_id = #{param.pkId}
+            </if>
+            <if test="param.postCode !=null ">
+                and post_code = #{param.postCode}
+            </if>
+            <if test="param.relatePath !=null ">
+                and relate_path = #{param.relatePath}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.searchListPage !=null ">
+                and search_list_page = #{param.searchListPage}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.viewInfoPage !=null ">
+                and view_info_page = #{param.viewInfoPage}
+            </if>
+            <if test="param.websiteCode !=null ">
+                and website_code = #{param.websiteCode}
+            </if>
+            <if test="param.websiteName !=null ">
+                and website_name = #{param.websiteName}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.cms.entity.PortalWebsite"  >
+        select *  from portal_website
+        <if test="param.aboutusMsg !=null ">
+            and aboutus_msg = #{param.aboutusMsg}
+        </if>
+        <if test="param.addressMsg !=null ">
+            and address_msg = #{param.addressMsg}
+        </if>
+        <if test="param.adminLoginId !=null ">
+            and admin_login_id = #{param.adminLoginId}
+        </if>
+        <if test="param.comId !=null ">
+            and com_id = #{param.comId}
+        </if>
+        <if test="param.contactUs !=null ">
+            and contact_us = #{param.contactUs}
+        </if>
+        <if test="param.copyrightMsg !=null ">
+            and copyright_msg = #{param.copyrightMsg}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.defaultPage !=null ">
+            and default_page = #{param.defaultPage}
+        </if>
+        <if test="param.domainName !=null ">
+            and domain_name = #{param.domainName}
+        </if>
+        <if test="param.emailAddress !=null ">
+            and email_address = #{param.emailAddress}
+        </if>
+        <if test="param.flowStatus !=null ">
+            and flow_status = #{param.flowStatus}
+        </if>
+        <if test="param.flowTransId !=null ">
+            and flow_trans_id = #{param.flowTransId}
+        </if>
+        <if test="param.forbidWords !=null ">
+            and forbid_words = #{param.forbidWords}
+        </if>
+        <if test="param.fullName !=null ">
+            and full_name = #{param.fullName}
+        </if>
+        <if test="param.icpNo !=null ">
+            and icp_no = #{param.icpNo}
+        </if>
+        <if test="param.infoSource !=null ">
+            and info_source = #{param.infoSource}
+        </if>
+        <if test="param.infListPage !=null ">
+            and inf_list_page = #{param.infListPage}
+        </if>
+        <if test="param.isMainSite !=null ">
+            and is_main_site = #{param.isMainSite}
+        </if>
+        <if test="param.isToBackend !=null ">
+            and is_to_backend = #{param.isToBackend}
+        </if>
+        <if test="param.lawDesc !=null ">
+            and law_desc = #{param.lawDesc}
+        </if>
+        <if test="param.loginUrl !=null ">
+            and login_url = #{param.loginUrl}
+        </if>
+        <if test="param.masterRowId !=null ">
+            and master_row_id = #{param.masterRowId}
+        </if>
+        <if test="param.objName !=null ">
+            and obj_name = #{param.objName}
+        </if>
+        <if test="param.pkId !=null ">
+            and pk_id = #{param.pkId}
+        </if>
+        <if test="param.postCode !=null ">
+            and post_code = #{param.postCode}
+        </if>
+        <if test="param.relatePath !=null ">
+            and relate_path = #{param.relatePath}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.searchListPage !=null ">
+            and search_list_page = #{param.searchListPage}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.viewInfoPage !=null ">
+            and view_info_page = #{param.viewInfoPage}
+        </if>
+        <if test="param.websiteCode !=null ">
+            and website_code = #{param.websiteCode}
+        </if>
+        <if test="param.websiteName !=null ">
+            and website_name = #{param.websiteName}
+        </if>
+    </select>
+
+</mapper>

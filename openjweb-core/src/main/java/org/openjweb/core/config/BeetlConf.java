@@ -6,6 +6,7 @@ import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.core.resource.FileResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
+import org.openjweb.core.service.BeetlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,6 +56,9 @@ public class BeetlConf {
 
         //注册国际化函数
         beetlGroupUtilConfiguration.getGroupTemplate().registerFunction("i18n", new I18nFunction(wac));
+        //注册cms相关的方法
+        beetlGroupUtilConfiguration.getGroupTemplate().registerFunction("cmsUtil",new BeetlService());
+
         return beetlGroupUtilConfiguration;
 
     }

@@ -1,7 +1,5 @@
 package org.openjweb.core.config;
 
-
-
 import lombok.extern.slf4j.Slf4j;
 import org.beetl.core.GroupTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,8 +48,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeInterceptor);
 
     }
-
-
-
-
 }

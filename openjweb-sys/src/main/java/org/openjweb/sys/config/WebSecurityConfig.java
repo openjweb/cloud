@@ -1,6 +1,5 @@
 package org.openjweb.sys.config;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openjweb.core.service.CommUserService;
@@ -49,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AESPasswordEncoder();
     }
 
-
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
 
@@ -67,8 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${oauth2.server}")
     private boolean isOAuth2Server = false;
-
-
 
     private static final String[] ALLOW_URL_LIST = {
             //
@@ -97,13 +93,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/front/**",
             "/**/js/**",
             "/**/images/**",
-            "/**/css/**"
-
-
-
-
-
-
+            "/**/css/**",
+            "/**/img/**",
+            "/api/cms/pub/**"
 
     };
 
@@ -113,7 +105,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
         //return super.authenticationManagerBean();
-
     }
 
     //这个和上面的是什么区别？能一起用吗？
@@ -148,9 +139,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html", "/api/comm/user/login","/api/weixin/login","/api/weixin/getVueMenu","/api/comm/user/getUserInfo2", "/front/**"
-                                    ,"/**/js/**",
-                            "/**/images/**",
-                            "/**/css/**"
+                                    ,"/**/js/**",  "/**/images/**",  "/**/css/**","/**/img/**","/api/cms/pub/**"
                     ).permitAll()
                     .anyRequest().authenticated()
                     .and()

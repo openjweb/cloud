@@ -120,6 +120,10 @@ openjweb:
     isCreateVue: true
     vuePath: D:/vue-admin20240926
 
+lucene:
+  cmsDir: d:/lucene/cms
+  b2cDir: d:/lucene/b2c
+
 
 
 

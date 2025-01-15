@@ -310,6 +310,10 @@ public class CmsInfo   implements java.io.Serializable {
 	@ApiModelProperty(value ="为集成商品搜索，为商品增加单价字段" )
 	
 	private Double unitPrice;
+
+	@ApiModelProperty(value ="信息摘要" )
+
+	private String infSummary;
 	
 	@ApiModelProperty(value ="null" )
 	@TableField(fill = FieldFill.INSERT_UPDATE)

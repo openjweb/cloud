@@ -1,12 +1,12 @@
-package org.openjweb.core.service;
+package org.openjweb.cms.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.openjweb.core.entity.CommCompany;
-import org.openjweb.core.mapper.CommCompanyMapper;
-import org.openjweb.core.module.params.CommCompanyParam;
+import org.openjweb.cms.entity.PortalDynamicPic;
+import org.openjweb.cms.mapper.PortalDynamicPicMapper;
+import org.openjweb.cms.module.params.PortalDynamicPicParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +15,21 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class CommCompanyService  extends ServiceImpl<CommCompanyMapper, CommCompany> {
+public class PortalDynamicPicService  extends ServiceImpl<PortalDynamicPicMapper, PortalDynamicPic> {
     @Autowired
-    private CommCompanyMapper commCompanyMapper;
+    private PortalDynamicPicMapper portalDynamicPicMapper;
 
     /**
      * 根据ROWID查询
      * @param rowId
      * @return
      */
-    public CommCompany queryByRowId(String rowId){
-        return this.commCompanyMapper.queryByRowId(rowId);
+    public PortalDynamicPic queryByRowId(String rowId){
+        return this.portalDynamicPicMapper.queryByRowId(rowId);
     }
 
-    public List<CommCompany> queryList(CommCompanyParam param){
-        List list = this.commCompanyMapper.queryList(param);
+    public List<PortalDynamicPic> queryList(PortalDynamicPicParam param){
+        List list = this.portalDynamicPicMapper.queryList(param);
         return list;
     }
 
@@ -40,10 +40,10 @@ public class CommCompanyService  extends ServiceImpl<CommCompanyMapper, CommComp
      * @return
      */
 
-    public  IPage<CommCompany> findPage(CommCompanyParam param){
-        Page<CommCompany> page = new Page<>(param.getPage(), param.getPageSize());
+    public  IPage<PortalDynamicPic> findPage(PortalDynamicPicParam param){
+        Page<PortalDynamicPic> page = new Page<>(param.getPage(), param.getPageSize());
 
-        IPage<CommCompany> list = this.commCompanyMapper.findPage(page,param);
+        IPage<PortalDynamicPic> list = this.portalDynamicPicMapper.findPage(page,param);
         return list;
     }
 
@@ -59,7 +59,7 @@ public class CommCompanyService  extends ServiceImpl<CommCompanyMapper, CommComp
             ids = selectedIds.split(",");
             //System.out.println(ids.length);
             List<String> parmList = Arrays.asList(ids);
-            delCount = this.commCompanyMapper.deleteBatchIds(parmList);
+            delCount = this.portalDynamicPicMapper.deleteBatchIds(parmList);
             //this.commApiKeyMapper.
         }
         if(delCount==0){

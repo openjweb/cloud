@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.CommCompanyMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.CommCompany"  >
+        select *  from comm_company
+        <where>
+            <if test="param.appSecret !=null ">
+                and app_secret = #{param.appSecret}
+            </if>
+            <if test="param.areaName !=null ">
+                and area_name = #{param.areaName}
+            </if>
+            <if test="param.backLogo !=null ">
+                and back_logo = #{param.backLogo}
+            </if>
+            <if test="param.bankAcctNo !=null ">
+                and bank_acct_no = #{param.bankAcctNo}
+            </if>
+            <if test="param.bankAddr !=null ">
+                and bank_addr = #{param.bankAddr}
+            </if>
+            <if test="param.bankComName !=null ">
+                and bank_com_name = #{param.bankComName}
+            </if>
+            <if test="param.bankName !=null ">
+                and bank_name = #{param.bankName}
+            </if>
+            <if test="param.bankType !=null ">
+                and bank_type = #{param.bankType}
+            </if>
+            <if test="param.beianNo !=null ">
+                and beian_no = #{param.beianNo}
+            </if>
+            <if test="param.bizDesc !=null ">
+                and biz_desc = #{param.bizDesc}
+            </if>
+            <if test="param.bizDesc2 !=null ">
+                and biz_desc2 = #{param.bizDesc2}
+            </if>
+            <if test="param.bizType !=null ">
+                and biz_type = #{param.bizType}
+            </if>
+            <if test="param.buildDt !=null ">
+                and build_dt = #{param.buildDt}
+            </if>
+            <if test="param.businessLiscenseNo !=null ">
+                and business_liscense_no = #{param.businessLiscenseNo}
+            </if>
+            <if test="param.businessLiscensePic !=null ">
+                and business_liscense_pic = #{param.businessLiscensePic}
+            </if>
+            <if test="param.channelLoginId !=null ">
+                and channel_login_id = #{param.channelLoginId}
+            </if>
+            <if test="param.checkDt !=null ">
+                and check_dt = #{param.checkDt}
+            </if>
+            <if test="param.checkPsn !=null ">
+                and check_psn = #{param.checkPsn}
+            </if>
+            <if test="param.comAddr !=null ">
+                and com_addr = #{param.comAddr}
+            </if>
+            <if test="param.comAttr !=null ">
+                and com_attr = #{param.comAttr}
+            </if>
+            <if test="param.comBuildDt !=null ">
+                and com_build_dt = #{param.comBuildDt}
+            </if>
+            <if test="param.comDesc !=null ">
+                and com_desc = #{param.comDesc}
+            </if>
+            <if test="param.comFax !=null ">
+                and com_fax = #{param.comFax}
+            </if>
+            <if test="param.comGuimo !=null ">
+                and com_guimo = #{param.comGuimo}
+            </if>
+            <if test="param.comIdea !=null ">
+                and com_idea = #{param.comIdea}
+            </if>
+            <if test="param.comIntroduce !=null ">
+                and com_introduce = #{param.comIntroduce}
+            </if>
+            <if test="param.comIntroduce2 !=null ">
+                and com_introduce2 = #{param.comIntroduce2}
+            </if>
+            <if test="param.comLayoutPic !=null ">
+                and com_layout_pic = #{param.comLayoutPic}
+            </if>
+            <if test="param.comName !=null ">
+                and com_name = #{param.comName}
+            </if>
+            <if test="param.comPsnNum !=null ">
+                and com_psn_num = #{param.comPsnNum}
+            </if>
+            <if test="param.comTel !=null ">
+                and com_tel = #{param.comTel}
+            </if>
+            <if test="param.comType !=null ">
+                and com_type = #{param.comType}
+            </if>
+            <if test="param.comXpos !=null ">
+                and com_xpos = #{param.comXpos}
+            </if>
+            <if test="param.comYpos !=null ">
+                and com_ypos = #{param.comYpos}
+            </if>
+            <if test="param.contactMobile !=null ">
+                and contact_mobile = #{param.contactMobile}
+            </if>
+            <if test="param.contactName !=null ">
+                and contact_name = #{param.contactName}
+            </if>
+            <if test="param.contactQq !=null ">
+                and contact_qq = #{param.contactQq}
+            </if>
+            <if test="param.contactTel !=null ">
+                and contact_tel = #{param.contactTel}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.creditDesc !=null ">
+                and credit_desc = #{param.creditDesc}
+            </if>
+            <if test="param.creditLevel !=null ">
+                and credit_level = #{param.creditLevel}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.dealLvl !=null ">
+                and deal_lvl = #{param.dealLvl}
+            </if>
+            <if test="param.defaultTitle !=null ">
+                and default_title = #{param.defaultTitle}
+            </if>
+            <if test="param.domainName !=null ">
+                and domain_name = #{param.domainName}
+            </if>
+            <if test="param.emailAddr !=null ">
+                and email_addr = #{param.emailAddr}
+            </if>
+            <if test="param.feeDesc !=null ">
+                and fee_desc = #{param.feeDesc}
+            </if>
+            <if test="param.financeContact !=null ">
+                and finance_contact = #{param.financeContact}
+            </if>
+            <if test="param.financeTel !=null ">
+                and finance_tel = #{param.financeTel}
+            </if>
+            <if test="param.finOpenId !=null ">
+                and fin_open_id = #{param.finOpenId}
+            </if>
+            <if test="param.healthLiscensePic !=null ">
+                and health_liscense_pic = #{param.healthLiscensePic}
+            </if>
+            <if test="param.icbcAcctName !=null ">
+                and icbc_acct_name = #{param.icbcAcctName}
+            </if>
+            <if test="param.icbcAcctNo !=null ">
+                and icbc_acct_no = #{param.icbcAcctNo}
+            </if>
+            <if test="param.isBatPur !=null ">
+                and is_bat_pur = #{param.isBatPur}
+            </if>
+            <if test="param.isFirstChannel !=null ">
+                and is_first_channel = #{param.isFirstChannel}
+            </if>
+            <if test="param.isHasCommission !=null ">
+                and is_has_commission = #{param.isHasCommission}
+            </if>
+            <if test="param.isInit !=null ">
+                and is_init = #{param.isInit}
+            </if>
+            <if test="param.isLock !=null ">
+                and is_lock = #{param.isLock}
+            </if>
+            <if test="param.isMember !=null ">
+                and is_member = #{param.isMember}
+            </if>
+            <if test="param.isNeedBuy !=null ">
+                and is_need_buy = #{param.isNeedBuy}
+            </if>
+            <if test="param.isO2o !=null ">
+                and is_o2o = #{param.isO2o}
+            </if>
+            <if test="param.isOrderCommission !=null ">
+                and is_order_commission = #{param.isOrderCommission}
+            </if>
+            <if test="param.isPassed !=null ">
+                and is_passed = #{param.isPassed}
+            </if>
+            <if test="param.isPassEnt !=null ">
+                and is_pass_ent = #{param.isPassEnt}
+            </if>
+            <if test="param.isRecommend !=null ">
+                and is_recommend = #{param.isRecommend}
+            </if>
+            <if test="param.isSecondChannel !=null ">
+                and is_second_channel = #{param.isSecondChannel}
+            </if>
+            <if test="param.isThirdChannel !=null ">
+                and is_third_channel = #{param.isThirdChannel}
+            </if>
+            <if test="param.isVipSup !=null ">
+                and is_vip_sup = #{param.isVipSup}
+            </if>
+            <if test="param.isXiaobao !=null ">
+                and is_xiaobao = #{param.isXiaobao}
+            </if>
+            <if test="param.jyType !=null ">
+                and jy_type = #{param.jyType}
+            </if>
+            <if test="param.keyWord !=null ">
+                and key_word = #{param.keyWord}
+            </if>
+            <if test="param.lawPsnId !=null ">
+                and law_psn_id = #{param.lawPsnId}
+            </if>
+            <if test="param.lawTel !=null ">
+                and law_tel = #{param.lawTel}
+            </if>
+            <if test="param.lawTelDistrictCode !=null ">
+                and law_tel_district_code = #{param.lawTelDistrictCode}
+            </if>
+            <if test="param.legalPerson !=null ">
+                and legal_person = #{param.legalPerson}
+            </if>
+            <if test="param.localUrl !=null ">
+                and local_url = #{param.localUrl}
+            </if>
+            <if test="param.loginBanner !=null ">
+                and login_banner = #{param.loginBanner}
+            </if>
+            <if test="param.loginBannerVue !=null ">
+                and login_banner_vue = #{param.loginBannerVue}
+            </if>
+            <if test="param.materialDesc !=null ">
+                and material_desc = #{param.materialDesc}
+            </if>
+            <if test="param.miniBackPic !=null ">
+                and mini_back_pic = #{param.miniBackPic}
+            </if>
+            <if test="param.miniPic !=null ">
+                and mini_pic = #{param.miniPic}
+            </if>
+            <if test="param.orderMobiles !=null ">
+                and order_mobiles = #{param.orderMobiles}
+            </if>
+            <if test="param.orgLiscenseNo !=null ">
+                and org_liscense_no = #{param.orgLiscenseNo}
+            </if>
+            <if test="param.orgLiscensePic !=null ">
+                and org_liscense_pic = #{param.orgLiscensePic}
+            </if>
+            <if test="param.ownerComId !=null ">
+                and owner_com_id = #{param.ownerComId}
+            </if>
+            <if test="param.payPwd !=null ">
+                and pay_pwd = #{param.payPwd}
+            </if>
+            <if test="param.pkId !=null ">
+                and pk_id = #{param.pkId}
+            </if>
+            <if test="param.policePic !=null ">
+                and police_pic = #{param.policePic}
+            </if>
+            <if test="param.priorityLevel !=null ">
+                and priority_level = #{param.priorityLevel}
+            </if>
+            <if test="param.proEditPage !=null ">
+                and pro_edit_page = #{param.proEditPage}
+            </if>
+            <if test="param.registCapital !=null ">
+                and regist_capital = #{param.registCapital}
+            </if>
+            <if test="param.registContract !=null ">
+                and regist_contract = #{param.registContract}
+            </if>
+            <if test="param.registLoginId !=null ">
+                and regist_login_id = #{param.registLoginId}
+            </if>
+            <if test="param.registMd5Pwd !=null ">
+                and regist_md5_pwd = #{param.registMd5Pwd}
+            </if>
+            <if test="param.registMobileNo !=null ">
+                and regist_mobile_no = #{param.registMobileNo}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.saleSmsAccount !=null ">
+                and sale_sms_account = #{param.saleSmsAccount}
+            </if>
+            <if test="param.satifySocre !=null ">
+                and satify_socre = #{param.satifySocre}
+            </if>
+            <if test="param.servicePromiss !=null ">
+                and service_promiss = #{param.servicePromiss}
+            </if>
+            <if test="param.serviceProCode !=null ">
+                and service_pro_code = #{param.serviceProCode}
+            </if>
+            <if test="param.settleDay !=null ">
+                and settle_day = #{param.settleDay}
+            </if>
+            <if test="param.shopLocation !=null ">
+                and shop_location = #{param.shopLocation}
+            </if>
+            <if test="param.shopOpenTime !=null ">
+                and shop_open_time = #{param.shopOpenTime}
+            </if>
+            <if test="param.shopTemplate !=null ">
+                and shop_template = #{param.shopTemplate}
+            </if>
+            <if test="param.smsAccount !=null ">
+                and sms_account = #{param.smsAccount}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.storeType !=null ">
+                and store_type = #{param.storeType}
+            </if>
+            <if test="param.supApCode !=null ">
+                and sup_ap_code = #{param.supApCode}
+            </if>
+            <if test="param.supLvl !=null ">
+                and sup_lvl = #{param.supLvl}
+            </if>
+            <if test="param.sysName !=null ">
+                and sys_name = #{param.sysName}
+            </if>
+            <if test="param.taxCertPic !=null ">
+                and tax_cert_pic = #{param.taxCertPic}
+            </if>
+            <if test="param.taxNo !=null ">
+                and tax_no = #{param.taxNo}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.urlAddr !=null ">
+                and url_addr = #{param.urlAddr}
+            </if>
+            <if test="param.watermarkImgPath !=null ">
+                and watermark_img_path = #{param.watermarkImgPath}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.CommCompany"  >
+        select *  from comm_company
+        <if test="param.appSecret !=null ">
+            and app_secret = #{param.appSecret}
+        </if>
+        <if test="param.areaName !=null ">
+            and area_name = #{param.areaName}
+        </if>
+        <if test="param.backLogo !=null ">
+            and back_logo = #{param.backLogo}
+        </if>
+        <if test="param.bankAcctNo !=null ">
+            and bank_acct_no = #{param.bankAcctNo}
+        </if>
+        <if test="param.bankAddr !=null ">
+            and bank_addr = #{param.bankAddr}
+        </if>
+        <if test="param.bankComName !=null ">
+            and bank_com_name = #{param.bankComName}
+        </if>
+        <if test="param.bankName !=null ">
+            and bank_name = #{param.bankName}
+        </if>
+        <if test="param.bankType !=null ">
+            and bank_type = #{param.bankType}
+        </if>
+        <if test="param.beianNo !=null ">
+            and beian_no = #{param.beianNo}
+        </if>
+        <if test="param.bizDesc !=null ">
+            and biz_desc = #{param.bizDesc}
+        </if>
+        <if test="param.bizDesc2 !=null ">
+            and biz_desc2 = #{param.bizDesc2}
+        </if>
+        <if test="param.bizType !=null ">
+            and biz_type = #{param.bizType}
+        </if>
+        <if test="param.buildDt !=null ">
+            and build_dt = #{param.buildDt}
+        </if>
+        <if test="param.businessLiscenseNo !=null ">
+            and business_liscense_no = #{param.businessLiscenseNo}
+        </if>
+        <if test="param.businessLiscensePic !=null ">
+            and business_liscense_pic = #{param.businessLiscensePic}
+        </if>
+        <if test="param.channelLoginId !=null ">
+            and channel_login_id = #{param.channelLoginId}
+        </if>
+        <if test="param.checkDt !=null ">
+            and check_dt = #{param.checkDt}
+        </if>
+        <if test="param.checkPsn !=null ">
+            and check_psn = #{param.checkPsn}
+        </if>
+        <if test="param.comAddr !=null ">
+            and com_addr = #{param.comAddr}
+        </if>
+        <if test="param.comAttr !=null ">
+            and com_attr = #{param.comAttr}
+        </if>
+        <if test="param.comBuildDt !=null ">
+            and com_build_dt = #{param.comBuildDt}
+        </if>
+        <if test="param.comDesc !=null ">
+            and com_desc = #{param.comDesc}
+        </if>
+        <if test="param.comFax !=null ">
+            and com_fax = #{param.comFax}
+        </if>
+        <if test="param.comGuimo !=null ">
+            and com_guimo = #{param.comGuimo}
+        </if>
+        <if test="param.comIdea !=null ">
+            and com_idea = #{param.comIdea}
+        </if>
+        <if test="param.comIntroduce !=null ">
+            and com_introduce = #{param.comIntroduce}
+        </if>
+        <if test="param.comIntroduce2 !=null ">
+            and com_introduce2 = #{param.comIntroduce2}
+        </if>
+        <if test="param.comLayoutPic !=null ">
+            and com_layout_pic = #{param.comLayoutPic}
+        </if>
+        <if test="param.comName !=null ">
+            and com_name = #{param.comName}
+        </if>
+        <if test="param.comPsnNum !=null ">
+            and com_psn_num = #{param.comPsnNum}
+        </if>
+        <if test="param.comTel !=null ">
+            and com_tel = #{param.comTel}
+        </if>
+        <if test="param.comType !=null ">
+            and com_type = #{param.comType}
+        </if>
+        <if test="param.comXpos !=null ">
+            and com_xpos = #{param.comXpos}
+        </if>
+        <if test="param.comYpos !=null ">
+            and com_ypos = #{param.comYpos}
+        </if>
+        <if test="param.contactMobile !=null ">
+            and contact_mobile = #{param.contactMobile}
+        </if>
+        <if test="param.contactName !=null ">
+            and contact_name = #{param.contactName}
+        </if>
+        <if test="param.contactQq !=null ">
+            and contact_qq = #{param.contactQq}
+        </if>
+        <if test="param.contactTel !=null ">
+            and contact_tel = #{param.contactTel}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.creditDesc !=null ">
+            and credit_desc = #{param.creditDesc}
+        </if>
+        <if test="param.creditLevel !=null ">
+            and credit_level = #{param.creditLevel}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.dealLvl !=null ">
+            and deal_lvl = #{param.dealLvl}
+        </if>
+        <if test="param.defaultTitle !=null ">
+            and default_title = #{param.defaultTitle}
+        </if>
+        <if test="param.domainName !=null ">
+            and domain_name = #{param.domainName}
+        </if>
+        <if test="param.emailAddr !=null ">
+            and email_addr = #{param.emailAddr}
+        </if>
+        <if test="param.feeDesc !=null ">
+            and fee_desc = #{param.feeDesc}
+        </if>
+        <if test="param.financeContact !=null ">
+            and finance_contact = #{param.financeContact}
+        </if>
+        <if test="param.financeTel !=null ">
+            and finance_tel = #{param.financeTel}
+        </if>
+        <if test="param.finOpenId !=null ">
+            and fin_open_id = #{param.finOpenId}
+        </if>
+        <if test="param.healthLiscensePic !=null ">
+            and health_liscense_pic = #{param.healthLiscensePic}
+        </if>
+        <if test="param.icbcAcctName !=null ">
+            and icbc_acct_name = #{param.icbcAcctName}
+        </if>
+        <if test="param.icbcAcctNo !=null ">
+            and icbc_acct_no = #{param.icbcAcctNo}
+        </if>
+        <if test="param.isBatPur !=null ">
+            and is_bat_pur = #{param.isBatPur}
+        </if>
+        <if test="param.isFirstChannel !=null ">
+            and is_first_channel = #{param.isFirstChannel}
+        </if>
+        <if test="param.isHasCommission !=null ">
+            and is_has_commission = #{param.isHasCommission}
+        </if>
+        <if test="param.isInit !=null ">
+            and is_init = #{param.isInit}
+        </if>
+        <if test="param.isLock !=null ">
+            and is_lock = #{param.isLock}
+        </if>
+        <if test="param.isMember !=null ">
+            and is_member = #{param.isMember}
+        </if>
+        <if test="param.isNeedBuy !=null ">
+            and is_need_buy = #{param.isNeedBuy}
+        </if>
+        <if test="param.isO2o !=null ">
+            and is_o2o = #{param.isO2o}
+        </if>
+        <if test="param.isOrderCommission !=null ">
+            and is_order_commission = #{param.isOrderCommission}
+        </if>
+        <if test="param.isPassed !=null ">
+            and is_passed = #{param.isPassed}
+        </if>
+        <if test="param.isPassEnt !=null ">
+            and is_pass_ent = #{param.isPassEnt}
+        </if>
+        <if test="param.isRecommend !=null ">
+            and is_recommend = #{param.isRecommend}
+        </if>
+        <if test="param.isSecondChannel !=null ">
+            and is_second_channel = #{param.isSecondChannel}
+        </if>
+        <if test="param.isThirdChannel !=null ">
+            and is_third_channel = #{param.isThirdChannel}
+        </if>
+        <if test="param.isVipSup !=null ">
+            and is_vip_sup = #{param.isVipSup}
+        </if>
+        <if test="param.isXiaobao !=null ">
+            and is_xiaobao = #{param.isXiaobao}
+        </if>
+        <if test="param.jyType !=null ">
+            and jy_type = #{param.jyType}
+        </if>
+        <if test="param.keyWord !=null ">
+            and key_word = #{param.keyWord}
+        </if>
+        <if test="param.lawPsnId !=null ">
+            and law_psn_id = #{param.lawPsnId}
+        </if>
+        <if test="param.lawTel !=null ">
+            and law_tel = #{param.lawTel}
+        </if>
+        <if test="param.lawTelDistrictCode !=null ">
+            and law_tel_district_code = #{param.lawTelDistrictCode}
+        </if>
+        <if test="param.legalPerson !=null ">
+            and legal_person = #{param.legalPerson}
+        </if>
+        <if test="param.localUrl !=null ">
+            and local_url = #{param.localUrl}
+        </if>
+        <if test="param.loginBanner !=null ">
+            and login_banner = #{param.loginBanner}
+        </if>
+        <if test="param.loginBannerVue !=null ">
+            and login_banner_vue = #{param.loginBannerVue}
+        </if>
+        <if test="param.materialDesc !=null ">
+            and material_desc = #{param.materialDesc}
+        </if>
+        <if test="param.miniBackPic !=null ">
+            and mini_back_pic = #{param.miniBackPic}
+        </if>
+        <if test="param.miniPic !=null ">
+            and mini_pic = #{param.miniPic}
+        </if>
+        <if test="param.orderMobiles !=null ">
+            and order_mobiles = #{param.orderMobiles}
+        </if>
+        <if test="param.orgLiscenseNo !=null ">
+            and org_liscense_no = #{param.orgLiscenseNo}
+        </if>
+        <if test="param.orgLiscensePic !=null ">
+            and org_liscense_pic = #{param.orgLiscensePic}
+        </if>
+        <if test="param.ownerComId !=null ">
+            and owner_com_id = #{param.ownerComId}
+        </if>
+        <if test="param.payPwd !=null ">
+            and pay_pwd = #{param.payPwd}
+        </if>
+        <if test="param.pkId !=null ">
+            and pk_id = #{param.pkId}
+        </if>
+        <if test="param.policePic !=null ">
+            and police_pic = #{param.policePic}
+        </if>
+        <if test="param.priorityLevel !=null ">
+            and priority_level = #{param.priorityLevel}
+        </if>
+        <if test="param.proEditPage !=null ">
+            and pro_edit_page = #{param.proEditPage}
+        </if>
+        <if test="param.registCapital !=null ">
+            and regist_capital = #{param.registCapital}
+        </if>
+        <if test="param.registContract !=null ">
+            and regist_contract = #{param.registContract}
+        </if>
+        <if test="param.registLoginId !=null ">
+            and regist_login_id = #{param.registLoginId}
+        </if>
+        <if test="param.registMd5Pwd !=null ">
+            and regist_md5_pwd = #{param.registMd5Pwd}
+        </if>
+        <if test="param.registMobileNo !=null ">
+            and regist_mobile_no = #{param.registMobileNo}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.saleSmsAccount !=null ">
+            and sale_sms_account = #{param.saleSmsAccount}
+        </if>
+        <if test="param.satifySocre !=null ">
+            and satify_socre = #{param.satifySocre}
+        </if>
+        <if test="param.servicePromiss !=null ">
+            and service_promiss = #{param.servicePromiss}
+        </if>
+        <if test="param.serviceProCode !=null ">
+            and service_pro_code = #{param.serviceProCode}
+        </if>
+        <if test="param.settleDay !=null ">
+            and settle_day = #{param.settleDay}
+        </if>
+        <if test="param.shopLocation !=null ">
+            and shop_location = #{param.shopLocation}
+        </if>
+        <if test="param.shopOpenTime !=null ">
+            and shop_open_time = #{param.shopOpenTime}
+        </if>
+        <if test="param.shopTemplate !=null ">
+            and shop_template = #{param.shopTemplate}
+        </if>
+        <if test="param.smsAccount !=null ">
+            and sms_account = #{param.smsAccount}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.storeType !=null ">
+            and store_type = #{param.storeType}
+        </if>
+        <if test="param.supApCode !=null ">
+            and sup_ap_code = #{param.supApCode}
+        </if>
+        <if test="param.supLvl !=null ">
+            and sup_lvl = #{param.supLvl}
+        </if>
+        <if test="param.sysName !=null ">
+            and sys_name = #{param.sysName}
+        </if>
+        <if test="param.taxCertPic !=null ">
+            and tax_cert_pic = #{param.taxCertPic}
+        </if>
+        <if test="param.taxNo !=null ">
+            and tax_no = #{param.taxNo}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.urlAddr !=null ">
+            and url_addr = #{param.urlAddr}
+        </if>
+        <if test="param.watermarkImgPath !=null ">
+            and watermark_img_path = #{param.watermarkImgPath}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.cms.mapper.PortalDynamicPicMapper">
+    <select id="queryList" resultType="org.openjweb.cms.entity.PortalDynamicPic"  >
+        select *  from portal_dynamic_pic
+        <where>
+            <if test="param.comId !=null ">
+                and com_id = #{param.comId}
+            </if>
+            <if test="param.createDt !=null ">
+                and create_dt = #{param.createDt}
+            </if>
+            <if test="param.createUid !=null ">
+                and create_uid = #{param.createUid}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.flowStatus !=null ">
+                and flow_status = #{param.flowStatus}
+            </if>
+            <if test="param.flowTransId !=null ">
+                and flow_trans_id = #{param.flowTransId}
+            </if>
+            <if test="param.isMobile !=null ">
+                and is_mobile = #{param.isMobile}
+            </if>
+            <if test="param.isMobileAdv !=null ">
+                and is_mobile_adv = #{param.isMobileAdv}
+            </if>
+            <if test="param.masterRowId !=null ">
+                and master_row_id = #{param.masterRowId}
+            </if>
+            <if test="param.mobileUrl !=null ">
+                and mobile_url = #{param.mobileUrl}
+            </if>
+            <if test="param.objName !=null ">
+                and obj_name = #{param.objName}
+            </if>
+            <if test="param.picTitle !=null ">
+                and pic_title = #{param.picTitle}
+            </if>
+            <if test="param.picUrl !=null ">
+                and pic_url = #{param.picUrl}
+            </if>
+            <if test="param.picUrl2 !=null ">
+                and pic_url2 = #{param.picUrl2}
+            </if>
+            <if test="param.picUrlLink !=null ">
+                and pic_url_link = #{param.picUrlLink}
+            </if>
+            <if test="param.pigGroupId !=null ">
+                and pig_group_id = #{param.pigGroupId}
+            </if>
+            <if test="param.pkId !=null ">
+                and pk_id = #{param.pkId}
+            </if>
+            <if test="param.publishDt !=null ">
+                and publish_dt = #{param.publishDt}
+            </if>
+            <if test="param.rowId !=null ">
+                and row_id = #{param.rowId}
+            </if>
+            <if test="param.sortNo !=null ">
+                and sort_no = #{param.sortNo}
+            </if>
+            <if test="param.storeId !=null ">
+                and store_id = #{param.storeId}
+            </if>
+            <if test="param.updateDt !=null ">
+                and update_dt = #{param.updateDt}
+            </if>
+            <if test="param.updateUid !=null ">
+                and update_uid = #{param.updateUid}
+            </if>
+            <if test="param.websiteCode !=null ">
+                and website_code = #{param.websiteCode}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.cms.entity.PortalDynamicPic"  >
+        select *  from portal_dynamic_pic
+        <if test="param.comId !=null ">
+            and com_id = #{param.comId}
+        </if>
+        <if test="param.createDt !=null ">
+            and create_dt = #{param.createDt}
+        </if>
+        <if test="param.createUid !=null ">
+            and create_uid = #{param.createUid}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.flowStatus !=null ">
+            and flow_status = #{param.flowStatus}
+        </if>
+        <if test="param.flowTransId !=null ">
+            and flow_trans_id = #{param.flowTransId}
+        </if>
+        <if test="param.isMobile !=null ">
+            and is_mobile = #{param.isMobile}
+        </if>
+        <if test="param.isMobileAdv !=null ">
+            and is_mobile_adv = #{param.isMobileAdv}
+        </if>
+        <if test="param.masterRowId !=null ">
+            and master_row_id = #{param.masterRowId}
+        </if>
+        <if test="param.mobileUrl !=null ">
+            and mobile_url = #{param.mobileUrl}
+        </if>
+        <if test="param.objName !=null ">
+            and obj_name = #{param.objName}
+        </if>
+        <if test="param.picTitle !=null ">
+            and pic_title = #{param.picTitle}
+        </if>
+        <if test="param.picUrl !=null ">
+            and pic_url = #{param.picUrl}
+        </if>
+        <if test="param.picUrl2 !=null ">
+            and pic_url2 = #{param.picUrl2}
+        </if>
+        <if test="param.picUrlLink !=null ">
+            and pic_url_link = #{param.picUrlLink}
+        </if>
+        <if test="param.pigGroupId !=null ">
+            and pig_group_id = #{param.pigGroupId}
+        </if>
+        <if test="param.pkId !=null ">
+            and pk_id = #{param.pkId}
+        </if>
+        <if test="param.publishDt !=null ">
+            and publish_dt = #{param.publishDt}
+        </if>
+        <if test="param.rowId !=null ">
+            and row_id = #{param.rowId}
+        </if>
+        <if test="param.sortNo !=null ">
+            and sort_no = #{param.sortNo}
+        </if>
+        <if test="param.storeId !=null ">
+            and store_id = #{param.storeId}
+        </if>
+        <if test="param.updateDt !=null ">
+            and update_dt = #{param.updateDt}
+        </if>
+        <if test="param.updateUid !=null ">
+            and update_uid = #{param.updateUid}
+        </if>
+        <if test="param.websiteCode !=null ">
+            and website_code = #{param.websiteCode}
+        </if>
+    </select>
+
+</mapper>

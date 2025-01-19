@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-@RequestMapping("/api/comm/company")
+@RequestMapping("/api/comm/companyDemo")
 @RestController
-public class CommCommpanyApi {
+public class CommCommpanyDemoApi {
 
-    //localhost:8001/api/comm/company/query
+    //localhost:8001/api/comm/companyDemo/query
 
     @RequestMapping("query")
     public String getComName(){

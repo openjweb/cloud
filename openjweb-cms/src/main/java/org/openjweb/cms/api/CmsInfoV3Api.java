@@ -9,6 +9,9 @@ import org.openjweb.cms.module.params.PortalDynamicPicParam;
 import org.openjweb.cms.service.CmsInfoService;
 import org.openjweb.cms.service.PortalDynamicPicService;
 import org.openjweb.common.util.CMSUtil;
+import org.openjweb.core.entity.CommCompany;
+import org.openjweb.core.module.params.CommCompanyParam;
+import org.openjweb.core.service.CommCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +31,9 @@ public class CmsInfoV3Api {
 
     @Autowired
     private PortalDynamicPicService portalDynamicPicService;//幻灯片
+
+    @Autowired
+    private CommCompanyService commCompanyService;//幻灯片
 
 
     @RequestMapping("/getCateInfoList")
@@ -58,6 +64,8 @@ public class CmsInfoV3Api {
 
     @RequestMapping("/getDynamicPic")
 
+    //http://localhost:8001/api/cms/pub/getDynamicPic?pageNo=1&pageSize=10
+
     public List<PortalDynamicPic> getDynamicPicList(HttpServletRequest request, PortalDynamicPicParam param){
         //根据域名获取
 
@@ -67,12 +75,22 @@ public class CmsInfoV3Api {
         if(param.getPageSize()==null)param.setPageSize(10);
         //另外需要增加按公司信息进行过滤
         String comId = null;
+        CommCompany comEnt = null;
+        CommCompanyParam comParam = new CommCompanyParam();
+        try{
+
+            comParam.setDomainName(domainName);
+            comEnt = commCompanyService.queryList(comParam).get(0);
+        }
+        catch (Exception ex){}
+        if(comEnt==null){
+            comId = "C0001";//默认为C0001
+        }
 
         //String groupId = param.getPigGroupId();//这个需要上传，用来区分组ID
         List<PortalDynamicPic> picList = null;
+        param.setComId(comId);//按公司过滤
         picList = this.portalDynamicPicService.queryList(param);
-
-
         return picList;
 
     }

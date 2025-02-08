@@ -95,7 +95,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/**/images/**",
             "/**/css/**",
             "/**/img/**",
-            "/api/cms/pub/**"
+            "/api/cms/pub/**",
+            "/api/b2c/pub/**"
+
 
     };
 
@@ -139,7 +141,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html", "/api/comm/user/login","/api/weixin/login","/api/weixin/getVueMenu","/api/comm/user/getUserInfo2", "/front/**"
-                                    ,"/**/js/**",  "/**/images/**",  "/**/css/**","/**/img/**","/api/cms/pub/**"
+                                    ,"/**/js/**",  "/**/images/**",  "/**/css/**","/**/img/**","/api/cms/pub/**","/api/b2c/pub/**"
                     ).permitAll()
                     .anyRequest().authenticated()
                     .and()

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.openjweb.cms.mapper.PortalDynamicPicMapper">
     <select id="queryList" resultType="org.openjweb.cms.entity.PortalDynamicPic"  >
-        select *  from portal_dynamic_pic
+        select *  from portal_dynamic_pic where 1=1
         <where>
             <if test="param.comId !=null ">
                 and com_id = #{param.comId}
@@ -83,7 +83,7 @@
 
 
     <select id="findPage" resultType="org.openjweb.cms.entity.PortalDynamicPic"  >
-        select *  from portal_dynamic_pic
+        select *  from portal_dynamic_pic where 1=1
         <if test="param.comId !=null ">
             and com_id = #{param.comId}
         </if>

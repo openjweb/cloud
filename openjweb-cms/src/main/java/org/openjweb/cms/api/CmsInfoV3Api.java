@@ -69,6 +69,7 @@ public class CmsInfoV3Api {
     public List<PortalDynamicPic> getDynamicPicList(HttpServletRequest request, PortalDynamicPicParam param){
         //根据域名获取
 
+
         String domainName = CMSUtil.getDomainName(request);
         if(param==null)param = new PortalDynamicPicParam();
         if(param.getPage()==null)param.setPage(1);

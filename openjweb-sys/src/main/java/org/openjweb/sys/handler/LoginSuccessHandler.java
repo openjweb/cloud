@@ -46,6 +46,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         ServletOutputStream outputStream = httpServletResponse.getOutputStream();
 
         log.info("success ,add jwt accesstoken to header.........");
+        log.info(authentication.getName());
 
 
         // 生成JWT，并放置到请求头中
@@ -54,7 +55,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info(jwtUtils.getHeader());
         log.info (jwt);
         httpServletResponse.setHeader(jwtUtils.getHeader(), jwt);
-        if(StringUtils.isEmpty(loginUrl)) {
+        //if(StringUtils.isEmpty(loginUrl)) {//这种判断不适合同时存在APP登录和网页登录的情况，后面考虑根据什么判断
+        if(1==1){//uniapp调试
+            //对于app可将
             ResponseResult result = ResponseResult.okResult("SuccessLogin");//登录成功
             String json = JSONUtil.toJsonStr(result);
             outputStream.write(json.getBytes(StandardCharsets.UTF_8));

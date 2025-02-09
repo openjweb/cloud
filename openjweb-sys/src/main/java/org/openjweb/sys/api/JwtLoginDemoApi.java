@@ -37,11 +37,15 @@ public class JwtLoginDemoApi {
     LoginSuccessHandler loginSuccessHandler;
 
     @RequestMapping("login")
+
     public String login(String loginId, String password) throws ServletException, IOException {
         CommUser sysUser = sysUserService.selectUserByLoginId(loginId);
         //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
         // 生成一个包含账号密码的认证信息
         log.info("开始接口认证。。。。。。。。。。。。。。");
+        log.info("传入的登录账号和密码：：：");
+        log.info(loginId);
+        log.info(password);
         Authentication token = new UsernamePasswordAuthenticationToken(loginId,password);
 
 

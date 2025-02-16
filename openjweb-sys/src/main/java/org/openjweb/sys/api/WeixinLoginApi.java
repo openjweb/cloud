@@ -92,6 +92,16 @@ public class WeixinLoginApi {
             dataMap.put("login_id",loginId);// 登录账号,可能不使用
             dataMap.put("code",0);
             dataMap.put("msg","登录成功!");//国际化的话不能直接这么写
+            /*JSONObject tmpJson = new JSONObject();
+            //下面是个性化设置,也可以不设置
+            dataMap.put("menu_layout", "vertical");
+            dataMap.put("menu_color", "dark");
+            dataMap.put("theme_color", "#1890ff");
+            dataMap.put("menu_pic", "");//背景图
+            dataMap.put("data",tmpJson); //背景图
+
+             */
+
 
             return dataMap;
 

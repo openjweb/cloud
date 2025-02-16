@@ -109,7 +109,7 @@ public class Oauth2DemoApi {
                 log.info(result);
 
                 //将第三方用户写入本系统中
-                JSONObject json = JSONObject.parseObject(result);//用户基本信息
+                    JSONObject json = JSONObject.parseObject(result);//用户基本信息
                 //演示refreshtoken
                 HttpHeaders tmpHeaders2 = new HttpHeaders();
                 tmpHeaders2.add("authorization", "Basic " + new String(Base64.encodeBase64((clientId + ":" + "123456").getBytes())));

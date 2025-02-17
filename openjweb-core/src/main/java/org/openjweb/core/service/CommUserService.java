@@ -1,12 +1,16 @@
 package org.openjweb.core.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.openjweb.common.util.StringUtil;
+import org.openjweb.core.entity.CommAuth;
 import org.openjweb.core.entity.CommColumnDef;
 import org.openjweb.core.entity.CommUser;
 import org.openjweb.core.mapper.CommColumnDefMapper;
 import org.openjweb.core.mapper.CommUserMapper;
+import org.openjweb.core.module.params.CommAuthParam;
 import org.openjweb.core.module.params.CommUserParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +19,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -106,5 +112,7 @@ public class CommUserService  extends ServiceImpl<CommUserMapper, CommUser >  im
 
 
     }
+
+
 
 }

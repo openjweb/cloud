@@ -7,21 +7,25 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.openjweb.common.util.CMSUtil;
+import org.openjweb.common.util.FileUtil;
 import org.openjweb.common.util.StringUtil;
 import org.openjweb.core.entity.CommApiKey;
 import org.openjweb.core.entity.CommUser;
 import org.openjweb.core.module.params.CommApiKeyParam;
 import org.openjweb.core.service.CommApiKeyService;
+import org.openjweb.core.service.CommAuthService;
 import org.openjweb.core.service.CommUserService;
 import org.openjweb.core.util.JwtUtil;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,6 +42,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 @RequestMapping("/api/weixin")
@@ -54,6 +59,9 @@ public class WeixinLoginApi {
     @Resource
     JwtUtil jwtUtil;
 
+    @Autowired
+    CommAuthService commAuthService;
+
 
 
     @Resource(name = "jdbcTemplateOne")
@@ -64,6 +72,8 @@ public class WeixinLoginApi {
 
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
+
+    @Value("${openjweb.dev.vueMenuTemplatePath:}") private String vueMenuTemplatePath;
 
 
 
@@ -219,21 +229,114 @@ public class WeixinLoginApi {
     public @ResponseBody
     Object getVueMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
         log.info("getVueMenu 从头部获得的accessToken::::");
+
+        /*Enumeration<?> enum1 = request.getHeaderNames();
+        //检查头部信息
+
+        while (enum1.hasMoreElements()) {
+            String key = (String) enum1.nextElement();
+            String value = request.getHeader(key);
+            System.out.println("getVueMenu头部:" + key + "\t" + value);
+        }
+
+        //遍历传入参数
+        Enumeration em = request.getParameterNames();
+        String sql = " ";
+        while (em.hasMoreElements()) {
+            String name1 = (String) em.nextElement();
+            String value = request.getParameter(name1);
+            log.info("getVueMenu参数:" + name1 + "/" + value);
+
+        }
+
         String accessToken = request.getHeader("Authorization");
         log.info(accessToken);
+        if(accessToken==null||accessToken.trim().length()==0){
+            accessToken = request.getParameter("accessToken");
+            log.info("getVueMenu从请求参数获得accessToken 为:");
+            log.info(accessToken);
+
+        }*/
+        String accessToken = request.getHeader("accesstoken");
+        log.info("getVueMenu的accessToken:::");
+        log.info(accessToken);
+
         String loginId = null;
         Claims claims = jwtUtil.getClaimsByToken(accessToken);
         try{
             loginId = claims.getSubject();
         }
         catch(Exception ex){}
-        log.info("根据accessToken解析的登录账号:::::");
+        log.info("getVueMenu根据accessToken解析的登录账号:::::");
         log.info(loginId);
         //创建功能菜单
-        log.info("创建功能菜单：：：：：：：");
-        JSONObject json = new JSONObject();
-        json.put("code",-1);
-        json.put("msg","获取菜单失败..............");
+        String menuJs = "";
+        JSONObject json = null;
+        // JSONArray array = new JSONArray();
+
+        // logger.info("检测getMenu3......................");
+        String menuColor = "";
+        String themeColor = "";
+        String menuBackPic = "";
+        String layout = "";
+        String menuFilePath = "";
+        //D:\project\openjweb\webapps\WEB-INF\config
+
+        //获取不需要授权的menu菜单
+
+        //String menuFilePath = request.getRealPath("/") + "/WEB-INF/config/menu-vue-v2.js";
+
+        try {
+            // logger.info("文件读取menuJs:::::");
+            menuJs = FileUtil.getTextFileContent(vueMenuTemplatePath, "utf-8");
+
+            JSONObject json1 = JSONObject.parseObject(menuJs);
+            //logger.info("从数据库查菜单开始..,yonghu......");
+            //logger.info(loginId);
+
+            JSONArray tmpArray = commAuthService.getVueMenu(loginId);
+
+            //logger.info("从数据库查菜单结束........");
+
+            if (tmpArray != null && tmpArray.size() > 0) {
+                JSONArray originArray = json1.getJSONArray("data");
+                for (int i = 0; i < tmpArray.size(); i++) {
+
+                    originArray.add(tmpArray.getJSONObject(i));
+                }
+                json1.put("data", originArray);
+                //
+                menuJs = json1.toJSONString();
+                //String tmpStr = tmpArray.toJSONString();
+                //menuJs = menuJs.replace("//SUB_MENU", ","+tmpStr);
+            } else {
+                //menuJs = menuJs.replace("//SUB_MENU","");
+            }
+            try {
+                // logger.info("开始固定菜单与权限菜单合并......");
+                json = JSONObject.parseObject(menuJs);
+                JSONArray array = (JSONArray) json.getJSONArray("data");
+                // 系统自己的需要在data项下添加。
+                // logger.info("从当前用户获取权限菜单");
+
+                json.put("data", array);// 合并系统菜单和固定菜单
+                json.put("code", 0);
+                json.put("msg", "调用成功");
+                json.put("status", "success");
+
+            } catch (Exception ex) {
+            }
+
+            log.info("得到的menuJs:::");
+            log.info(menuJs);
+            // logger.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+
 
 
 

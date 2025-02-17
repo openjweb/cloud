@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -47,6 +48,35 @@ public class JwtLoginDemoApi {
         log.info(loginId);
         log.info(password);
         Authentication token = new UsernamePasswordAuthenticationToken(loginId,password);
+
+
+        Authentication authentication = authenticationManager.authenticate(token);
+        //如果认证失败，不会向下走，而是跳转到登录页面，除非在WebSecurityConfig开通.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+
+
+        // 将返回的Authentication存到上下文中
+        SecurityContextHolder.getContext().setAuthentication(authentication);//
+        CommUser user = (CommUser) authentication.getPrincipal();
+        log.info("账号:"+user.getLoginId());
+        //ServletContext().
+        ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(),sra.getResponse(),authentication);
+        return "登录成功,登录账号为："+user.getLoginId();
+
+    }
+
+    @RequestMapping("loginv2")//匹配VUE前端参数username
+    //@CrossOrigin(origins = {"http://localhost"}) //设置为允许跨域
+
+    public String loginv2(String username, String password) throws ServletException, IOException {
+        CommUser sysUser = sysUserService.selectUserByLoginId(username);
+        //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
+        // 生成一个包含账号密码的认证信息
+        log.info("开始接口认证。。。。。。。。。。。。。。");
+        log.info("传入的登录账号和密码：：：");
+        log.info(username);
+        log.info(password);
+        Authentication token = new UsernamePasswordAuthenticationToken(username,password);
 
 
         Authentication authentication = authenticationManager.authenticate(token);

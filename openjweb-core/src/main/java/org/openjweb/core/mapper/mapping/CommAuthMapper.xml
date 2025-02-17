@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.openjweb.core.mapper.CommAuthMapper">
+    <select id="queryList" resultType="org.openjweb.core.entity.CommAuth"  >
+        select *  from comm_auth
+        <where>
+            <if test="param.alwaysShow !=null ">
+                and always_show = #{param.alwaysShow}
+            </if>
+            <if test="param.clsCode !=null ">
+                and cls_code = #{param.clsCode}
+            </if>
+            <if test="param.dataFlg !=null ">
+                and data_flg = #{param.dataFlg}
+            </if>
+            <if test="param.isAssignToCom !=null ">
+                and is_assign_to_com = #{param.isAssignToCom}
+            </if>
+            <if test="param.isLayui !=null ">
+                and is_layui = #{param.isLayui}
+            </if>
+            <if test="param.isVue !=null ">
+                and is_vue = #{param.isVue}
+            </if>
+            <if test="param.layuiJump !=null ">
+                and layui_jump = #{param.layuiJump}
+            </if>
+            <if test="param.layuiName !=null ">
+                and layui_name = #{param.layuiName}
+            </if>
+            <if test="param.menuSortNo !=null ">
+                and menu_sort_no = #{param.menuSortNo}
+            </if>
+            <if test="param.menuUrl !=null ">
+                and menu_url = #{param.menuUrl}
+            </if>
+            <if test="param.newUrl !=null ">
+                and new_url = #{param.newUrl}
+            </if>
+            <if test="param.noKeepAlive !=null ">
+                and no_keep_alive = #{param.noKeepAlive}
+            </if>
+            <if test="param.picFile !=null ">
+                and pic_file = #{param.picFile}
+            </if>
+            <if test="param.sysCode !=null ">
+                and sys_code = #{param.sysCode}
+            </if>
+            <if test="param.sysRole !=null ">
+                and sys_role = #{param.sysRole}
+            </if>
+            <if test="param.vueComponent !=null ">
+                and vue_component = #{param.vueComponent}
+            </if>
+            <if test="param.vueHidden !=null ">
+                and vue_hidden = #{param.vueHidden}
+            </if>
+            <if test="param.vueIcon !=null ">
+                and vue_icon = #{param.vueIcon}
+            </if>
+            <if test="param.vuePath !=null ">
+                and vue_path = #{param.vuePath}
+            </if>
+            <if test="param.vueRedirect !=null ">
+                and vue_redirect = #{param.vueRedirect}
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <select id="findPage" resultType="org.openjweb.core.entity.CommAuth"  >
+        select *  from comm_auth
+        <if test="param.alwaysShow !=null ">
+            and always_show = #{param.alwaysShow}
+        </if>
+        <if test="param.clsCode !=null ">
+            and cls_code = #{param.clsCode}
+        </if>
+        <if test="param.dataFlg !=null ">
+            and data_flg = #{param.dataFlg}
+        </if>
+        <if test="param.isAssignToCom !=null ">
+            and is_assign_to_com = #{param.isAssignToCom}
+        </if>
+        <if test="param.isLayui !=null ">
+            and is_layui = #{param.isLayui}
+        </if>
+        <if test="param.isVue !=null ">
+            and is_vue = #{param.isVue}
+        </if>
+        <if test="param.layuiJump !=null ">
+            and layui_jump = #{param.layuiJump}
+        </if>
+        <if test="param.layuiName !=null ">
+            and layui_name = #{param.layuiName}
+        </if>
+        <if test="param.menuSortNo !=null ">
+            and menu_sort_no = #{param.menuSortNo}
+        </if>
+        <if test="param.menuUrl !=null ">
+            and menu_url = #{param.menuUrl}
+        </if>
+        <if test="param.newUrl !=null ">
+            and new_url = #{param.newUrl}
+        </if>
+        <if test="param.noKeepAlive !=null ">
+            and no_keep_alive = #{param.noKeepAlive}
+        </if>
+        <if test="param.picFile !=null ">
+            and pic_file = #{param.picFile}
+        </if>
+        <if test="param.sysCode !=null ">
+            and sys_code = #{param.sysCode}
+        </if>
+        <if test="param.sysRole !=null ">
+            and sys_role = #{param.sysRole}
+        </if>
+        <if test="param.vueComponent !=null ">
+            and vue_component = #{param.vueComponent}
+        </if>
+        <if test="param.vueHidden !=null ">
+            and vue_hidden = #{param.vueHidden}
+        </if>
+        <if test="param.vueIcon !=null ">
+            and vue_icon = #{param.vueIcon}
+        </if>
+        <if test="param.vuePath !=null ">
+            and vue_path = #{param.vuePath}
+        </if>
+        <if test="param.vueRedirect !=null ">
+            and vue_redirect = #{param.vueRedirect}
+        </if>
+    </select>
+
+</mapper>

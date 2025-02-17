@@ -5,10 +5,7 @@ import org.beetl.core.GroupTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.HashMap;
@@ -47,5 +44,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
         localeInterceptor.setParamName("lang");// 指定设置国际化的参数
         registry.addInterceptor(localeInterceptor);
 
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) { //为了vue前端proxy增加跨域设置
+        log.info("设置跨域允许的请求.................");
+        registry.addMapping("/**") // 对所有路径生效
+                .allowedOrigins("http://localhost:81") // 允许的源
+                .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许的方法
+                .allowedHeaders("*") // 允许的头部
+                .allowCredentials(true) // 是否发送Cookie
+                .maxAge(3600); // 预检请求的缓存时间
     }
 }

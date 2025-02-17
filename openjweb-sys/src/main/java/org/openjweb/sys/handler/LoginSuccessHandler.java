@@ -25,7 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -56,11 +58,31 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info (jwt);
         httpServletResponse.setHeader(jwtUtils.getHeader(), jwt);
         //if(StringUtils.isEmpty(loginUrl)) {//这种判断不适合同时存在APP登录和网页登录的情况，后面考虑根据什么判断
-        if(1==1){//uniapp调试
+        /*if(1==1){//uniapp调试
             //对于app可将
             ResponseResult result = ResponseResult.okResult("SuccessLogin");//登录成功
             String json = JSONUtil.toJsonStr(result);
+            log.info("json:::::");
+            log.info(json );
             outputStream.write(json.getBytes(StandardCharsets.UTF_8));
+            //httpServletResponse.setHeader("","");
+            outputStream.flush();
+            outputStream.close();
+        }*/
+        if(1==1){
+            Map resultMap = new HashMap<>();
+            resultMap.put("access_token",jwt);
+            resultMap.put("login_id",authentication.getName());
+
+
+            //ResponseResult result = ResponseResult.okResult("SuccessLogin");//登录成功
+            ResponseResult result = ResponseResult.okResult(resultMap);//登录成功
+
+            String json = JSONUtil.toJsonStr(result);
+            log.info("json:::::");
+            log.info(json );
+            outputStream.write(json.getBytes(StandardCharsets.UTF_8));
+            //httpServletResponse.setHeader("","");
             outputStream.flush();
             outputStream.close();
         }

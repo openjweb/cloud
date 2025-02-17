@@ -117,6 +117,7 @@ openjweb:
     rootProjectPath: D:/project/openjweb-cloud
     isCreateVue: true
     vuePath: D:/vue-admin20240926
+    vueMenuTemplatePath: /root/web/webapps/WEB-INF/config/menu-vue-v2.js
 
 lucene:
   cmsDir: d:/lucene/cms

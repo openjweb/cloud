@@ -31,6 +31,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Slf4j
 @Configuration
@@ -121,6 +122,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
+    @CrossOrigin
     protected void configure(HttpSecurity http) throws Exception {
         //下面注释掉的是第一阶段的示例
       /*  http.cors().and().csrf().disable()//登录表单

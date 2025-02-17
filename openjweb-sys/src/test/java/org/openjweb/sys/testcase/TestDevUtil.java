@@ -26,7 +26,8 @@ public class TestDevUtil {
         //String tableName = "cms_category";//生成cms_info相关增删改查代码
         //String tableName = "portal_website";
         //String tableName = "portal_dynamic_pic";//幻灯片
-        String tableName = "comm_company";//公司基本信息
+        //String tableName = "comm_company";//公司基本信息
+        String tableName = "comm_auth";//权限基本信息
 
 
         util.createJavaSource(tableName);

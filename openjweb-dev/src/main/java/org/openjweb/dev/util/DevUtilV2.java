@@ -99,7 +99,12 @@ public class DevUtilV2 {
                     map.put("apiProperty", "@ApiModelProperty(value =\"" + colDesc + "\" )");
 
                     //下面生成类属性定义
-                    String colType = entity.getColumnDatatype().toLowerCase();
+                    //log.info("当前列：");
+                    //log.info(entity.getColumnName());
+                    //如果没设置字段类型，暂按照字符串处理
+                    String colType = entity.getColumnDatatype()==null?"varchar":entity.getColumnDatatype().toLowerCase();
+                    //String colType = entity.getColumnDatatype().toLowerCase();
+
                     if (colType.indexOf("varchar") > -1 || colType.indexOf("char") > -1
                             || colType.indexOf("text") > -1 || colType.indexOf("clob") > -1 || colType.indexOf("string") > -1
                             || colType.indexOf("time") > -1 || colType.indexOf("str_") > -1) {

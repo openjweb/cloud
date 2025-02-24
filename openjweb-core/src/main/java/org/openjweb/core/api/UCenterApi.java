@@ -47,6 +47,7 @@ public class UCenterApi {
     public @ResponseBody
     JSONObject getUserInfo2(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        log.info("调用getUserInfo2............");
 
 
         Enumeration em = request.getParameterNames();

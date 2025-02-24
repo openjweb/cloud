@@ -73,11 +73,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             Map resultMap = new HashMap<>();
             resultMap.put("access_token",jwt);
             resultMap.put("login_id",authentication.getName());
-
-
             //ResponseResult result = ResponseResult.okResult("SuccessLogin");//登录成功
             ResponseResult result = ResponseResult.okResult(resultMap);//登录成功
-
             String json = JSONUtil.toJsonStr(result);
             log.info("json:::::");
             log.info(json );

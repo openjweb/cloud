@@ -5,13 +5,12 @@ import org.openjweb.core.entity.CommUser;
 import org.openjweb.core.service.CommUserService;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -43,7 +42,7 @@ public class JwtLoginDemoApi {
         CommUser sysUser = sysUserService.selectUserByLoginId(loginId);
         //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
         // 生成一个包含账号密码的认证信息
-        log.info("开始接口认证。。。。。。。。。。。。。。");
+        log.info("开始接口认证login。。。。。。。。。。。。。。");
         log.info("传入的登录账号和密码：：：");
         log.info(loginId);
         log.info(password);
@@ -66,16 +65,39 @@ public class JwtLoginDemoApi {
     }
 
     @RequestMapping("loginv2")//匹配VUE前端参数username
-    //@CrossOrigin(origins = {"http://localhost"}) //设置为允许跨域
+    //是否需要设置跨域，在npm run build后，部署到正式环境登录不了。
+    //@CrossOrigin(origins = {"http://localhost","http://c0001-1.zzyicheng.cn"}) //设置为允许跨域
+    //@CrossOrigin(origins = "*", allowedHeaders = "*") //设置为允许跨域
 
-    public String loginv2(String username, String password) throws ServletException, IOException {
-        CommUser sysUser = sysUserService.selectUserByLoginId(username);
-        //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
-        // 生成一个包含账号密码的认证信息
-        log.info("开始接口认证。。。。。。。。。。。。。。");
+    //public String loginv2( @PathVariable("username") String username,@PathVariable("password") String password) throws ServletException, IOException {
+
+    //public  @ResponseBody  String loginv2(  String username , String password ,String clienId,String sysId,String appSecret ) throws ServletException, IOException {
+    public ResponseEntity<?> loginv2(@RequestParam String username , @RequestParam String password  ) throws ServletException, IOException {
+
+        //public @ResponseBody String loginv2(  HttpServletRequest request  ) throws ServletException, IOException {
+    //public String loginv2(  CommUser param  ) throws ServletException, IOException {
+
+        //String username = request.getHeader("username");
+        //String password = request.getHeader("password");
+        //String sysId = request.getParameter("sysId");
+
+
+        //public String loginv2( CommUser param ) throws ServletException, IOException {
+        //String username = param.getUsername();
+        //String password = param.getPassword();
+
+        log.info("开始接口认证loginv2。。。。。。。。。。。。。。");
         log.info("传入的登录账号和密码：：：");
         log.info(username);
         log.info(password);
+
+
+
+
+        CommUser sysUser = sysUserService.selectUserByLoginId(username);
+        //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
+        // 生成一个包含账号密码的认证信息
+
         Authentication token = new UsernamePasswordAuthenticationToken(username,password);
 
 
@@ -90,7 +112,8 @@ public class JwtLoginDemoApi {
         //ServletContext().
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(),sra.getResponse(),authentication);
-        return "登录成功,登录账号为："+user.getLoginId();
+        return null;
+        //return "登录成功,登录账号为："+user.getLoginId();
 
     }
 }

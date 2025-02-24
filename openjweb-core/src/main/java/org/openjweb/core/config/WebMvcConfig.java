@@ -49,8 +49,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) { //为了vue前端proxy增加跨域设置
         log.info("设置跨域允许的请求.................");
+        //When allowCredentials is true, allowedOrigins cannot contain the special value "*" since that cannot be set on the "Access-Control-Allow-Origin" response header. To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
+
         registry.addMapping("/**") // 对所有路径生效
-                .allowedOrigins("http://localhost:81") // 允许的源
+                .allowedOrigins(new String[]{"http://localhost:81","http://c0001-1.zzyicheng.cn","http://localhost"}) // 允许的源---本地开发环境
+                //.allowedOrigins(new String[]{"http://localhost:81","http://c0001-1.zzyicheng.cn"}) // 允许的源---本地开发环境
+
+                //.allowedOrigins("*") // 允许的源，服务器正式环境，需要确定具体应该设置什么
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许的方法
                 .allowedHeaders("*") // 允许的头部
                 .allowCredentials(true) // 是否发送Cookie

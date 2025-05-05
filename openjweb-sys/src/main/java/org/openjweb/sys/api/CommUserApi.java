@@ -83,7 +83,7 @@ public class CommUserApi {
 
     }
 
-    @RequestMapping(value="doLogin", method = {RequestMethod.POST,RequestMethod.GET    })//匹配VUE前端参数username , produces = "application/json"
+    @RequestMapping(value="doLogin", method = {RequestMethod.POST     })//匹配VUE前端参数username , produces = "application/json"
     //public @ResponseBody    JSONObject login(@RequestParam String username , @RequestParam String password  ) throws ServletException, IOException {
     public @ResponseBody    JSONObject login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -92,12 +92,12 @@ public class CommUserApi {
         String password = request.getParameter("password");
 
 
-        log.info("开始接口认证CommUserApi login。。。。。。。。。。。。。");
-        log.info("传入的登录账号和密码：：：");
-        log.info(username);
-        log.info(password);
+        //log.info("开始接口认证CommUserApi login。。。。。。。。。。。。。");
+        //log.info("传入的登录账号和密码：：：");
+        //log.info(username);
+        //log.info(password);
 
-        org.openjweb.core.entity.CommUser sysUser = sysUserService.selectUserByLoginId(username);
+        //org.openjweb.core.entity.CommUser sysUser = sysUserService.selectUserByLoginId(username);
         //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
         // 生成一个包含账号密码的认证信息
         Authentication token = new UsernamePasswordAuthenticationToken(username,password);

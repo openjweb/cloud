@@ -107,11 +107,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             String timestamp = String.valueOf(System.currentTimeMillis());
             String key = service.queryForObject("select parm_value from comm_system_parms where parm_name='WeixinSSOSignKey' ",String.class).toString();
             String cookieToken = StringUtil.getUUID();
-            String sourceSign = "ip="+ip+"&access_token="+jwt+"&cookie="+cookieToken+"&nonce="+nonce+"&timestamp="+timestamp+"&key="+key;//key放末尾
-            String sign = Password.MD5EncodePassEncoding(sourceSign, "utf-8") ;
-            String parm = "&cookie="+cookieToken+"&ip="+ip+"&nonce="+nonce+"&timestamp="+timestamp+"&sign="+sign;
-            toUrl+= parm;
-            log.info(toUrl);
+            //String sourceSign = "ip="+ip+"&access_token="+jwt+"&cookie="+cookieToken+"&nonce="+nonce+"&timestamp="+timestamp+"&key="+key;//key放末尾
+            //String sign = Password.MD5EncodePassEncoding(sourceSign, "utf-8") ;
+            //String parm = "&cookie="+cookieToken+"&ip="+ip+"&nonce="+nonce+"&timestamp="+timestamp+"&sign="+sign;
+            //toUrl+= parm;
+            //log.info(toUrl);
             //httpServletResponse.setContentType("text/html");//设置普通的
             //httpServletResponse.sendRedirect(toUrl);
             String loginId = "";

@@ -74,6 +74,19 @@ public class JwtLoginDemoApi {
 
     }
 
+
+    /**
+     * 这个方法vue前端生产模式调用一直有问题，有可能是/demo开头的接口有什么特殊的问题，而且vue前端生产模式
+     * 调用返回{"code":200,"msg":"success","data":{"accessToken":"admin-accessToken"}，比较诡异。
+     * 改为复制到CommUserApi的doLogin方法。另外vue前端的utils/request.js可使用qs.stringify(config.data)
+     * 表单参数模式调用到doLogin这个接口
+     * @param username
+     * @param password
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+
     @RequestMapping(value="loginv2", method = {RequestMethod.POST,RequestMethod.GET    })//匹配VUE前端参数username , produces = "application/json"
     //是否需要设置跨域，在npm run build后，部署到正式环境登录不了。
     //@CrossOrigin(origins = {"http://localhost","http://c0001-1.zzyicheng.cn"}) //设置为允许跨域

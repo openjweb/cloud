@@ -98,7 +98,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/**/img/**",
             "/api/cms/pub/**",
             "/api/b2c/pub/**",
-            "/ucenter/getVueLoginStyle"
+            "/ucenter/getVueLoginStyle",
+            "/ucenter/login",
+            "/ucenter/testlogin",//测试SpringBoot在vue端获取不到返回值
+            "/ucenter/doLogin"
 
 
     };
@@ -144,7 +147,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/login.html", "/img/**","/demo/**","/webjars/**",  "/testduoyu","/i18n/**","/api/b2c/b2carea/**","/api/store/**","/**/*.html", "/api/comm/user/login","/api/weixin/login","/api/weixin/getVueMenu","/api/comm/user/getUserInfo2", "/front/**"
-                                    ,"/**/js/**",  "/**/images/**",  "/**/css/**","/**/img/**","/api/cms/pub/**","/api/b2c/pub/**","/ucenter/getVueLoginStyle"
+                                    ,"/**/js/**",  "/**/images/**",  "/**/css/**","/**/img/**","/api/cms/pub/**","/api/b2c/pub/**","/ucenter/getVueLoginStyle","/ucenter/testlogin","/ucenter/login","/ucenter/doLogin"
                     ).permitAll()
                     .anyRequest().authenticated()
                     .and()

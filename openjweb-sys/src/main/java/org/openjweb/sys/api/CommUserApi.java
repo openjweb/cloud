@@ -7,11 +7,24 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.openjweb.core.service.CommUserService;
+import org.openjweb.redis.starter.util.RedisUtil;
 import org.openjweb.sys.entity.CommUser;
+import org.openjweb.sys.handler.LoginSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 
 @RestController
@@ -19,6 +32,19 @@ import java.util.HashMap;
 @Api(tags = "admin-用户管理")
 @Slf4j
 public class CommUserApi {
+
+    @Autowired
+    private AuthenticationManager authenticationManager; //WebSecurityConfig声明以后这里就不报红了
+
+    @Autowired
+    CommUserService sysUserService;
+
+    @Autowired
+    LoginSuccessHandler loginSuccessHandler;
+
+    @Resource
+    private RedisUtil redisUtil;
+
 
     @ApiOperation("用户详情")
     @ApiImplicitParams({
@@ -39,15 +65,82 @@ public class CommUserApi {
         return user;
     }
 
+    @RequestMapping(value = "/testlogin1", method = {RequestMethod.POST, RequestMethod.GET}) // ,RequestMethod.GET
+    public @ResponseBody
+    JSONObject testlogin(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+
+            //测试
+            log.info(request.getParameter("username"));
+            log.info(request.getParameter("password"));
+            JSONObject tmpJson = new JSONObject();
+            tmpJson.put("code",0);
+            tmpJson.put("msg","success");
+            tmpJson.put("access_token", "12345678");
+            tmpJson.put("login_id", "admin");// 登录账号,可能不使用
+            return tmpJson;
+
+
+    }
+
+    @RequestMapping(value="doLogin", method = {RequestMethod.POST,RequestMethod.GET    })//匹配VUE前端参数username , produces = "application/json"
+    //public @ResponseBody    JSONObject login(@RequestParam String username , @RequestParam String password  ) throws ServletException, IOException {
+    public @ResponseBody    JSONObject login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //http://localhost:8001/ucenter/login?username=admin&password=xxx
+        String username =   request.getParameter("username");
+        String password = request.getParameter("password");
+
+
+        log.info("开始接口认证CommUserApi login。。。。。。。。。。。。。");
+        log.info("传入的登录账号和密码：：：");
+        log.info(username);
+        log.info(password);
+
+        org.openjweb.core.entity.CommUser sysUser = sysUserService.selectUserByLoginId(username);
+        //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
+        // 生成一个包含账号密码的认证信息
+        Authentication token = new UsernamePasswordAuthenticationToken(username,password);
+        Authentication authentication = authenticationManager.authenticate(token);
+        //如果认证失败，不会向下走，而是跳转到登录页面，除非在WebSecurityConfig开通.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        // 将返回的Authentication存到上下文中
+        SecurityContextHolder.getContext().setAuthentication(authentication);//
+        org.openjweb.core.entity.CommUser user = (org.openjweb.core.entity.CommUser) authentication.getPrincipal();
+        log.info("账号:"+user.getLoginId());
+
+        //ServletContext().
+        ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(),sra.getResponse(),authentication);
+        String json = null;
+        try{
+            json = redisUtil.get("login-"+user.getLoginId() ).toString();
+        }
+        catch (Exception ex){}
+        log.info("认证成功的json is:::");
+        log.info(json);
+
+
+        return JSONObject.parseObject(json);//为什么VUE前端获取的是空值？？？
+
+
+
+        //return "登录成功,登录账号为："+user.getLoginId();
+
+    }
+
+
+
+
+
     @RequestMapping(value = "/getVueLoginStyle", method = {RequestMethod.POST, RequestMethod.GET}) // ,RequestMethod.GET
     public @ResponseBody
     JSONObject getVueLoginStyle(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        {
-            log.info("调用getVueLoginStyle...........");
+
+            log.info("SpringBoot调用getVueLoginStyle...........");
 
 
-            HashMap<String, Object> map = new HashMap();
+
             String appId = request.getParameter("appId") == null ? "" : request.getParameter("appId");// 登录账号，可根据登录账号设置登录页样式
             JSONObject dataJson = new JSONObject();
             JSONObject resultJson = new JSONObject();
@@ -151,6 +244,6 @@ public class CommUserApi {
 
             return resultJson;
 
-        }
+
     }
 }

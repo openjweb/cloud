@@ -58,6 +58,16 @@ public class CommUser implements UserDetails, Serializable {
     private String psnPhotoPath = "";//头像图片路径+文件名
     private String isMobileValid;//是否手机认证通过
     private String wxOpenId;//绑定的微信OpenID，以后放扩展表
+    private String nickName;//昵称
+    private String comName;//所属单位
+    private String lastLoginDt;//最后登录时间
+    private String signMsg;//个性签名
+    private String isRandSkin;
+    private String idImage1;//身份证正反面
+    private String idImage2;
+    private String isEmailValid;
+    private String isValidIdcard;
+
 
     /*时间戳 修改人 乐观锁等 */
     private Long sortNo;//排序号

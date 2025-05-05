@@ -1,8 +1,10 @@
 package org.openjweb.sys.api;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.openjweb.core.entity.CommUser;
 import org.openjweb.core.service.CommUserService;
+import org.openjweb.redis.starter.util.RedisUtil;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,14 +12,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 测试URL:http://localhost:8001/demo/jwt/login?loginId=admin&password=Hello0214@
@@ -35,6 +42,9 @@ public class JwtLoginDemoApi {
 
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     @RequestMapping("login")
 
@@ -64,17 +74,19 @@ public class JwtLoginDemoApi {
 
     }
 
-    @RequestMapping("loginv2")//匹配VUE前端参数username
+    @RequestMapping(value="loginv2", method = {RequestMethod.POST,RequestMethod.GET    })//匹配VUE前端参数username , produces = "application/json"
     //是否需要设置跨域，在npm run build后，部署到正式环境登录不了。
     //@CrossOrigin(origins = {"http://localhost","http://c0001-1.zzyicheng.cn"}) //设置为允许跨域
     //@CrossOrigin(origins = "*", allowedHeaders = "*") //设置为允许跨域
+    //http://localhost:8001/demo/jwt/loginv2?username=admin&password=xxx
 
     //public String loginv2( @PathVariable("username") String username,@PathVariable("password") String password) throws ServletException, IOException {
 
     //public  @ResponseBody  String loginv2(  String username , String password ,String clienId,String sysId,String appSecret ) throws ServletException, IOException {
-    public ResponseEntity<?> loginv2(@RequestParam String username , @RequestParam String password  ) throws ServletException, IOException {
+    //public ResponseEntity<?> loginv2(@RequestParam String username , @RequestParam String password  ) throws ServletException, IOException {
+    public @ResponseBody    JSONObject loginv2(@RequestParam String username , @RequestParam String password  ) throws ServletException, IOException {
 
-        //public @ResponseBody String loginv2(  HttpServletRequest request  ) throws ServletException, IOException {
+    //public @ResponseBody JSONObject loginv2(HttpServletRequest request , HttpServletResponse response  ) throws ServletException, IOException {
     //public String loginv2(  CommUser param  ) throws ServletException, IOException {
 
         //String username = request.getHeader("username");
@@ -85,34 +97,51 @@ public class JwtLoginDemoApi {
         //public String loginv2( CommUser param ) throws ServletException, IOException {
         //String username = param.getUsername();
         //String password = param.getPassword();
+        //String username = request.getParameter("username");
+        //String password = request.getParameter("password");
+
 
         log.info("开始接口认证loginv2。。。。。。。。。。。。。。");
         log.info("传入的登录账号和密码：：：");
         log.info(username);
         log.info(password);
+        /*if(true){
+            //测试
+            JSONObject tmpJson = new JSONObject();
+            tmpJson.put("code",0);
+            tmpJson.put("msg","success");
+            tmpJson.put("access_token", "12345678");
+            tmpJson.put("login_id", username);// 登录账号,可能不使用
+            return tmpJson;
 
-
-
-
+        }*/
         CommUser sysUser = sysUserService.selectUserByLoginId(username);
         //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
         // 生成一个包含账号密码的认证信息
-
         Authentication token = new UsernamePasswordAuthenticationToken(username,password);
-
-
         Authentication authentication = authenticationManager.authenticate(token);
         //如果认证失败，不会向下走，而是跳转到登录页面，除非在WebSecurityConfig开通.authenticationEntryPoint(jwtAuthenticationEntryPoint)
-
-
         // 将返回的Authentication存到上下文中
         SecurityContextHolder.getContext().setAuthentication(authentication);//
         CommUser user = (CommUser) authentication.getPrincipal();
         log.info("账号:"+user.getLoginId());
+
         //ServletContext().
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(),sra.getResponse(),authentication);
-        return null;
+        String json = null;
+        try{
+            json = redisUtil.get("login-"+user.getLoginId() ).toString();
+        }
+        catch (Exception ex){}
+        log.info("认证成功的json is:::");
+        log.info(json);
+
+
+        return JSONObject.parseObject(json);//为什么VUE前端获取的是空值？？？
+
+
+
         //return "登录成功,登录账号为："+user.getLoginId();
 
     }

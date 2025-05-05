@@ -260,6 +260,11 @@ public class WeixinLoginApi {
         String accessToken = request.getHeader("accesstoken");
         log.info("getVueMenu的accessToken:::");
         log.info(accessToken);
+        if(StringUtil.isEmpty(accessToken)){
+            log.info("从参数获取的accessToken:");
+            accessToken = request.getParameter("accessToken");
+            log.info(accessToken);
+        }
 
         String loginId = null;
         Claims claims = jwtUtil.getClaimsByToken(accessToken);

@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"org.openjweb"})
-@MapperScan(value = {"org.openjweb.b2c.mapper","org.openjweb.core.mapper","org.openjweb.cms.mapper"})
+@MapperScan(value = {"org.openjweb.b2c.mapper","org.openjweb.core.mapper","org.openjweb.cms.mapper,org.openjweb.pmg.mapper"})
 @EnableScheduling
 //@EnableWebSecurity
 @RequiredArgsConstructor

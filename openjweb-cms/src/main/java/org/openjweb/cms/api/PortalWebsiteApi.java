@@ -11,11 +11,14 @@ import org.openjweb.common.response.ResponseResult;
 import org.openjweb.cms.entity.PortalWebsite;
 import org.openjweb.cms.module.params.PortalWebsiteParam;
 import org.openjweb.cms.service.PortalWebsiteService;
+import org.openjweb.common.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 测试：
@@ -148,6 +151,10 @@ public class PortalWebsiteApi {
             }
             else{
                 log.info("没找到实体类..,新增...");
+                if(StringUtil.isEmpty(param.getRowId())){
+                    param.setRowId(StringUtil.getUUID());
+                    param.setPkId(StringUtil.getUUID());
+                }
 
                 this.portalWebsiteService.save(param);
             }
@@ -169,20 +176,29 @@ public class PortalWebsiteApi {
      * @return
      */
 
-    @RequestMapping("query")
+    @RequestMapping("query1")
     public ResponseResult queryList(PortalWebsiteParam param ){
 
+        log.info("调用PortalWebsite开始.............");
 
-        List<PortalWebsite> list = null;
+
+         List<PortalWebsite> list = null;
         try{
             list = this.portalWebsiteService.queryList(param);
+            log.info(String.valueOf(list.size()));
         }
         catch(Exception ex){
             log.error("异常：：：："+ex.toString());
             return ResponseResult.errorResult(-1,ex.toString());
         }
+        log.info("调用PortalWebsite结束.............");
+
+
+
+
 
         return ResponseResult.okResult(list);
+
 
     }
 
@@ -196,7 +212,9 @@ public class PortalWebsiteApi {
     @RequestMapping("edit")
 
     public ResponseResult edit(String rowId){
+        log.info("调用PortalWebsite编辑...............");
         PortalWebsite ent = this.portalWebsiteService.queryByRowId(rowId);
+        log.info("返回PortalWebsite数据...............");
         return ResponseResult.okResult(ent);
 
     }
@@ -207,11 +225,66 @@ public class PortalWebsiteApi {
      * @return
      */
 
-    @RequestMapping("findPage")
-
+    //@RequestMapping("findPage")
+    @RequestMapping("query")
     public ResponseResult findPage(PortalWebsiteParam param){
-        IPage<PortalWebsite> page = this.portalWebsiteService.findPage(param);
-        return ResponseResult.okResult(page);
+        log.info("开始调用findPage........................");
+        //long count = this.portalWebsiteService.selectCount(param);
+        //log.info("count:::");
+        //log.info(String.valueOf(count));
+        //param.getPageSize();
+        //param.getPage();
+        IPage<PortalWebsite> page = this.portalWebsiteService. findPage(param);
+
+        //因为要适配SSH版，所以page的内容要拿出来单独封装
+        /*
+        List<PortalWebsite> list = null;
+        try{
+            list = page.getRecords();
+        }
+        catch(Exception ex){}
+        log.info("记录数:"+String.valueOf(count));
+        log.info("list size::::");
+        if(list==null){
+            log.info("0");
+        }
+        else{
+            log.info(""+list.size());
+            for(PortalWebsite ent:list){
+                log.info(ent.getWebsiteCode());
+                log.info(ent.getWebsiteName());
+
+            }
+        }
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("count",count);
+
+        map.put("msg","查询完毕!");
+        map.put("data",list);
+
+         */
+        log.info("开始调用findPage....返回....................");
+        return ResponseResult.okResult(page, 0, "查询完毕！");
+        //return map;
+    }
+
+    //少了一个删除
+    @RequestMapping("del")
+    public ResponseResult delWebsite(String rowId){
+        log.info("删除的ROWIDS:");
+        log.info(rowId);
+        try {
+            this.portalWebsiteService.del(rowId);
+            return ResponseResult.okResult(0,"删除成功!");
+
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return ResponseResult.errorResult(-1,"删除失败!");
+
+        }
+
 
     }
 

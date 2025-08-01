@@ -1,5 +1,7 @@
 import request from '@/utils/request'
-import { ${classNameLower}Api } from '@/config/api'
+//import { ${classNameLower}Api } from '@/config/api'
+
+${export}
 
 //查询列表
 export async function getList(data = {}) {

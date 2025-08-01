@@ -151,4 +151,16 @@ public class ${entityClassName}Api {
 
     }
 
+    @RequestMapping("del")
+    public ResponseResult delWebsite(String rowId){
+        try {
+            this.${classNameLower}Service.del(rowId);
+            return ResponseResult.okResult(0,"删除成功!");
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return ResponseResult.errorResult(-1,"删除失败!");
+        }
+    }
+
 }

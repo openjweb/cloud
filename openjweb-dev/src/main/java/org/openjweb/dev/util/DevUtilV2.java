@@ -229,7 +229,12 @@ public class DevUtilV2 {
                 modulePath = "openjweb-core";
                 packagePath = "org/openjweb/core/";
 
-            } else if (tableName.startsWith("b2c_")) {
+            }
+            else if (tableName.startsWith("prj_")) {
+                modulePath = "openjweb-pmg";
+                packagePath = "org/openjweb/pmg/";
+            }
+            else if (tableName.startsWith("b2c_")) {
                 modulePath = "openjweb-b2b2c";
                 packagePath = "org/openjweb/b2c/";
             } else if (tableName.startsWith("cms_")||tableName.startsWith("portal_")) {
@@ -412,15 +417,17 @@ public class DevUtilV2 {
                 log.info("在" + vuePath + "/src/config/api.js末尾中添加接口声明。。。。。。。。。。。。。");
                 String insertApi = "\r\nexport const " + classNameLower + "Api = {\r\n" +
                         //具体接口的定义规则
-                        "    API_" + tableName.toUpperCase() + "_LIST: '/api/" + subSysCode + "/" + tmpStr + "/query',\r\n" +
-                        "    API_" + tableName.toUpperCase() + "_LIST_DETAIL: '/api/" + subSysCode + "/" + tmpStr + "/edit',\r\n" +
-                        "    API_" + tableName.toUpperCase() + "_LIST_SAVE: '/api/" + subSysCode + "/" + tmpStr + "/save',\r\n" +
-                        "    API_" + tableName.toUpperCase() + "_DELETE: '/api/" + subSysCode + "/" + tmpStr + "/del'\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_LIST: '/clouds/api/" + subSysCode + "/" + tmpStr + "/query',\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_LIST_DETAIL: '/clouds/api/" + subSysCode + "/" + tmpStr + "/edit',\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_LIST_SAVE: '/clouds/api/" + subSysCode + "/" + tmpStr + "/save',\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_DELETE: '/clouds/api/" + subSysCode + "/" + tmpStr + "/del'\r\n" +
                         "}\r\n\r\n";
                 log.info("配置了需要生成VUE页面.......");
                 log.info("生成VUE接口类文件...........");
                 gt = new GroupTemplate(fileResourceLoader, cfg);
                 t = gt.getTemplate("dev/VueApiTemplate.txt");
+                t.binding("export", insertApi);
+
                 t.binding("basePackage", packageName.replace(".entity", ""));
                 t.binding("fullClassName", packageName + "." + entityClassName);
                 t.binding("packageName", packageName);
@@ -441,8 +448,8 @@ public class DevUtilV2 {
                 paramFileName = vuePath + "/src/api/" + classNameLower + ".js";//API接口定义文件
                 log.info("vue js 文件路径:" + paramFileName);
                 try {
-                    //等列表页编辑页模版做完后一起启用
-                    //FileUtil.str2file(str, paramFileName, "utf-8");
+
+                    FileUtil.str2file(str, paramFileName, "utf-8");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -458,6 +465,7 @@ public class DevUtilV2 {
                     log.info("不存在接口定义，重新生成。。。。。。。。。。");
                     configFile += "\r" + insertApi;
                     try {
+                        //不往configFile里放了
                         //等列表页编辑页模版做完后一起启用
                         //FileUtil.str2file(configFile, vuePath + "/src/config/api.js", "utf-8");
 
@@ -492,10 +500,13 @@ public class DevUtilV2 {
                     ex.printStackTrace();
 
                 }
-                paramFileName = vuePath + "/src/views/" +subSysCode+"/"+ tmpStr + ".vue";//API接口定义文件
+                //这个应该再加个路径
+                //paramFileName = vuePath + "/src/views/" +subSysCode+"/"+ tmpStr + ".vue";//API接口定义文件
+                paramFileName = vuePath + "/src/views/" +subSysCode+"/"+entityClassName+"/"+ tmpStr + ".vue";//API接口定义文件
+
                 try {
                     //这个后面再说，模版还需要调整
-                    //FileUtil.str2file(str , paramFileName, "utf-8");
+                    FileUtil.str2file(str , paramFileName, "utf-8");
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -6,11 +6,12 @@
         <where>
             <%
             for(field in fieldList){
+            if(!(field.columnName=='record_version')){
             %>
             <if test="param.${field.fieldName} !=null ">
                 and ${field.columnName} = #{param.${field.fieldName}}
             </if>
-            <%}%>
+            <%}}%>
 
 
         </where>
@@ -22,11 +23,12 @@
         <where>
         <%
         for(field in fieldList){
+            if(!(field.columnName=='record_version')){
         %>
         <if test="param.${field.fieldName} !=null ">
             and ${field.columnName} = #{param.${field.fieldName}}
         </if>
-        <%}%>
+        <%}}%>
         </where>
     </select>
 

@@ -90,29 +90,38 @@
         @current-change="handleCurrentChange"
         @size-change="handleSizeChange"
     ></el-pagination>
-    <sms-supplier-edit ref="edit" @fetch-data="fetchData"></sms-supplier-edit>
+    <${clsNameEdit}-edit ref="edit" @fetch-data="fetchData"></${clsNameEdit}-edit>
 
   </div>
 </template>
 
 <script>
-import { getList, del} from '@/api/${classNameLower}}'
+import { getList, del} from '@/api/${classNameLower}'
 import ${entityClassName}Edit from './components/${entityClassName}Edit.vue'
+import DictionaryComponent from '@/components/DictionaryComponent'
 
 import { getDictionaryData } from '@/api/dictionary'
 export default {
   name: '${entityClassName}Manager',
   components: {
     ${entityClassName}Edit,
+    DictionaryComponent,
   },
   data() {
+
     return {
       queryForm: {
         pageNo: 1,
-        pageSize: 20
+        pageSize: 20,
+        <%
+        for(field in queryColsList){%>
+        ${field}
+        <%}%>
+
+
       },
       list: [],
-      smsList:[],
+
       listLoading: true,
       elementLoadingText: '正在加载...',
       layout: 'total, sizes, prev, pager, next, jumper',
@@ -128,20 +137,22 @@ export default {
     }
   },
   async created() {
-    this.getSmsList();//供应商列表
+
     this.fetchData()
   },
   methods: {
+    changeCode(key, value) {
+      this.queryForm = {
+        ...this.queryForm,
+        [key]: value
+      }
+    },
     handleAdd() {
       this.$refs['edit'].showEdit()
 
 
     },
-    async getSmsList() { //这个名字最好统一
-      // 获取公司类型字典
-      const { data } = await getDictionaryData('SMS_VENDOR')
-      this.smsList = data || []
-    },
+
 
     handleEdit(row) {
       this.$refs['edit'].showEdit(row)

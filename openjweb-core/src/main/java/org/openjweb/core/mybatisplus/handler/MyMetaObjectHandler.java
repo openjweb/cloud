@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
+import org.openjweb.common.util.StringUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -19,7 +20,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        String dt = String.valueOf(System.currentTimeMillis());
+        //String dt =  String.valueOf(System.currentTimeMillis());
+        String dt = StringUtil.getCurrentDateTime();
         this.strictInsertFill(metaObject, "createDt", String.class, dt);
         this.strictInsertFill(metaObject, "updateDt", String.class, dt);
         //设置创建人

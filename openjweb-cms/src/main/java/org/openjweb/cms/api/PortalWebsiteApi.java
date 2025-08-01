@@ -272,20 +272,13 @@ public class PortalWebsiteApi {
     //少了一个删除
     @RequestMapping("del")
     public ResponseResult delWebsite(String rowId){
-        log.info("删除的ROWIDS:");
-        log.info(rowId);
         try {
             this.portalWebsiteService.del(rowId);
             return ResponseResult.okResult(0,"删除成功!");
-
         }
         catch(Exception ex){
             ex.printStackTrace();
             return ResponseResult.errorResult(-1,"删除失败!");
-
         }
-
-
     }
-
 }

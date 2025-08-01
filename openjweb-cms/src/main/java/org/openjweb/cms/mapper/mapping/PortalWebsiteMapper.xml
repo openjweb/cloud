@@ -120,6 +120,7 @@
 
     <select id="findPage" resultType="org.openjweb.cms.entity.PortalWebsite"  >
         select *  from portal_website
+        <where>
         <if test="param.aboutusMsg !=null ">
             and aboutus_msg = #{param.aboutusMsg}
         </if>
@@ -228,6 +229,8 @@
         <if test="param.websiteName !=null ">
             and website_name = #{param.websiteName}
         </if>
+        </where>
     </select>
+
 
 </mapper>

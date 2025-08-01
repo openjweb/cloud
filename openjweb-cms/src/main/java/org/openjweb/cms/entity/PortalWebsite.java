@@ -3,6 +3,7 @@ package org.openjweb.cms.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.ibatis.type.JdbcType;
 
 /**
  * 功能说明：
@@ -10,6 +11,12 @@ import lombok.Data;
 @Data
 @TableName("portal_website")
 public class PortalWebsite   implements java.io.Serializable {
+
+	@TableId(type = IdType.ASSIGN_UUID)
+	//@TableField(value = "row_id", jdbcType = JdbcType.VARCHAR,insertStrategy = FieldStrategy.IGNORED)
+	@ApiModelProperty(value ="null" )
+    private String rowId;
+
 	
 	@ApiModelProperty(value ="本网站的关于我们的信息" )
 	
@@ -122,10 +129,8 @@ public class PortalWebsite   implements java.io.Serializable {
 	@ApiModelProperty(value ="相对当前web应用的子目录" )
 	
 	private String relatePath;
-	@TableId(type = IdType.ASSIGN_UUID)
-	@ApiModelProperty(value ="null" )
-	
-	private String rowId;
+
+
 	
 	@ApiModelProperty(value ="全文检索搜索列表页模板" )
 	

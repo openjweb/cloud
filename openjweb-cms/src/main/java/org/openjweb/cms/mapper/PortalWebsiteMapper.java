@@ -13,6 +13,8 @@ import org.openjweb.cms.module.params.PortalWebsiteParam;
 import java.util.List;
 @Mapper
 public interface PortalWebsiteMapper extends BaseMapper<PortalWebsite> {
+
+
     /**
      * 带分页的查询
      * @param page
@@ -31,6 +33,11 @@ public interface PortalWebsiteMapper extends BaseMapper<PortalWebsite> {
      * @return
      */
     List<PortalWebsite> queryList(@Param("param") PortalWebsiteParam param);
+
+
+    // 查询分页数据
+    @Select("SELECT * FROM portal_website LIMIT #{offset}, #{pageSize}")
+    List<PortalWebsite> selectListByPage(@Param("param") PortalWebsiteParam param);
 
 
 }

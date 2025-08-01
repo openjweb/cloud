@@ -1,6 +1,8 @@
 package org.openjweb.cms.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -43,11 +45,24 @@ public class PortalWebsiteService  extends ServiceImpl<PortalWebsiteMapper, Port
      */
 
     public  IPage<PortalWebsite> findPage(PortalWebsiteParam param){
-        Page<PortalWebsite> page = new Page<>(param.getPage(), param.getPageSize());
+        //log.info("传入的页码和当前页:");
+        //log.info(String.valueOf(param.getPageNo()));
+        //log.info(String.valueOf(param.getPageSize()));
+
+        Page<PortalWebsite> page = new Page<>(param.getPageNo(), param.getPageSize());
 
         IPage<PortalWebsite> list = this.portalWebsiteMapper.findPage(page,param);
+
         return list;
     }
+
+   /* public IPage<PortalWebsite> queryByCondition(PortalWebsiteParam param  ) {
+        Page<PortalWebsite> page = new Page<>(param.getPage(), param.getPageSize(),true);
+        //LambdaQueryWrapper<PortalWebsite> wrapper = new LambdaQueryWrapper<>();
+        return this.portalWebsiteMapper.findPage(page,param );
+
+        //return this.portalWebsiteMapper.selectPage(page, wrapper);
+    }*/
 
     /**
      * 批量删除
@@ -81,4 +96,6 @@ public class PortalWebsiteService  extends ServiceImpl<PortalWebsiteMapper, Port
 
         return siteEnt;
     }
+
+
 }

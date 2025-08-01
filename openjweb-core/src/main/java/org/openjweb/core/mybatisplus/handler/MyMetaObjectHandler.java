@@ -3,20 +3,26 @@ package org.openjweb.core.mybatisplus.handler;
 
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 
 import org.openjweb.common.util.StringUtil;
+import org.openjweb.core.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Component
 @Slf4j
 public class MyMetaObjectHandler implements MetaObjectHandler {
+
+    @Autowired
+    JwtUtil jwtUtils;
 
     @Override
     public void insertFill(MetaObject metaObject) {
@@ -35,12 +41,15 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
+        log.info("调用了updateFill..........");
 
-        this.strictUpdateFill(metaObject, "updateDt", String.class, String.valueOf(System.currentTimeMillis()));
-
+        //this.strictUpdateFill(metaObject, "updateDt", String.class, String.valueOf(System.currentTimeMillis()));
+        //this.strictUpdateFill(metaObject, "updateDt", String.class, StringUtil.getCurrentDateTime());
+        this.setFieldValByName("updateDt",  StringUtil.getCurrentDateTime(), metaObject);
         String userId = getCreateUid();
         log.info(userId);
-        this.strictUpdateFill(metaObject, "updateUid", String.class, userId );
+        //this.strictUpdateFill(metaObject, "updateUid", String.class, userId );
+        this.setFieldValByName("updateUid",  userId, metaObject);
     }
 
     private String getCreateUid() {
@@ -50,19 +59,39 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         //怎样在MyMetaObjectHandler获取认证token
         //采用下面的方式获取request,然后从request的header中获取token
         String token = "";
+        String loginId = "";
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes != null) {
             HttpServletRequest request = attributes.getRequest();
-            token = request.getHeader("token");
-            if(StringUtils.isEmpty(token)){
-                token = request.getParameter("token");
+            String accessToken = request.getHeader("Authorization");
+            if(StringUtils.isEmpty(accessToken)){
+                accessToken = request.getParameter("accessToken");
             }
+            if(StringUtil.isEmpty(accessToken)){
+                accessToken = request.getHeader("accesstoken");
+            }
+            //log.info("springboot getUserInfo2 获取的accessToken为：：：");
+            //log.info(accessToken);
+
+            if(accessToken!=null&&accessToken.trim().length()>0){
+
+                Claims claims = jwtUtils.getClaimsByToken(accessToken);
+                if(claims!=null){
+
+                    loginId = claims.getSubject();
+                }
+
+            }
+            //log.info("MyMetaObjectHandler获取登录账号为:");
+            //log.info(loginId);
+            //jwtUtils.getHeader()
 
             // 你可以在这里使用request对象
         }
         //log.info("token::::");
         //log.info(token);
-        return "abao2222";
+        return loginId;
     }
+
 
 }

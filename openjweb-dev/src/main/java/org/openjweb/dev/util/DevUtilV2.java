@@ -53,7 +53,14 @@ public class DevUtilV2 {
     //FLOKI TURBO puppies
 
 
-    public void createJavaSource(String tableName) {
+    public void createJavaSource(String tableName,boolean isDrawPage) {
+        String editPageName = "dev/VueEditPageTemplate.vue";
+        if(isDrawPage){
+            editPageName = "dev/VueDrawPageTemplate.vue";//这种是抽屉模式，也可以使用
+
+        }        //t = gt.getTemplate("dev/VueEditPageTemplate.vue");
+
+
         log.info("查询的表结构名:" + tableName);
         CommTableDefParam param = new CommTableDefParam();
         param.setTableName(tableName);
@@ -73,6 +80,7 @@ public class DevUtilV2 {
         }
         List<CommColumnDef> colList = null;
         List<Map<String, String>> colMapList = new ArrayList<>();
+        List<String> queryColsList = new ArrayList<>();
         if (list != null && list.size() == 1) {
             tableDef = list.get(0);
             CommColumnDefParam commColumnDefParam = new CommColumnDefParam();
@@ -84,8 +92,8 @@ public class DevUtilV2 {
             if (colList != null && colList.size() > 0) {
                 log.info("列数量：" + colList.size());
                 for (CommColumnDef entity : colList) {
-                    String tableId = "";
 
+                    String tableId = "";
                     if (entity.getColumnName().toLowerCase().equals("row_id")) {
                         //默认ROWID为主键
                         tableId = "@TableId(type = IdType.ASSIGN_UUID)";
@@ -116,13 +124,13 @@ public class DevUtilV2 {
                         colType = "Double";
                     }
                     String fieldDeclare = "private " + colType + " " + colField;
-                    if (colField.equals("record_version")) {
+                    if (colField.equals("record_version")||colField.equals("recordVersion")) {
                         log.info("乐观锁字段..........");
                         fieldDeclare += " = 0L";//乐观锁字段设置默认值
                     }
                     fieldDeclare += ";";
                     map.put("fieldDeclare", fieldDeclare);
-                    log.info("map中的fieldName::::" + colField);
+                    //log.info("map中的fieldName::::" + colField);
                     map.put("fieldName", colField);//类属性名
                     String fieldNameUpper = colField.substring(0, 1).toUpperCase() + colField.substring(1);
                     //log.info("fieldNameUpper:");
@@ -145,49 +153,84 @@ public class DevUtilV2 {
                         defaultValueExpr = "@TableField(fill = FieldFill.INSERT_UPDATE)";//
                     }
                     map.put("defaultValueExpr", defaultValueExpr);
+                    map.put("defaultValue", "'',");
+                    if(colType.equals("Long")||colType.equals("Double")){
+                        map.put("defaultValue", "0,");
+                    }
                     //查询哪些是查询条件列
                     String queryFieldExpr = "";
+                    String editFieldExpr = "";//编辑页
                     String queryInputType ="";
-                    if("Y".equals(entity.getIsQueryCol())){
+                    if("Y".equals(entity.getIsEditCol())){
                         //如果是查询条件字段---为字段生成VUE查询条件，查询条件应根据组件的类型，设置成输入框还是下拉还是日期组件
                         String inputType = entity.getInputType()==null?"":entity.getInputType();
+                        if(entity.getDictTypeCode()!=null&&entity.getDictTypeCode().trim().length()>0){
+                            if(inputType==null||inputType.trim().length()==0){
+                                inputType = "INPUT_DDLB"; //有时设置了下拉列表但是没设置输入类型
+                            }
+                        }
                         switch (inputType){
+                            case "INPUT_NUMBER"://多行文本框的组件一般不会作为查询条件,查询条件按照输入框处理
+                                editFieldExpr = "<el-col :span=\"12\"  >\n" +
+                                        "    <el-form-item label=\""+entity.getColumnNameCn()+"\" prop=\""+colField+"\"   >\n" +
+                                        "     <el-input-number v-model=\"form."+colField+"\" :min=\"0\"/>\n" +
+                                        "    </el-form-item> \n" +
+                                        "  </el-col>";
+                                break;
+                            case "INPUT_DDLB"://多行文本框的组件一般不会作为查询条件,查询条件按照输入框处理
+                                editFieldExpr = "<el-col :span=\"12\"  >\n" +
+                                        "    <el-form-item label=\""+entity.getColumnNameCn()+"\" prop=\""+colField+"\"  >\n" +
+                                        "       <DictionaryComponent\n" +
+                                        "            :value=\"form."+colField+"\"\n" +
+                                        "            code-type=\""+entity.getDictTypeCode()==null?"":entity.getDictTypeCode()+"\"\n" +
+                                        "            @change=\"(v) => changeCode('"+colField+"', v)\"\n" +
+                                        "          />\n" +
+                                        "    </el-form-item>\n" +
+                                        "  </el-col>";
+                                break;
                             case "INPUT_TEXTAREA"://多行文本框的组件一般不会作为查询条件,查询条件按照输入框处理
-                                queryFieldExpr = "<el-form-item label=\""+entity.getColumnNameCn()+"\">\r\n" +
-                                        "            <el-input\r\n" +
-                                        "              v-model=\"queryForm"+entity.getClsFieldName()+"\"\r\n" +
-                                        "              placeholder=\"请输入"+entity.getColumnNameCn()+"\"\r\n" +
-                                        "              clearable\r\n" +
-                                        "            />\n\n" +
-                                        "          </el-form-item>";
+
+                                editFieldExpr = "<el-col :span=\"24\">\n" +
+                                        "    <el-form-item label=\""+entity.getColumnNameCn()+"\" prop=\""+colField+"\">\n" +
+                                        "      \n" +
+                                        "      <el-input type=\"textarea\" v-model=\"form."+colField+"\"></el-input>\n" +
+                                        "    </el-form-item>\n" +
+                                        "  </el-col>";
 
                                 break;
                             case "INPUT_DATE"://日期型--后续再完善
-                                queryFieldExpr = "<el-form-item label=\""+entity.getColumnNameCn()+"\">\r\n" +
-                                        "            <el-input\r\n" +
-                                        "              v-model=\"queryForm"+entity.getClsFieldName()+"\"\r\n" +
-                                        "              placeholder=\"请输入"+entity.getColumnNameCn()+"\"\r\n" +
-                                        "              clearable\r\n" +
-                                        "            />\r\n" +
-                                        "          </el-form-item>";
+
+                                editFieldExpr = " <el-col :span=\"12\"><el-form-item label=\""+entity.getColumnNameCn()+"\" prop=\""+colField+"\"  >\n" +
+                                        "              <el-date-picker\n" +
+                                        "              v-model.trim=\"form."+colField+"\"\n" +
+                                        "              type=\"date\"\n" +
+                                        "              format=\"yyyy-MM-dd\"\n" +
+                                        "              value-format=\"yyyy-MM-dd\"\n" +
+                                        "               placeholder=\"选择"+entity.getColumnNameCn()+"\">\n" +
+                                        "              </el-date-picker>\n" +
+                                        "            </el-form-item>\n" +
+                                        "      </el-col>";
 
                                 break;
                             default:
-                                queryFieldExpr = "<el-form-item label=\""+entity.getColumnNameCn()+"\">\r\n" +
-                                        "            <el-input\r\n" +
-                                        "              v-model=\"queryForm"+entity.getClsFieldName()+"\"\r\n" +
-                                        "              placeholder=\"请输入"+entity.getColumnNameCn()+"\"\r\n" +
-                                        "              clearable\r\n" +
-                                        "            />\r\n" +
-                                        "          </el-form-item>\r\n";
+
+                                editFieldExpr = " <el-col :span=\"12\">\n" +
+                                        "    <el-form-item label=\""+entity.getColumnNameCn()+"\" prop=\""+colField+"\" >\n" +
+                                        "      <el-input v-model=\"form."+colField+"\" ></el-input>\n" +
+                                        "      \n" +
+                                        "    </el-form-item>\n" +
+                                        "    \n" +
+                                        "  </el-col>";
                         }
-                        map.put("vueQueryListItem",queryFieldExpr);
+
+                        map.put("vueEditListItem",editFieldExpr);
                     }
                     else{
-                        map.put("vueQueryListItem","");
+
+                        map.put("vueEditListItem","");
                     }
 
-                    colMapList.add(map);
+
                     //下面生成列表界面的列表字段
                     if("Y".equals(entity.getIsListCol())){
                         //如果在列表界面显示
@@ -202,10 +245,101 @@ public class DevUtilV2 {
 
                     }
 
+                    if("Y".equals(entity.getIsQueryCol())){
+                        System.out.println("查询字段：：：："+entity.getColumnName());
+                        if(colType.equals("Long")||colType.equals("Double")){
+                            //queryColsList
+                            String tmpStr = entity.getClsFieldName()+":0,";
+                            queryColsList.add(tmpStr);
+                        }
+                        else{
+                            String tmpStr = entity.getClsFieldName()+":'',";
+                            queryColsList.add(tmpStr);
+
+
+                        }
+
+                        //如果是查询条件字段---为字段生成VUE查询条件，查询条件应根据组件的类型，设置成输入框还是下拉还是日期组件
+                        String inputType = entity.getInputType()==null?"":entity.getInputType();
+                        if(entity.getDictTypeCode()!=null&&entity.getDictTypeCode().trim().length()>0){
+                            if(inputType==null||inputType.trim().length()==0){
+                                inputType = "INPUT_DDLB"; //有时设置了下拉列表但是没设置输入类型
+                            }
+                        }
+                        switch (inputType){
+                            case "INPUT_DDLB"://多行文本框的组件一般不会作为查询条件,查询条件按照输入框处理
+                                queryFieldExpr = " <el-form-item label=\""+entity.getColumnNameCn()+"\" >\n" +
+                                        "             <DictionaryComponent\n" +
+                                        "            :value=\"queryForm."+colField+"\"\n" +
+                                        "            code-type=\""+entity.getDictTypeCode()+"\"\n" +
+                                        "            @change=\"(v) => changeCode('"+colField+"', v)\"\n" +
+                                        "          />\n" +
+                                        "          </el-form-item>";
+                                break;
+
+
+                            case "INPUT_TEXTAREA"://多行文本框的组件一般不会作为查询条件,查询条件按照输入框处理
+                                queryFieldExpr = "<el-form-item label=\""+entity.getColumnNameCn()+"\">\r\n" +
+                                        "            <el-input\r\n" +
+                                        "              v-model=\"queryForm."+entity.getClsFieldName()+"\"\r\n" +
+                                        "              placeholder=\"请输入"+entity.getColumnNameCn()+"\"\r\n" +
+                                        "              clearable\r\n" +
+                                        "            />\n\n" +
+                                        "          </el-form-item>";
+
+
+                                break;
+                            case "INPUT_DATE"://日期型--后续再完善
+                                queryFieldExpr = "<el-form-item label=\""+entity.getColumnNameCn()+"\">\r\n" +
+                                        "            <el-input\r\n" +
+                                        "              v-model=\"queryForm."+entity.getClsFieldName()+"\"\r\n" +
+                                        "              placeholder=\"请输入"+entity.getColumnNameCn()+"\"\r\n" +
+                                        "              clearable\r\n" +
+                                        "            />\r\n" +
+                                        "          </el-form-item>";
+
+                                break;
+                            default:
+                                queryFieldExpr = "<el-form-item label=\""+entity.getColumnNameCn()+"\">\r\n" +
+                                        "            <el-input\r\n" +
+                                        "              v-model=\"queryForm."+entity.getClsFieldName()+"\"\r\n" +
+                                        "              placeholder=\"请输入"+entity.getColumnNameCn()+"\"\r\n" +
+                                        "              clearable\r\n" +
+                                        "            />\r\n" +
+                                        "          </el-form-item>\r\n";
+
+                        }
+                        map.put("vueQueryListItem",queryFieldExpr);
+
+                    }
+                    else{
+                        map.put("vueQueryListItem","");
+
+                    }
+
+                    //colMapList.add(map);//是不是应该加在下面
+                    //下面生成列表界面的列表字段
+                    if("Y".equals(entity.getIsListCol())){
+                        //如果在列表界面显示
+                        String listColExpr = "<el-table-column\r\n" +
+                                "          show-overflow-tooltip\r\n" +
+                                "          prop=\""+entity.getClsFieldName()+"\"\r\n" +
+                                "          label=\""+entity.getColumnNameCn()+"\"\r\n" +
+                                "          sortable\r\n" +
+                                "      ></el-table-column>\r\n";
+
+                        map.put("vueTableListItem",listColExpr);//在列表页面显示
+
+                    }
+
+                    colMapList.add(map);//是不是应该加在这里
+
+
                 }
             } else {
                 log.info("没查到表字段数量.....");
             }
+
             String entityClassName = StringUtil.getEntityNameByTableName(tableName);
             String classNameLower = entityClassName.substring(0, 1).toLowerCase() + entityClassName.substring(1);
             //新标准，将/demo/api/${classNameLower}改为api/subsysCode/xxx
@@ -345,6 +479,7 @@ public class DevUtilV2 {
             t.binding("tableDesc", tableDesc);
             t.binding("tableName", tableName);
             t.binding("entityClassName", entityClassName);
+
             t.binding("fieldList", colMapList);
             str = null;
             try {
@@ -352,6 +487,7 @@ public class DevUtilV2 {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            //处理str里含record_version
             paramFileName = rootProjectPath + "/" + modulePath + "/" + "src/main/java/" + basePackage.replace(".", "/") + "/mapper/mapping/" + entityClassName + "Mapper.xml";
 
             try {
@@ -417,10 +553,10 @@ public class DevUtilV2 {
                 log.info("在" + vuePath + "/src/config/api.js末尾中添加接口声明。。。。。。。。。。。。。");
                 String insertApi = "\r\nexport const " + classNameLower + "Api = {\r\n" +
                         //具体接口的定义规则
-                        "    API_" + tableName.toUpperCase() + "_LIST: '/clouds/api/" + subSysCode + "/" + tmpStr + "/query',\r\n" +
-                        "    API_" + tableName.toUpperCase() + "_LIST_DETAIL: '/clouds/api/" + subSysCode + "/" + tmpStr + "/edit',\r\n" +
-                        "    API_" + tableName.toUpperCase() + "_LIST_SAVE: '/clouds/api/" + subSysCode + "/" + tmpStr + "/save',\r\n" +
-                        "    API_" + tableName.toUpperCase() + "_DELETE: '/clouds/api/" + subSysCode + "/" + tmpStr + "/del'\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_LIST: '/clouds/api/" + subSysCode + "/" + tmpStr + "/findPage',\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_EDIT: '/clouds/api/" + subSysCode + "/" + tmpStr + "/edit',\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_SAVE: '/clouds/api/" + subSysCode + "/" + tmpStr + "/saveOrUpdate',\r\n" +
+                        "    API_" + tableName.toUpperCase() + "_DEL: '/clouds/api/" + subSysCode + "/" + tmpStr + "/del'\r\n" +
                         "}\r\n\r\n";
                 log.info("配置了需要生成VUE页面.......");
                 log.info("生成VUE接口类文件...........");
@@ -489,6 +625,10 @@ public class DevUtilV2 {
                 t.binding("tableName", tableName);
                 t.binding("entityClassName", entityClassName);
                 t.binding("fieldList", colMapList);
+                t.binding("clsNameEdit", tableName.replace("_","-"));
+                t.binding("queryColsList",queryColsList);
+
+
                 //增加VUE列表页字段
 
                 str = null;
@@ -502,7 +642,36 @@ public class DevUtilV2 {
                 }
                 //这个应该再加个路径
                 //paramFileName = vuePath + "/src/views/" +subSysCode+"/"+ tmpStr + ".vue";//API接口定义文件
-                paramFileName = vuePath + "/src/views/" +subSysCode+"/"+entityClassName+"/"+ tmpStr + ".vue";//API接口定义文件
+                //paramFileName = vuePath + "/src/views/" +subSysCode+"/"+entityClassName+"/"+ tmpStr + ".vue";
+                paramFileName = vuePath + "/src/views/" +subSysCode+"/"+entityClassName+"/"+   "index.vue";
+                try {
+                    //这个后面再说，模版还需要调整
+                    FileUtil.str2file(str , paramFileName, "utf-8");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                log.info("生成VUE编辑页模版..................");
+                gt = new GroupTemplate(fileResourceLoader, cfg);
+
+                t = gt.getTemplate(editPageName);
+
+                t.binding("basePackage", packageName.replace(".entity", ""));
+                t.binding("fullClassName", packageName + "." + entityClassName);
+                t.binding("packageName", packageName);
+                t.binding("classNameLower", classNameLower);
+                t.binding("tableDesc", tableDesc);
+                t.binding("tableName", tableName);
+                t.binding("entityClassName", entityClassName);
+                t.binding("fieldList", colMapList);
+                t.binding("funName", tableDef.getTableNameCn());
+                str = null;
+                try {
+                    str = t.render();//模版中的中文昨天没乱码，怎么今天有乱码了？
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                paramFileName = vuePath + "/src/views/" +subSysCode+"/"+entityClassName+"/components/"+ entityClassName + "Edit.vue";//API接口定义文件
 
                 try {
                     //这个后面再说，模版还需要调整
@@ -511,6 +680,12 @@ public class DevUtilV2 {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                /*
+                *  <DictionaryComponent
+            :value="ruleForm.isDuikou"
+            code-type="YES_NO"
+            @change="(v) => changeCode('isDuikou', v)"
+          />*/
 
             } else {
             }

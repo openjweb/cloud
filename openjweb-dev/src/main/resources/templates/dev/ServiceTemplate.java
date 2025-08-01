@@ -41,7 +41,7 @@ public class ${entityClassName}Service  extends ServiceImpl<${entityClassName}Ma
      */
 
     public  IPage<${entityClassName}> findPage(${entityClassName}Param param){
-        Page<${entityClassName}> page = new Page<>(param.getPage(), param.getPageSize());
+        Page<${entityClassName}> page = new Page<>(param.getPageNo(), param.getPageSize());
 
         IPage<${entityClassName}> list = this.${classNameLower}Mapper.findPage(page,param);
         return list;

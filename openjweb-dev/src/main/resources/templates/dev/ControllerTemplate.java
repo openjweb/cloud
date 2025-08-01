@@ -147,7 +147,7 @@ public class ${entityClassName}Api {
 
     public ResponseResult findPage(${entityClassName}Param param){
         IPage<${entityClassName}> page = this.${classNameLower}Service.findPage(param);
-        return ResponseResult.okResult(page);
+        return ResponseResult.okResult(page, 0, "查询完毕！");
 
     }
 

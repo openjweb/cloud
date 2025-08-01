@@ -19,6 +19,7 @@
 
     <select id="findPage" resultType="${fullClassName}"  >
         select *  from ${tableName}
+        <where>
         <%
         for(field in fieldList){
         %>
@@ -26,6 +27,7 @@
             and ${field.columnName} = #{param.${field.fieldName}}
         </if>
         <%}%>
+        </where>
     </select>
 
 </mapper>

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @EnableScheduling   //2.开启定时任务
 public class LogJob {
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     @SchedulerLock(name = "jobWriteLog", lockAtMostFor = "60000", lockAtLeastFor = "50000")
     public void jobWriteLog()   {
         log.info(StringUtil.getCurrentDateTime()+"开始向数据库中写入日志。。。。。。。。。。。");

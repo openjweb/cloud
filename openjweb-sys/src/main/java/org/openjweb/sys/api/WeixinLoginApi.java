@@ -23,6 +23,7 @@ import org.openjweb.core.service.CommApiKeyService;
 import org.openjweb.core.service.CommAuthService;
 import org.openjweb.core.service.CommUserService;
 import org.openjweb.core.util.JwtUtil;
+import org.openjweb.redis.starter.util.RedisUtil;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,6 +74,9 @@ public class WeixinLoginApi {
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
 
+    @Resource
+    private RedisUtil redisUtil;
+
     @Value("${openjweb.dev.vueMenuTemplatePath:}") private String vueMenuTemplatePath;
 
 
@@ -82,10 +86,30 @@ public class WeixinLoginApi {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public Object wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //根据域名查找公司
+    //public Object wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public  @ResponseBody JSONObject wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //微信登录跳转
+        //https://open.weixin.qq.com/connect/qrconnect?appid=wxb4231ea4d5494ff1&redirect_uri=https%3A%2F%2Fc0001-1.zzyicheng.cn%2Fclouds%2Fapi%2Fweixin%2Flogin&response_type=code&scope=snsapi_login
+
+
         String domainName= CMSUtil.getDomainName(request);
+
+        String code = request.getParameter("code");//微信登录回传的code
+        log.info("微信登录返回的Code1111:::"+String.valueOf(code));
+
+
+        //根据域名查找公司
         String headToken = request.getHeader("Authorization");
+        //if(headToken==null||headToken.trim().length()==0){
+        //    headToken = request.getHeader("accessToken");//
+        //}
+        //if(headToken==null||headToken.trim().length()==0){
+        //    headToken = request.getParameter ("accessToken");//
+
+        //}
+        //log.info("微信登录接口传入的accessToken:::");
+        //log.info(headToken);
+
         JSONObject dataMap = new JSONObject();
 
         if(headToken!=null&&headToken.trim().length()>0){
@@ -102,18 +126,21 @@ public class WeixinLoginApi {
             dataMap.put("login_id",loginId);// 登录账号,可能不使用
             dataMap.put("code",0);
             dataMap.put("msg","登录成功!");//国际化的话不能直接这么写
-            /*JSONObject tmpJson = new JSONObject();
-            //下面是个性化设置,也可以不设置
-            dataMap.put("menu_layout", "vertical");
-            dataMap.put("menu_color", "dark");
-            dataMap.put("theme_color", "#1890ff");
-            dataMap.put("menu_pic", "");//背景图
-            dataMap.put("data",tmpJson); //背景图
-
-             */
+            //JSONObject tmpJson = new JSONObject();
+            ////下面是个性化设置,也可以不设置
+            //dataMap.put("menu_layout", "vertical");
+            //dataMap.put("menu_color", "dark");
+            //dataMap.put("theme_color", "#1890ff");
+            //dataMap.put("menu_pic", "");//背景图
+            //dataMap.put("data",tmpJson); //背景图
 
 
-            return dataMap;
+
+            //return dataMap;
+            response.setHeader("accessToken",headToken);
+            response.sendRedirect("https://"+domainName+"/vue/#/index");
+            return null;
+
 
 
         }
@@ -121,8 +148,6 @@ public class WeixinLoginApi {
             log.info("没有登录，开始新的登录..............");
         }
         //
-        //微信登录跳转
-        //https://open.weixin.qq.com/connect/qrconnect?appid=wxb4231ea4d5494ff1&redirect_uri=https%3A%2F%2Fc0001-1.zzyicheng.cn%2Fclouds%2Fapi%2Fweixin%2Flogin&response_type=code&scope=snsapi_login
 
         String comId = null;
         try{
@@ -158,9 +183,11 @@ public class WeixinLoginApi {
         else{
             log.info("没查到微信开放平台配置..............");
         }
+        log.info("获取微信code::::");
 
-        String code = request.getParameter("code");//微信登录回传的code
         String weixinUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appId+"&secret="+appSecret+"&code="+code+"&grant_type=authorization_code";
+        log.info("再次请求URL:::");
+        log.info(weixinUrl);
         String result = HttpRequest.get(weixinUrl)   .timeout(6000).execute().body();
         log.info("微信返回结果：");
         log.info(result);
@@ -178,13 +205,22 @@ public class WeixinLoginApi {
         else{
             log.info("没有或有多个..................");
         }
-        if(userList==null||userList.size()==0){
+        if(false){//暂不插入新用户
+        //if(userList==null||userList.size()==0){
             //插入新的微信用户
             log.info("此微信ID为新用户，插入新微信用户................");
             this.sysUserService.addWeixinUser(comId,openID);//增加新的微信用户，同时授予角色
             log.info("插入新用户完毕.............");
             //插入成功后，给用户授予角色权限
             CommUser insertUser = this.sysUserService.selectUserByLoginId(openID);
+            if(insertUser!=null){
+                log.info("查到登录用户了！！！！！！！！！！！！！！！！！！！");
+                log.info(insertUser.getLoginId());
+            }
+            else{
+                log.info("没查到登录用户!!!!!!!");
+            }
+
             Long userId = insertUser.getUserId();
             log.info("新用户的userId::"+String.valueOf(userId));
             //插入用户角色
@@ -193,26 +229,61 @@ public class WeixinLoginApi {
             Snowflake snowflake = IdUtil.createSnowflake(workerId, dataCenterId); // 创建雪花算法ID生成器
             long uniqueId = snowflake.nextId(); // 生成唯一ID
             log.info("生成用户角色关系开始........");
-            service.update("insert into comm_user_role values(?,?,?,?,?)",new Object[]{uniqueId,userId,505715L,StringUtil.getCurrentDateTime(),"system"});
+            try {
+                service.update("insert into comm_user_role values(?,?,?,?,?)", new Object[]{uniqueId, userId, 505715L, StringUtil.getCurrentDateTime(), "system"});
+            }
+            catch(Exception ex){}
             log.info("生成用户角色关系结束........");
 
         }
         else{
-            log.info("有微信用户,不插入新用户..........");
+            log.info("有微信用户,不插入新用户....1......");
         }
         log.info("openID为:::::::");
         log.info(openID);
         List<CommUser> sysUserList = this.sysUserService.selectUserByWxOpenId(openID);
         if(sysUserList!=null&&sysUserList.size()==1){
-            log.info("微信用户开始自动登录.........");
+            log.info("微信用户开始自动登录....这里可以先得到一个accessToken返回前端后再做认证.....");
             CommUser sysUser = sysUserList.get(0);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(sysUser.getLoginId(), null, sysUserService.getUserAuthority(sysUser.getLoginId()));
             SecurityContextHolder.getContext().setAuthentication(token);
+            log.info("微信用户开始自动登录....2222....");
             ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             try {
-                loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(), sra.getResponse(), token);
+                //loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(), sra.getResponse(), token);
                 if(1==1){
-                    response.sendRedirect("https://"+domainName+"/vue/#/index");
+                    //替换为JwtUtil的access_token??
+                    //response.setHeader("accessToken","");
+                    //下面生成一个AceccessTOken
+                    //String accessToken = jwtUtil.generateToken()
+                    log.info("微信用户开始自动登录...3333....");
+                    log.info(sysUser.getLoginId());
+                    String jwtToken =   jwtUtil.generateToken(sysUser.getLoginId());
+                    //response.setHeader("accessToken",jwtToken);
+                    //response.setHeader("Authorization",jwtToken);
+                    //"http://localhost:81/#/login?access_token="+jwt;
+                    //带着username和password可以自动登录
+                    log.info("跳转的登录地址为：");
+                    String toUrl = "https://"+domainName+"/vue/#/login?access_token="+jwtToken+"&username=code&password="+jwtToken;
+                    log.info(toUrl);
+                    response.sendRedirect(toUrl);
+
+                    //response.sendRedirect("https://"+domainName+"/vue/#/index");
+                    //http://localhost:81/#/login?access_token=
+                    //response.sendRedirect("https://"+domainName+"/vue/#/login?access_token="+jwtToken);
+
+                    //这种是有前端页的应该在前端植入access_token
+
+                    /*String json1 = null;
+                    try{
+                        json1 = redisUtil.get("login-"+sysUser.getLoginId() ).toString();
+                    }
+                    catch (Exception ex){}
+                    log.info("认证成功的json is:::");
+                    log.info(json1);
+                    return JSONObject.parseObject(json1);//为什么VUE前端获取的是空值？？？
+
+                     */
                 }
             }
             catch(Exception ex){}
@@ -222,13 +293,14 @@ public class WeixinLoginApi {
             log.info("没有查到这个用户.......................");
             response.sendRedirect("https://"+domainName+"/vue/#/login");
         }
+
         return null;
 
     }
     @RequestMapping(value = "/getVueMenu", method = {RequestMethod.POST, RequestMethod.GET}) // ,RequestMethod.GET
     public @ResponseBody
     Object getVueMenu(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        log.info("getVueMenu 从头部获得的accessToken::::");
+        log.info("SpringBoot  getVueMenu 从头部获得的accessToken::::");
 
         /*Enumeration<?> enum1 = request.getHeaderNames();
         //检查头部信息

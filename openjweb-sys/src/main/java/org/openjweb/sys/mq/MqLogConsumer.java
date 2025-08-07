@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @author xd
  */
 @Slf4j
-@Component
+//@Component
 public class MqLogConsumer {
 
     @RabbitListener(queues = "LOG_QUEUE", containerFactory ="factory_single_pass_err")

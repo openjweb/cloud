@@ -168,21 +168,28 @@ public class JwtLoginDemoApi {
         HttpServletRequest request = sra.getRequest();
         HttpServletResponse response = sra.getResponse();
         String domainName= CMSUtil.getDomainName(request);
-        if(username.equals("code")){
+        if(username!=null&&username.equals("code")){
+            //检查头部是否有jwttoken
+            log.info("检查头部是否有token");
+            log.info("根据code查询对应的用户...............");
+
             //这种情况是微信的带access_token登录
             Claims claims = jwtUtil.getClaimsByToken(password);
             String loginId = claims.getSubject();
+            log.info("解析的登录账号："+loginId);
             try{
 
                 List<GrantedAuthority> authorities = sysUserService.getUserAuthority(loginId);
+                log.info("权限列表:::1::");
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
                         loginId,
                         null, // 不需要密码
                         authorities
                 );
+                log.info("权限列表:::2::");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                CommUser user = (CommUser) authentication.getPrincipal();
-                log.info("通过access_token获得账号:"+user.getLoginId());
+                //CommUser user = (CommUser) authentication.getPrincipal();
+                //log.info("通过access_token获得账号:"+user.getLoginId());
 
                 //ServletContext().
                 //loginSuccessHandler.onAuthenticationSuccess(request,response,authentication);
@@ -209,7 +216,7 @@ public class JwtLoginDemoApi {
                 redisUtil.set("login-"+loginId,dataMap.toString(),120);
                 String json1 = null;
                 try{
-                    json1 = redisUtil.get("login-"+user.getLoginId() ).toString();
+                    json1 = redisUtil.get("login-"+loginId ).toString();
                 }
                 catch (Exception ex){}
                 log.info("认证成功的json is:::");
@@ -220,6 +227,7 @@ public class JwtLoginDemoApi {
 
             }
             catch(Exception ex){
+                ex.printStackTrace();
 
             }
             //CommUser insertUser = this.sysUserService.selectUserByLoginId(openID);
@@ -229,10 +237,25 @@ public class JwtLoginDemoApi {
             return json2;
 
         }
+        log.info("检查传参是否有access_token。。。。。。。。。。。");
 
         //log.info("loginV2前端传入的access_token:::");
-        //String accessToken = request.getParameter("access_token:::::");
-        //log.info(accessToken);
+        String accessToken = request.getParameter("access_token");
+        log.info("传入参数中的accessToken::::::");
+        log.info(accessToken);
+        log.info("头部的accessToken::");
+        log.info(request.getHeader("accessToken"));
+        log.info("头部的accessToken1::");
+        log.info(request.getHeader("Authorization"));
+
+        Claims claims = jwtUtil.getClaimsByToken(accessToken);
+
+        if(claims!=null){
+            username = claims.getSubject();
+            log.info("根据accessToken解析的username::::");
+            log.info(username);
+
+        }        //log.info(accessToken);
         /*String code = "";
         CommApiKey keyEnt = null;
         String comId = null;
@@ -337,35 +360,92 @@ public class JwtLoginDemoApi {
 
         }*/
         log.info("SpringSecurity调用loginV2.........");
-        CommUser sysUser = sysUserService.selectUserByLoginId(username);
+        //CommUser sysUser = sysUserService.selectUserByLoginId(username);
+
+
         CommUser user = null;
         //UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(sysUser,password);
         // 生成一个包含账号密码的认证信息
-        try {
-            Authentication token = new UsernamePasswordAuthenticationToken(username, password);
-            Authentication authentication = authenticationManager.authenticate(token);
+        if(claims!=null){
+            username = claims.getSubject();
 
-            //如果认证失败，不会向下走，而是跳转到登录页面，除非在WebSecurityConfig开通.authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            // 将返回的Authentication存到上下文中
-            SecurityContextHolder.getContext().setAuthentication(authentication);//
-            user = (CommUser) authentication.getPrincipal();
-            log.info("账号:" + user.getLoginId());
+
+            List<GrantedAuthority> authorities = sysUserService.getUserAuthority(username);
+            log.info("权限列表:::1::");
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    username,
+                    null, // 不需要密码
+                    authorities
+            );
+            log.info("权限列表:::2::");
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            //CommUser user = (CommUser) authentication.getPrincipal();
+            //log.info("通过access_token获得账号:"+user.getLoginId());
 
             //ServletContext().
+            //loginSuccessHandler.onAuthenticationSuccess(request,response,authentication);
+            /*String validKey = "";//IP+验证私钥:IP+userId并MD5
+            String ip = request.getRemoteAddr();//这个需要换一个获取方式？
+            String nonce = StringUtil.getUUID();
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String key = service.queryForObject("select parm_value from comm_system_parms where parm_name='WeixinSSOSignKey' ",String.class).toString();
+            String cookieToken = StringUtil.getUUID();
+            cn.hutool.json.JSONObject dataMap = new cn.hutool.json.JSONObject();
+            dataMap.put("access_token", password);
+            dataMap.put("login_id", username);// 登录账号,可能不使用
+            dataMap.put("code", 0);
+            dataMap.put("msg","登录成功");
+            //如果使用了随机皮肤，则返回后台随机生成的皮肤参数
+            String randLayout = StringUtil.getRandName("vertical,horizontal");
+            String randMenuColor = StringUtil.getRandName("dark,light");
+            String randThemeColor = StringUtil.getRandName("#1890ff,#211bce,#13c2c2,#722ed1,#3eac12,#f8bc18,#f5811c,#f5222d,#784315,#F08650");
+            String randMenuPng = StringUtil.getRandName("https://c0001-1.zzyicheng.cn/background.png, ");
+            dataMap.put("menu_layout", randLayout);
+            dataMap.put("menu_color", randMenuColor);
+            dataMap.put("theme_color", randThemeColor);
+            dataMap.put("menu_pic", randMenuPng);//背景图
+            redisUtil.set("login-"+username,dataMap.toString(),120);*/
             loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+            String json1 = null;
+            try{
+                json1 = redisUtil.get("login-"+username ).toString();
+            }
+            catch (Exception ex){}
+            log.info("认证成功的json is:::");
+            log.info(json1);
+
+
+            return JSONObject.parseObject(json1);//为什么VUE前端获取的是空值？？？
         }
-        catch(Exception ex){
-            ex.printStackTrace();
-            JSONObject json = new JSONObject();
-            json.put("code",-1);
-            json.put("msg","登录失败!");
-            return json;
+        else {
 
 
+            try {
+                Authentication token = new UsernamePasswordAuthenticationToken(username, password);
+                Authentication authentication = authenticationManager.authenticate(token);
+
+                //如果认证失败，不会向下走，而是跳转到登录页面，除非在WebSecurityConfig开通.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                // 将返回的Authentication存到上下文中
+                SecurityContextHolder.getContext().setAuthentication(authentication);//
+                //user = (CommUser) authentication.getPrincipal();
+                //log.info("账号:" + user.getLoginId());
+
+                //ServletContext().
+                loginSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JSONObject json = new JSONObject();
+                json.put("code", -1);
+                json.put("msg", "登录失败!");
+                return json;
+
+
+            }
         }
         String json = null;
         try{
-            json = redisUtil.get("login-"+user.getLoginId() ).toString();
+            //json = redisUtil.get("login-"+user.getLoginId() ).toString();
+            json = redisUtil.get("login-"+username ).toString();
         }
         catch (Exception ex){}
         log.info("认证成功的json is:::");

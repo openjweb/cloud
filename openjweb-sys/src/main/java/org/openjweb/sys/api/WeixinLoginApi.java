@@ -245,10 +245,10 @@ public class WeixinLoginApi {
         if(sysUserList!=null&&sysUserList.size()==1){
             log.info("微信用户开始自动登录....这里可以先得到一个accessToken返回前端后再做认证.....");
             CommUser sysUser = sysUserList.get(0);
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(sysUser.getLoginId(), null, sysUserService.getUserAuthority(sysUser.getLoginId()));
-            SecurityContextHolder.getContext().setAuthentication(token);
-            log.info("微信用户开始自动登录....2222....");
-            ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            //UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(sysUser.getLoginId(), null, sysUserService.getUserAuthority(sysUser.getLoginId()));
+            //SecurityContextHolder.getContext().setAuthentication(token);
+            //log.info("微信用户开始自动登录....2222....");
+            //ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             try {
                 //loginSuccessHandler.onAuthenticationSuccess(sra.getRequest(), sra.getResponse(), token);
                 if(1==1){
@@ -259,12 +259,20 @@ public class WeixinLoginApi {
                     log.info("微信用户开始自动登录...3333....");
                     log.info(sysUser.getLoginId());
                     String jwtToken =   jwtUtil.generateToken(sysUser.getLoginId());
-                    //response.setHeader("accessToken",jwtToken);
-                    //response.setHeader("Authorization",jwtToken);
+                    response.setHeader("accessToken",jwtToken);
+                    response.setHeader("Authorization",jwtToken);
                     //"http://localhost:81/#/login?access_token="+jwt;
                     //带着username和password可以自动登录
                     log.info("跳转的登录地址为：");
-                    String toUrl = "https://"+domainName+"/vue/#/login?access_token="+jwtToken+"&username=code&password="+jwtToken;
+                    //String toUrl = "https://"+domainName+"/vue/#/login?access_token="+jwtToken+"&username=code&password="+jwtToken;
+                    //这个链接复制到别的浏览器也能自动登录，是否应该增加防倒链机制？或者头部增加安全认证
+                    //带微信的access_token有可能不安全，改为生成的access_token
+                    //String toUrl = "https://"+domainName+"/vue/#/login?access_token=WEIXIN_SCAN&username=code&password="+jwtToken;
+                    String toUrl = "https://"+domainName+"/vue/#/login?access_token="+jwtToken ;
+                    //用下面的方式看看。是否头部放accessToken可以免登录
+                    //这种跳转不行，应是JSON返回后再头部植入accessToken而不是在response直接操作
+                    //String toUrl = "https://"+domainName+"/vue/#/index";
+
                     log.info(toUrl);
                     response.sendRedirect(toUrl);
 

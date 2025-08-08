@@ -61,6 +61,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info(jwtUtils.getHeader());
         log.info (jwt);
         httpServletResponse.setHeader(jwtUtils.getHeader(), jwt);
+        httpServletResponse.setHeader("accessToken", jwt);//查下VUE前端的头部是否根据这个可以登录
         //if(StringUtils.isEmpty(loginUrl)) {//这种判断不适合同时存在APP登录和网页登录的情况，后面考虑根据什么判断
         /*if(1==1){//uniapp调试
             //对于app可将

@@ -287,7 +287,6 @@ public class CommCompanyApi {
                 ent.setRegistMobileNo(param.getRegistMobileNo());
                 ent.setRowId(param.getRowId());
                 ent.setSaleSmsAccount(param.getSaleSmsAccount());
-
                 ent.setServicePromiss(param.getServicePromiss());
                 ent.setServiceProCode(param.getServiceProCode());
                 ent.setSettleDay(param.getSettleDay());

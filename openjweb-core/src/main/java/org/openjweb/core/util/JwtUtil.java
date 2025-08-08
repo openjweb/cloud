@@ -48,6 +48,20 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
+    // 指定有效时间
+    public String generateToken(String username,long seconds) {
+
+        Date nowDate = new Date();
+        Date expireDate = new Date(nowDate.getTime() + 1000 * seconds);
+
+        return Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setSubject(username)
+                .setIssuedAt(nowDate)
+                .setExpiration(expireDate)    // 过期时间
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+    }
 
     // 解析JWT
     public Claims getClaimsByToken(String jwt) {

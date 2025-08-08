@@ -40,9 +40,7 @@
             <if test="param.bizType !=null ">
                 and biz_type = #{param.bizType}
             </if>
-            <if test="param.buildDt !=null ">
-                and build_dt = #{param.buildDt}
-            </if>
+
             <if test="param.businessLiscenseNo !=null ">
                 and business_liscense_no = #{param.businessLiscenseNo}
             </if>
@@ -298,9 +296,7 @@
             <if test="param.saleSmsAccount !=null ">
                 and sale_sms_account = #{param.saleSmsAccount}
             </if>
-            <if test="param.satifySocre !=null ">
-                and satify_socre = #{param.satifySocre}
-            </if>
+
             <if test="param.servicePromiss !=null ">
                 and service_promiss = #{param.servicePromiss}
             </if>
@@ -363,6 +359,7 @@
 
     <select id="findPage" resultType="org.openjweb.core.entity.CommCompany"  >
         select *  from comm_company
+        <where>
         <if test="param.appSecret !=null ">
             and app_secret = #{param.appSecret}
         </if>
@@ -399,9 +396,7 @@
         <if test="param.bizType !=null ">
             and biz_type = #{param.bizType}
         </if>
-        <if test="param.buildDt !=null ">
-            and build_dt = #{param.buildDt}
-        </if>
+
         <if test="param.businessLiscenseNo !=null ">
             and business_liscense_no = #{param.businessLiscenseNo}
         </if>
@@ -657,9 +652,7 @@
         <if test="param.saleSmsAccount !=null ">
             and sale_sms_account = #{param.saleSmsAccount}
         </if>
-        <if test="param.satifySocre !=null ">
-            and satify_socre = #{param.satifySocre}
-        </if>
+
         <if test="param.servicePromiss !=null ">
             and service_promiss = #{param.servicePromiss}
         </if>
@@ -714,6 +707,7 @@
         <if test="param.watermarkImgPath !=null ">
             and watermark_img_path = #{param.watermarkImgPath}
         </if>
+        </where>
     </select>
 
 </mapper>

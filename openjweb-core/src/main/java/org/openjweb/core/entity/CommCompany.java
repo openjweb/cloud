@@ -59,9 +59,7 @@ public class CommCompany   implements java.io.Serializable {
 	
 	private String bizType;
 	
-	@ApiModelProperty(value ="null" )
-	
-	private String buildDt;
+
 	
 	@ApiModelProperty(value ="null" )
 	
@@ -403,9 +401,7 @@ public class CommCompany   implements java.io.Serializable {
 	
 	private String saleSmsAccount;
 	
-	@ApiModelProperty(value ="null" )
-	
-	private Double satifySocre;
+
 	
 	@ApiModelProperty(value ="null" )
 	

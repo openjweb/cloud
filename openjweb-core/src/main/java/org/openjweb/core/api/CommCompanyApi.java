@@ -201,7 +201,7 @@ public class CommCompanyApi {
                 ent.setBizDesc(param.getBizDesc());
                 ent.setBizDesc2(param.getBizDesc2());
                 ent.setBizType(param.getBizType());
-                ent.setBuildDt(param.getBuildDt());
+
                 ent.setBusinessLiscenseNo(param.getBusinessLiscenseNo());
                 ent.setBusinessLiscensePic(param.getBusinessLiscensePic());
                 ent.setChannelLoginId(param.getChannelLoginId());
@@ -287,7 +287,7 @@ public class CommCompanyApi {
                 ent.setRegistMobileNo(param.getRegistMobileNo());
                 ent.setRowId(param.getRowId());
                 ent.setSaleSmsAccount(param.getSaleSmsAccount());
-                ent.setSatifySocre(param.getSatifySocre());
+
                 ent.setServicePromiss(param.getServicePromiss());
                 ent.setServiceProCode(param.getServiceProCode());
                 ent.setSettleDay(param.getSettleDay());

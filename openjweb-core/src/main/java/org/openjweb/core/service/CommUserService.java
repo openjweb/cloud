@@ -58,7 +58,7 @@ public class CommUserService  extends ServiceImpl<CommUserMapper, CommUser >  im
         }
         //log.info("权限列表:"+auths);
         if(auths!=null&&auths.length()>30) {
-            log.info("已读取到权限列表:"+auths.substring(0,30)+"......");
+            //log.info("已读取到权限列表:"+auths.substring(0,30)+"......");
         }
         return AuthorityUtils.commaSeparatedStringToAuthorityList(auths);
     }

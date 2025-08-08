@@ -51,8 +51,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         log.info("设置跨域允许的请求.................");
         //When allowCredentials is true, allowedOrigins cannot contain the special value "*" since that cannot be set on the "Access-Control-Allow-Origin" response header. To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
 
+        //跨域URL可以单独分出来放在配置文件里
         registry.addMapping("/**") // 对所有路径生效
-                .allowedOrigins(new String[]{"http://localhost:81","http://localhost:82","http://c0001-1.zzyicheng.cn","http://localhost"}) // 允许的源---本地开发环境
+                .allowedOrigins(new String[]{"http://localhost:81","http://localhost:82","http://c0001-1.zzyicheng.cn","http://localhost","http://c0001-1.zzyicheng.cn/vue",
+                        "https://c0001-1.zzyicheng.cn","https://c0001-1.zzyicheng.cn/vue",
+                        "http://www.cice.org.cn","http://www.cice.org.cn/vue",
+                        "https://www.cice.org.cn","https://www.cice.org.cn/vue",
+
+                }) // 允许的源---本地开发环境
                 // .allowedOrigins("*") // 允许的源，服务器正式环境，需要确定具体应该设置什么
                 .allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS") // 允许的方法
                 .allowedHeaders("*") // 允许的头部

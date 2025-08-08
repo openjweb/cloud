@@ -31,6 +31,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Slf4j
@@ -139,6 +140,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALLOW_URL_LIST).permitAll()
                 .anyRequest().authenticated();
        */
+        //禁止referer
+        //某些服务（如统计工具、支付回调）依赖 Referer 头，禁用后可能导致功能异常。
+        //
+        //解决方案：对特定路径放宽策略（如 same-origin）。
+        http
+                .headers()
+                .referrerPolicy(referrer -> referrer
+                        .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER)
+                );
         //下面是第二阶段整合了数据库权限控制的示例
         log.info("是否配置了oauth2 server:::::");
         log.info(String.valueOf(this.isOAuth2Server));

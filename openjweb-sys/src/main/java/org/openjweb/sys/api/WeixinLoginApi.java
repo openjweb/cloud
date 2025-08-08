@@ -27,6 +27,8 @@ import org.openjweb.redis.starter.util.RedisUtil;
 import org.openjweb.sys.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,6 +45,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -79,6 +82,8 @@ public class WeixinLoginApi {
 
     @Value("${openjweb.dev.vueMenuTemplatePath:}") private String vueMenuTemplatePath;
 
+    private  static long SECONDS = 300;
+
 
 
     //根据域名
@@ -87,18 +92,32 @@ public class WeixinLoginApi {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     //public Object wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    public  @ResponseBody JSONObject wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //public  @ResponseBody JSONObject wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public  @ResponseBody
+    ResponseEntity<Void> wxLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         //微信登录跳转
         //https://open.weixin.qq.com/connect/qrconnect?appid=wxb4231ea4d5494ff1&redirect_uri=https%3A%2F%2Fc0001-1.zzyicheng.cn%2Fclouds%2Fapi%2Fweixin%2Flogin&response_type=code&scope=snsapi_login
 
+        JSONObject resultJson = new JSONObject();
 
         String domainName= CMSUtil.getDomainName(request);
+        String ssoUrl = request.getParameter("ssourl");
+        if(ssoUrl!=null&&ssoUrl.trim().length()>0){
+            log.info("有SSO地址......");
+            log.info(ssoUrl);
+            if(ssoUrl.equals("WHB")){
+                ssoUrl = "https://www.cice.org.cn/vue/index.html#/login";
+            }
+        }
+        else{
+            log.info("没有SSO地址...");
+        }
 
         String code = request.getParameter("code");//微信登录回传的code
         log.info("微信登录返回的Code1111:::"+String.valueOf(code));
 
 
-        //根据域名查找公司
         String headToken = request.getHeader("Authorization");
         //if(headToken==null||headToken.trim().length()==0){
         //    headToken = request.getHeader("accessToken");//
@@ -112,7 +131,7 @@ public class WeixinLoginApi {
 
         JSONObject dataMap = new JSONObject();
 
-        if(headToken!=null&&headToken.trim().length()>0){
+        /*if(headToken!=null&&headToken.trim().length()>0){
             log.info("已经登录过，返回dataMap............");
             //如果已经有了登录的token
             dataMap.put("access_token", headToken);
@@ -133,9 +152,6 @@ public class WeixinLoginApi {
             //dataMap.put("theme_color", "#1890ff");
             //dataMap.put("menu_pic", "");//背景图
             //dataMap.put("data",tmpJson); //背景图
-
-
-
             //return dataMap;
             response.setHeader("accessToken",headToken);
             response.sendRedirect("https://"+domainName+"/vue/#/index");
@@ -146,7 +162,7 @@ public class WeixinLoginApi {
         }
         else{
             log.info("没有登录，开始新的登录..............");
-        }
+        }*/
         //
 
         String comId = null;
@@ -241,6 +257,7 @@ public class WeixinLoginApi {
         }
         log.info("openID为:::::::");
         log.info(openID);
+
         List<CommUser> sysUserList = this.sysUserService.selectUserByWxOpenId(openID);
         if(sysUserList!=null&&sysUserList.size()==1){
             log.info("微信用户开始自动登录....这里可以先得到一个accessToken返回前端后再做认证.....");
@@ -258,23 +275,52 @@ public class WeixinLoginApi {
                     //String accessToken = jwtUtil.generateToken()
                     log.info("微信用户开始自动登录...3333....");
                     log.info(sysUser.getLoginId());
-                    String jwtToken =   jwtUtil.generateToken(sysUser.getLoginId());
-                    response.setHeader("accessToken",jwtToken);
-                    response.setHeader("Authorization",jwtToken);
+                    //单点登录的token因为在地址栏，时间可以设置短一点，例如5分钟，然后用token登录后再重新生成长时间的
+                    String jwtToken =   jwtUtil.generateToken(sysUser.getLoginId(),SECONDS);
+                    //response.setHeader("accessToken",jwtToken);
+                    //response.setHeader("Authorization",jwtToken);
                     //"http://localhost:81/#/login?access_token="+jwt;
                     //带着username和password可以自动登录
-                    log.info("跳转的登录地址为：");
+
                     //String toUrl = "https://"+domainName+"/vue/#/login?access_token="+jwtToken+"&username=code&password="+jwtToken;
                     //这个链接复制到别的浏览器也能自动登录，是否应该增加防倒链机制？或者头部增加安全认证
                     //带微信的access_token有可能不安全，改为生成的access_token
                     //String toUrl = "https://"+domainName+"/vue/#/login?access_token=WEIXIN_SCAN&username=code&password="+jwtToken;
-                    String toUrl = "https://"+domainName+"/vue/#/login?access_token="+jwtToken ;
+                    String toUrl = "";
+                    if(StringUtil.isEmpty(ssoUrl)) {
+                        //toUrl = "https://" + domainName + "/vue/#/login?access_token=" + jwtToken;
+                        //注意文化部的是/vue/index.html#/login
+                        toUrl = "https://" + domainName + "/vue/#/login?access_token=" + jwtToken;
+                        return ResponseEntity.status(HttpStatus.FOUND)
+                                .header("Location", toUrl)
+                                .build();
+
+                    }
+                    else{
+                        //如果有SSOURL地址
+                        log.info("有SSO URL地址");
+                        //String tmpUrl = java.net.URLDecoder.decode(toUrl,"utf-8");
+                        String tmpUrl = ssoUrl;
+                        if(tmpUrl.indexOf("?")>-1){
+                            toUrl = tmpUrl +"&access_token=" + jwtToken;
+                        }
+                        else{
+                            toUrl = tmpUrl +"?access_token=" + jwtToken;
+
+                        }
+                        return ResponseEntity.status(HttpStatus.FOUND)
+                                .header("Location", toUrl)
+                                .build();
+
+
+
+                    }
                     //用下面的方式看看。是否头部放accessToken可以免登录
                     //这种跳转不行，应是JSON返回后再头部植入accessToken而不是在response直接操作
                     //String toUrl = "https://"+domainName+"/vue/#/index";
 
-                    log.info(toUrl);
-                    response.sendRedirect(toUrl);
+                    //log.info(toUrl);
+                    //response.sendRedirect(toUrl);
 
                     //response.sendRedirect("https://"+domainName+"/vue/#/index");
                     //http://localhost:81/#/login?access_token=
@@ -299,7 +345,20 @@ public class WeixinLoginApi {
         }
         else{
             log.info("没有查到这个用户.......................");
-            response.sendRedirect("https://"+domainName+"/vue/#/login");
+            String toUrl = "";
+            if(StringUtil.isEmpty(ssoUrl)) {
+                toUrl = "https://" + domainName + "/vue/#/login"  ;//没有单点登录
+            }
+            else{
+                //如果有SSOURL地址
+                log.info("有SSO URL地址");
+                String tmpUrl = java.net.URLDecoder.decode(ssoUrl,"utf-8");
+                toUrl = tmpUrl;
+
+            }
+
+            response.sendRedirect(toUrl);
+            //response.sendRedirect("https://"+domainName+"/vue/#/login");
         }
 
         return null;
@@ -412,8 +471,8 @@ public class WeixinLoginApi {
             } catch (Exception ex) {
             }
 
-            log.info("得到的menuJs:::");
-            log.info(menuJs);
+            //log.info("得到的menuJs:::");
+            //log.info(menuJs);
             // logger.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
         } catch (Exception ex) {
@@ -431,6 +490,20 @@ public class WeixinLoginApi {
         return json;
     }
 
+    public static void main(String[] args){
+        String url = "https://www.cice.org.cn/vue/index.html#/login";
+        try {
+            String encodeUrl = java.net.URLEncoder.encode(url,"utf-8");
+            System.out.println(encodeUrl);
+            System.out.println("再次转码:");
+            encodeUrl = java.net.URLEncoder.encode(url+"?","utf-8");
+            System.out.println(encodeUrl);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 

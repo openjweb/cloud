@@ -159,7 +159,9 @@ public class CommUserApi {
                 wrapper.eq("domain_name",domainName);
                 comEnt = comService.getOne(wrapper);
             }
-            catch(Exception ex){}
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
             if(comEnt==null){
                 log.info("公司为空!!!!!查询域名：");
                 log.info(domainName);

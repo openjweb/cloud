@@ -241,6 +241,11 @@ public class JwtLoginDemoApi {
 
         //log.info("loginV2前端传入的access_token:::");
         String accessToken = request.getParameter("access_token");
+        /*boolean isGetToken = false;
+        if(!StringUtil.isEmpty(accessToken)){
+            //后面登录成功了通过LoginSuccess自动重新设置accessToken
+            isGetToken = true;//如果是get传过来的，设置的5分钟的有效时间，登录成功后重新生成token并替换。
+        }*/
         log.info("传入参数中的accessToken::::::");
         log.info(accessToken);
         log.info("头部的accessToken::");
@@ -255,7 +260,15 @@ public class JwtLoginDemoApi {
             log.info("根据accessToken解析的username::::");
             log.info(username);
 
-        }        //log.info(accessToken);
+        }
+        if(!StringUtil.isEmpty(accessToken)&&claims==null){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code",-1);
+            jsonObject.put("msg","微信登录失败!");
+            return jsonObject;
+
+        }
+        //log.info(accessToken);
         /*String code = "";
         CommApiKey keyEnt = null;
         String comId = null;
